@@ -18,7 +18,7 @@ function sleep(ms) {
 learningstate = false;
 resettypecount = 0
 feelings = "none"
-//respond
+//learn
 function checksaved() {
     
     try {
@@ -142,37 +142,18 @@ currentquest = ""
 
 //no
 
-function terrylearn(state) {
-    console.log(learntdataans)
-    console.log(learntdataquest)
-    if (learningstate) {
-        if (!state.includes(">no") ) {
-            learntdataquest.push(currentquest)
-            learntdataans.push(orgians)
-
-            localStorage.setItem(SaveKey+"TerryQuestData", JSON.stringify(learntdataquest))
-            localStorage.setItem(SaveKey+"TerryAnsData", JSON.stringify(learntdataans))
-            replywith("Thank you for improving my knowledge!")
-            learningstate = false
-        } else {
-            replywith("Alright, I will not remember that.")
-        }
-        learningstate = false
-        return
+async function terrylearn(query) {
+    const API_KEY = "AIzaSyD0nVj7f7BjOr-s3EJc-wdyCChKvWzn-aA";
+    const CX = "a7997a360dbeb4aea";
+    const response = await fetch(
+        `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&q=${encodeURIComponent(query)}`
+    );
+    const data = await response.json();
+    if (data.items && data.items.length > 0) {
+        replywith(data.items[0].snippet);
     } else {
-        replies = ["I do not understand. Do you mind explaining? (reply >no if not.)", "What is that? Do you mind explaining? (reply >no if not.)","I do not get it. Do you mind elaborating? (reply >no if not.)"]
-        i = randint(2)
-        reply = replies[i];
-        replywith(reply);
-        currentquest = state;
-        learningstate = true;
-
+        replywith("Error: API Key missing.");
     }
-
-
-
-
-    
 }
 
 function command(repl) {
