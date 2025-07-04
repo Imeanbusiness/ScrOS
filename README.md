@@ -4,7 +4,7 @@
 
 ### Installation
 
-1. Click [here](https://github.com/Imeanbusiness/TerryBot2.0/archive/refs/tags/Beta.1.0.zip) to download.
+1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download.
 
 2. Unzip the folder
 
