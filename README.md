@@ -107,7 +107,7 @@ Here is a list of every command and how to use it.
 
 | Command | Description |
 |--------|-------------|
-| `mode` | Toggle between "chat mode" and "search mode". |
+| `mode` | Toggle between "chat mode" and "search mode". In chat mode, asking Terry questions will return short, top results. |
 | `who made you?`, `what are you?` | Ask Terry predefined questions. |
 | Custom Q&A | If Terry doesn't know something, he’ll ask you to teach him! |
 
