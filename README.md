@@ -1,10 +1,10 @@
-# TerryBot 2.0 Manual
+# Scr-OS Manual
 
 ## Getting started
 
 ### Installation
 
-1. Click [here](https://github.com/Imeanbusiness/TerryBot2.0/archive/refs/tags/Beta.1.0.1.zip) to download.
+1. Click [here](https://github.com/Imeanbusiness/TerryBot2.0/archive/refs/tags/Beta.1.0.zip) to download.
 
 2. Unzip the folder
 
@@ -12,11 +12,25 @@
 
 4. Open the folder and open terry.html
 
-### Checks
+## Basics 
 
-To check how your bot is, run the /status command to make sure everything is alright. If systems read as abnormal or you get no response, there is a problem and you need to reload.
+![Interface](Images/ManualImage.png)
 
-If everything is fine, run /help to quickly see how to use Terry.
+### 1: Clock
+
+This tells time. By default, it is set to 24 hour. You can change this with the >fclock command. 
+
+### 2: Command Output
+
+This is the output of whatever commands you enter into the command panel. 
+
+### 3: App Dock
+
+These are the basic app icons you can click on to quickly navigate.
+
+### 4: Command Panel (Input)
+
+This is like a terminal where you enter in all you commands, which are analyzed by Terry before being output-ted onto the Command Output text area.
 
 ## Functions 
 
@@ -30,24 +44,93 @@ You can ask Terry to open up sites for you, or google search if it's something h
 
 ### Commands
 
-You can run commands on Terry to make him work specifically. Run /help to check.
+You can run commands on Terry to make him work specifically.
 
-### Background Customization
+### Customization
 
-To customize your background, drag the desired background image and put it in the images file. Then boot up Terry, and run /bgc (filename). The file name should be BG.png and not Images/BG.png unless you made a folder inside the images folder.
+Running commands allows you to change up settings with the start up screen, whether it's the font family, background picture, font color, and more!
 
-## Why TerryBot?
+### Ease of use
 
-### He is fun!
+Scr-OS offers a home screen with some of the most used apps in social media for your reference! Running commands is easy and intuitive as well.
 
-Terry bot is a fun little guy that you could use for a browser home screen. He is both an assistant and your friend and the same time!
+## Commands 
 
-## History
+Here is a list of every command and how to use it. 
 
-### Originally a Python bot
+## 🎨 Customization
 
-Before he became what he is today, Terry once was a python bot! His purpose then was to be a chatbot and be a virtual friend. Now, he has evolved to be an assistant!
+| Command | Description |
+|--------|-------------|
+| `>bgc (filename)` | Set the background to a specific image. Image must be in the `Images` folder. |
+| `>fontcolor (color)` | Set the font color. Accepts hex codes or CSS color names. |
+| `>outlcolor (color)` | Set the font outline color. Accepts hex codes or CSS color names. |
+| `>font (font name)` | Set the font family. Example: `Nunito`, `Arial`. |
+| `>iconpack (folder name)` | Change the icon set. All icons should follow the format `AppIcons/AppName.png`. (Twitter must be named `Twitter.png`) |
 
-## Thank you for using TerryBot!
+---
 
-If there are any issues run it by us in the GitHub!
+## 🛠️ Assistance
+
+| Command | Description |
+|--------|-------------|
+| `>help` | View this help menu. |
+| `>kill` | Exit Scr-OS. |
+| `>gh` | Open the Scr-OS GitHub repository. |
+| `>status` | Show Scr-OS version and system status. |
+
+---
+
+## 🔍 Search & Web
+
+| Command | Description |
+|--------|-------------|
+| `>gs (query)` | Google Search the provided query. |
+| `>yt (query)` | Search YouTube for the query. |
+| `>ms (query)` | Search Spotify for the song/query. |
+| `>ops (site)` | Open a website. Example: `>ops amazon.com` |
+
+---
+
+## ⚙️ System Utilities
+
+| Command | Description |
+|--------|-------------|
+| `>calc (expression)` | Math evaluator. Supports functions like `sqrt`, `sin`, `pi`, `log`. |
+| `>compchk (number)` | Composite checker. Lists all factors and tells if the number is prime. |
+| `>reset` | Reset Scr-OS memory to default. Requires running twice to confirm. |
+| `>fclock` | Toggle between 12-hour and 24-hour clock format. |
+
+---
+
+## 💬 AI/Chat Features
+
+| Command | Description |
+|--------|-------------|
+| `mode` | Toggle between "chat mode" and "search mode". |
+| `who made you?`, `what are you?` | Ask Terry predefined questions. |
+| Custom Q&A | If Terry doesn't know something, he’ll ask you to teach him! |
+
+---
+
+## 🚀 Quick-Launch Apps *(via AI Chat)*
+
+You can also type commands like:
+- `"open google"`
+- `"open spotify"`
+- `"open youtube"`
+
+Terry will recognize and launch:
+- Google
+- Spotify
+- YouTube
+- Facebook
+- Instagram
+- X (Twitter)
+- TikTok
+- Reddit
+- GitHub
+- Netflix
+- Gmail
+- Office
+

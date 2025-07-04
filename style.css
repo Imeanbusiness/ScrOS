@@ -1,4 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Homenaje&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 html {
     height: 100%;
     width: 100%;
@@ -9,31 +18,66 @@ html {
 
 .bot {
     text-align: center;
-    top: 50%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
-
+    width: 100%;
 }
 
 
 body {
+    -webkit-text-stroke: 0px;
     text-align: center;
     background-image: url("Images/BG.png");
     background-repeat: none;
     background-size: cover;
     background-attachment: fixed;
-    
+    width: 80%;
     text-align: center;
+    text-shadow: 1px 1px 2px black;
 }
 
+
+#terrybot {
+    height: 120px;
+    width: 120px;
+}
+
+#clock {
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 80px;
+}
+h1 {
+    
+    font-size: 60px;
+}
+h2 {
+    
+    font-size: 30px;
+}
+p {
+    
+    font-size: 22px;
+}
 button {
     background-color: teal;
     color: white;
     border-width: 2px;
     font-family: "Nunito", sans-serif;
-    height: 45px;
-    width: 80px
+    height: 55px;
+    width: 100px;
+    border: solid 2px black;
+    border-radius: 30px;
+    
+}
+
+.backbutton {
+    height: 100px;
+    width: 500px;
 }
 
 input {
@@ -45,6 +89,225 @@ input {
     text-align: center;
     top: 90%;
     left: 50%;
+    width: 100%;
     transform: translate(-50%, -90%);
     position: absolute;
+}
+
+
+.Resp {
+    border: white solid 2px;
+    color: white;
+    font-family: "source code pro", monospace;
+    border-radius: 20px;
+    height: 55px;
+    width: 675px;
+    font-size: 20px;
+    padding: 5px;
+    background: black;
+
+}
+
+#appdock {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 150px 150px 150px 150px 150px;
+    grid-template-rows: 100px 35px 100px 35px;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+#dockpic1 {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    grid-row: 1;
+    grid-column: 1;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+#dockpic2 {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    grid-row: 1;
+    grid-column: 2;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+#dockpic3 {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    grid-row: 1;
+    grid-column: 3;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+
+#dockpic4 {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    grid-row: 1;
+    grid-column: 4;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+#dockpic5 {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    grid-row: 1;
+    grid-column: 5;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+
+#docktext1 {
+    grid-row: 2;
+    grid-column: 1;
+    margin-top: 15px
+}
+#docktext2 {
+    grid-row: 2;
+    grid-column: 2;
+    margin-top: 15px
+}
+#docktext3 {
+    grid-row: 2;
+    grid-column: 3;
+    margin-top: 15px
+}
+#docktext4 {
+    grid-row: 2;
+    grid-column: 4;
+    margin-top: 15px
+}
+#docktext5 {
+    grid-row: 2;
+    grid-column: 5;
+    margin-top: 15px
+}
+
+#dockpic6 {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    grid-row: 3;
+    grid-column: 1;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+#dockpic7 {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    grid-row: 3;
+    grid-column: 2;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+#dockpic8 {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    grid-row: 3;
+    grid-column: 3;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+
+#dockpic9 {
+    width: 80px;
+    height: 85px;
+    background-size: cover;
+    grid-row: 3;
+    grid-column: 4;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+#dockpic10 {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    grid-row: 3;
+    grid-column: 5;
+    outline: none;
+    border: none;
+    display: block;
+    background-color: transparent;
+    margin: auto;
+}
+
+#docktext6 {
+    grid-row: 4;
+    grid-column: 1;
+    margin-top: 10px
+}
+
+#docktext7 {
+    grid-row: 4;
+    grid-column: 2;
+    margin-top: 10px
+}
+#docktext8 {
+    grid-row: 4;
+    grid-column: 3;
+    margin-top: 10px
+}
+#docktext9 {
+    grid-row: 4;
+    grid-column: 4;
+    margin-top: 10px
+}
+
+#docktext10 {
+    grid-row: 4;
+    grid-column: 5;
+    margin-top: 10px
 }
