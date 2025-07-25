@@ -1,15 +1,22 @@
+'ops'
+
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
 chatmode = false;
-apps = ["google","spotify","youtube","facebook","instagram","x","tiktok","reddit","github","netflix","gmail","office"]
-sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://twitter.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/"]
+apps = ["google","spotify","youtube","facebook","instagram","x","tiktok","reddit","github","netflix","gmail","office", "linkedin"]
+apppage1 = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather"]
+apppage2 = ["linkedin","netflix","github", "wikipedia","twitch"]
+appsites1 = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/"]
+appsites2 = ["https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
+sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://X.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/", "https://www.linkedin.com"]
 const APIkey = "AIzaSyD0nVj7f7BjOr-s3EJc-wdyCChKvWzn-aA"
 const SaveKey = "SCR-OS/"
 learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
 learntdataquest = ["who made you?", "what are you?"]
 dockrow1 = ["Gmail", "Spotify", "Youtube", "Instagram", "Facebook"]
-
-
+dmode = "search"
+pages = 2
+curpage = 1
 
 orgians = ""
 function sleep(ms) {
@@ -42,7 +49,7 @@ function checksaved() {
             document.getElementById("dockpic4").src = iconpack+"/Instagram.png";  
             document.getElementById("dockpic5").src = iconpack+"/Facebook.png";
             document.getElementById("dockpic6").src = iconpack+"/Reddit.png";
-            document.getElementById("dockpic7").src = iconpack+"/Twitter.png";
+            document.getElementById("dockpic7").src = iconpack+"/X.png";
             document.getElementById("dockpic8").src = iconpack+"/Amazon.png";
             document.getElementById("dockpic9").src = iconpack+"/Office.png";
             document.getElementById("dockpic10").src = iconpack+"/Weather.png";
@@ -89,9 +96,130 @@ function checksaved() {
 
 window.onload = checksaved()
 
+function pagechange(dir) {
+    if (dir=="right") {
+        curpage +=1 
+        if (curpage>pages) {
+            curpage = 1
+        }
+        if (curpage == 1) {
 
-function replywith(x) {
-    document.getElementById("Terry").innerHTML = x;
+            for (let i = 0; i < 10; i++) {
+                itemd = apppage1[i];
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+            }
+
+        } else if (curpage == 2) {
+
+            for (let i = 0; i < 10; i++) {
+                itemd = apppage2[i];
+                if (itemd == null) {
+                    itemd ="none"
+                }
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites2[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
+
+        }
+    } else if (dir=="left") {
+        curpage -=1 
+        if (curpage<1) {
+            curpage = pages
+        }
+        if (curpage == 1) {
+
+            for (let i = 0; i < 10; i++) {
+                itemd = apppage1[i];
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+            }
+
+        } else if (curpage == 2) {
+
+            for (let i = 0; i < 10; i++) {
+                itemd = apppage2[i];
+                if (itemd == null) {
+                    itemd ="none"
+                }
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites2[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
+
+        }
+    }
+}
+
+
+
+
+
+async function replywith(x) {
+    
+    v=""
+    msg = "Thinking..."
+
+    for (let i = 0; i < msg.length; i++) {
+        v = v+msg[i]
+        document.getElementById("Terry").innerHTML = v;
+        await sleep(5)
+    
+
+    }
+    await sleep(200)
+    v=""
+    for (let i = 0; i < x.length; i++) {
+        v = v+x[i]
+        document.getElementById("Terry").innerHTML = v;
+        await sleep(5)
+     
+
+    }
+
 }
 
 function randint(i) {
@@ -142,6 +270,8 @@ currentquest = ""
 
 //no
 
+
+
 async function terrylearn(query) {
     const API_KEY = "AIzaSyD0nVj7f7BjOr-s3EJc-wdyCChKvWzn-aA";
     const CX = "a7997a360dbeb4aea";
@@ -156,6 +286,7 @@ async function terrylearn(query) {
     }
 }
 
+
 function command(repl) {
     if (repl.includes(">help")) {
         alert(
@@ -167,7 +298,7 @@ Customization:
 >bgc (filename)  – Set background (image must be in Images folder)
 >fontcolor (val) – Change font color
 >outlcolor (val) – Change outline color
->iconpack (foldername) – Change icon pack (all files must follow app.png naming convention except "Twitter")
+>iconpack (foldername) – Change icon pack (all files must follow app.png naming convention except "X")
 
 Assistance:
 >help            – Show this help menu
@@ -240,7 +371,41 @@ Productivity:
         });
         haha = true
 
-    }  else if (repl.includes(">yt")) {
+    }  else if (repl.includes(">sdm")) {
+        console.log("dmding")
+        
+        if (dmode == "search") {
+            dmode = "chat"
+        } else {
+            dmode = "search"
+        }
+        console.log(dmode)
+
+        replywith("Switched default mode to "+dmode+" mode.")
+
+        haha = true;
+    } else if (repl.includes(">pgs")) {
+        try {
+        
+            pages = repl.replace(">pgs ","")
+        
+            pages = pages/1
+            
+            pages = Math.floor(pages)
+            console.log(pages)
+            if (pages > 2) {
+                pages = 2
+            } else if (pages <  1) {
+                pages = 1
+            }
+            replywith("Set app dock pages to "+pages+".")
+        } catch {
+            replywith("Error: Not a valid value.")
+        }
+
+
+        haha = true;
+    } else if (repl.includes(">yt")) {
         sit = repl.replace(">yt ","")
         replywith("Searching for your query on Youtube.")
         sleep(150).then(() => {
@@ -400,7 +565,7 @@ Productivity:
         document.getElementById("dockpic4").src = iconpack+"/Instagram.png";  
         document.getElementById("dockpic5").src = iconpack+"/Facebook.png";
         document.getElementById("dockpic6").src = iconpack+"/Reddit.png";
-        document.getElementById("dockpic7").src = iconpack+"/Twitter.png";
+        document.getElementById("dockpic7").src = iconpack+"/X.png";
         document.getElementById("dockpic8").src = iconpack+"/Amazon.png";
         document.getElementById("dockpic9").src = iconpack+"/Office.png";
         document.getElementById("dockpic10").src = iconpack+"/Weather.png";
