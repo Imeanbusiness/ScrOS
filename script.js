@@ -1,11 +1,15 @@
 'ops'
-'>kill'
+'chatmode'
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
 chatmode = false;
 apps = ["google","spotify","youtube","facebook","instagram","x","tiktok","reddit","github","netflix","gmail","office", "linkedin"]
+
+supapps = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather", "linkedin","netflix","github", "wikipedia","twitch"]
+supsites = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/", "https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
+
 apppage1 = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather"]
-apppage2 = ["linkedin","netflix","github", "wikipedia","twitch"]
+apppage2 = ["linkedin","netflix","github", "wikipedia","twitch", "", "","","","",]
 appsites1 = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/"]
 appsites2 = ["https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
 sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://X.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/", "https://www.linkedin.com"]
@@ -17,6 +21,7 @@ dockrow1 = ["Gmail", "Spotify", "Youtube", "Instagram", "Facebook"]
 dmode = "search"
 pages = 2
 curpage = 1
+textspeed = 10;
 
 orgians = ""
 function sleep(ms) {
@@ -26,7 +31,50 @@ learningstate = false;
 resettypecount = 0
 feelings = "none"
 //learn
-function checksaved() {
+async function checksaved() {
+        try {
+        saved = localStorage.getItem(SaveKey+"update1.1");
+        if (saved == "lol") {
+            appsites1 = JSON.parse(localStorage.getItem(SaveKey+"appsites1"))
+            appsites2 = JSON.parse(localStorage.getItem(SaveKey+"appsites2"))
+            apppage1 = JSON.parse(localStorage.getItem(SaveKey+"apppage1"))
+            apppage2 = JSON.parse(localStorage.getItem(SaveKey+"apppage2"))
+            dmode = localStorage.getItem(SaveKey+"defaultmode")
+            pages = localStorage.getItem(SaveKey+"pages")
+            iconpack = localStorage.getItem(SaveKey+"TerryIconPack")
+            textspeed = localStorage.getItem(SaveKey+"textspeed")
+            
+            
+            if (dmode == "search") {
+                chatmode = false;
+            } else {
+                chatmode = true;
+            }
+        }
+        else {
+            localStorage.setItem(SaveKey+"update1.1","lol")
+            localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+            localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+            localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+            localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+            localStorage.setItem(SaveKey+"defaultmode", dmode)
+            localStorage.setItem(SaveKey+"pages", 2)
+            localStorage.setItem(SaveKey+"textspeed", textspeed)
+            alert("Scr-OS has been updated back to version 1.1.0 due to an error.")
+        }
+        } catch {
+            localStorage.setItem(SaveKey+"update1.1","lol")
+            localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+            localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+            localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+            localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+            localStorage.setItem(SaveKey+"defaultmode", dmode)
+            localStorage.setItem(SaveKey+"pages", 2)
+            localStorage.setItem(SaveKey+"textspeed", textspeed)
+            alert("Scr-OS has been updated to version 1.1.0.")
+        }
+
+
     
     try {
         saved = localStorage.getItem(SaveKey+"savedd");
@@ -43,16 +91,7 @@ function checksaved() {
             fontchange = localStorage.getItem(SaveKey+"TerryFont")
             document.body.style.fontFamily = fontchange;
             iconpack = localStorage.getItem(SaveKey+"TerryIconPack")
-            document.getElementById("dockpic1").src = iconpack+"/Gmail.png";
-            document.getElementById("dockpic2").src = iconpack+"/Spotify.png";
-            document.getElementById("dockpic3").src = iconpack+"/Youtube.png";
-            document.getElementById("dockpic4").src = iconpack+"/Instagram.png";  
-            document.getElementById("dockpic5").src = iconpack+"/Facebook.png";
-            document.getElementById("dockpic6").src = iconpack+"/Reddit.png";
-            document.getElementById("dockpic7").src = iconpack+"/X.png";
-            document.getElementById("dockpic8").src = iconpack+"/Amazon.png";
-            document.getElementById("dockpic9").src = iconpack+"/Office.png";
-            document.getElementById("dockpic10").src = iconpack+"/Weather.png";
+
 
         } else {
             localStorage.setItem(SaveKey+"savedd","lol")
@@ -92,11 +131,57 @@ function checksaved() {
         console.log(saved)
 
     }
+    for (let i = 0; i < 10; i++) {
+                
+                
+                itemd = apppage1[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+
+              
+            }
+    for (let i = 0; i < 10; i++) {
+                await sleep(16.666666666666668);
+                
+                itemd = apppage1[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
 }
 
 window.onload = checksaved()
 
-function pagechange(dir) {
+async function pagechange(dir) {
     if (dir=="right") {
         curpage +=1 
         if (curpage>pages) {
@@ -105,22 +190,36 @@ function pagechange(dir) {
         if (curpage == 1) {
 
             for (let i = 0; i < 10; i++) {
+                await sleep(16.666666666666668);
+                
                 itemd = apppage1[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
                 console.log(itemd[0].toUpperCase())
                 itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
                 console.log(itemd)
                 console.log(iconpack+"/"+itemd+".png")
 
-                document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                document.getElementById("dockclick"+(i+1)).href = appsites1[i];
-                document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
             }
 
         } else if (curpage == 2) {
 
             for (let i = 0; i < 10; i++) {
+                 await sleep(16.666666666666668);
                 itemd = apppage2[i];
-                if (itemd == null) {
+                if (itemd == "") {
                     itemd ="none"
                 }
                 console.log(itemd[0].toUpperCase())
@@ -145,6 +244,7 @@ function pagechange(dir) {
 
         }
     } else if (dir=="left") {
+        
         curpage -=1 
         if (curpage<1) {
             curpage = pages
@@ -152,22 +252,36 @@ function pagechange(dir) {
         if (curpage == 1) {
 
             for (let i = 0; i < 10; i++) {
+                 await sleep(16.666666666666668);
                 itemd = apppage1[i];
+                
+                if (itemd == "") {
+                    itemd ="none"
+                }
+
                 console.log(itemd[0].toUpperCase())
                 itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
                 console.log(itemd)
                 console.log(iconpack+"/"+itemd+".png")
 
-                document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                document.getElementById("dockclick"+(i+1)).href = appsites1[i];
-                document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
             }
 
         } else if (curpage == 2) {
 
             for (let i = 0; i < 10; i++) {
+                 await sleep(16.666666666666668);
                 itemd = apppage2[i];
-                if (itemd == null) {
+                if (itemd == "") {
                     itemd ="none"
                 }
                 console.log(itemd[0].toUpperCase())
@@ -206,7 +320,7 @@ async function replywith(x) {
     for (let i = 0; i < msg.length; i++) {
         v = v+msg[i]
         document.getElementById("Terry").innerHTML = v;
-        await sleep(5)
+        await sleep(textspeed)
     
 
     }
@@ -215,7 +329,7 @@ async function replywith(x) {
     for (let i = 0; i < x.length; i++) {
         v = v+x[i]
         document.getElementById("Terry").innerHTML = v;
-        await sleep(5)
+        await sleep(textspeed)
      
 
     }
@@ -289,38 +403,47 @@ async function terrylearn(query) {
 
 function command(repl) {
     if (repl.includes(">help")) {
-        alert(
-`Scr-OS Manual
---------------
-Welcome to the Scr-OS documentation.
+        alert(`🎨 Customization
+------------------------
+>bgc (filename)         Set the background to a specific image. Image must be in the Images folder.
+>fontcolor (color)      Set the font color. Accepts hex codes or CSS color names.
+>outlcolor (color)      Set the font outline color. Accepts hex codes or CSS color names.
+>font (font name)       Set the font family. Example: Nunito, Arial.
+>iconpack (folder name) Change the icon set. All icons should follow the format AppIcons/AppName.png. (Twitter must be named Twitter.png)
 
-Customization:
->bgc (filename)  – Set background (image must be in Images folder)
->fontcolor (val) – Change font color
->outlcolor (val) – Change outline color
->iconpack (foldername) – Change icon pack (all files must follow app.png naming convention except "X")
+🛠️ Assistance
+------------------------
+>help                   View this help menu.
+>kill                   Exit Scr-OS.
+>gh                     Open the Scr-OS GitHub repository.
+>status                 Show Scr-OS version and system status.
+>settings               View your current settings.
 
-Assistance:
->help            – Show this help menu
->kill            – Quit Scr-OS
->ms (query)      – Search Spotify
->yt (query)      – Search YouTube
->gh              – Open Scr-OS GitHub
->gs (query)      – Google Search
->ops (site)      – Open website quickly
+🔍 Search & Web
+------------------------
+>gs (query)             Google Search the provided query.
+>yt (query)             Search YouTube for the query.
+>ms (query)             Search Spotify for the song/query.
+>ops (site)             Open a website. Example: >ops amazon.com
 
-Productivity:
->calc (expr)     – Evaluate math expression
->compchk (int)   – Find factors (Composite Check)
->status          – Check Scr-OS status
->fclock          – Change clock format (12/24 hour)
->font (fontname) – Change font family
->reset           – Reset Scr-OS (run twice to confirm)`
-    );
+⚙️ System Utilities
+------------------------
+>calc (expression)      Math evaluator. Supports functions like sqrt, sin, pi, log.
+>compchk (number)       Composite checker. Lists all factors and tells if the number is prime.
+>reset                  Reset Scr-OS memory to default. Requires running twice to confirm.
+>fclock                 Toggle between 12-hour and 24-hour clock format.
+>textms (delay)         Set a delay during text generation in milliseconds (0–100).
+>remove (slot)          Removes an app from the app dock (slots 1 to 10).
+>replace (slot) (app)   Replace a slot in the app dock. Use 0 as app name to remove an app.
+
+💬 AI/Chat Features
+------------------------
+mode                    Toggle between "chat mode" and "search mode".
+dmode                   Set default mode (chat or search) during startup.`);
         haha = true
-    } else if (repl.includes("kill")) {
+    } else if (repl.includes(">kill")) {
         close()
-    } else if (repl.includes("mode")) {
+    } else if (repl.includes(">mode")) {
         chatmode = !chatmode;
         if (chatmode) {
             replywith("Switched to chat mode. Hello "+username+". I am Terry. What do you need?")
@@ -371,7 +494,7 @@ Productivity:
         });
         haha = true
 
-    }  else if (repl.includes(">sdm")) {
+    }  else if (repl.includes(">dmode")) {
         console.log("dmding")
         
         if (dmode == "search") {
@@ -382,7 +505,7 @@ Productivity:
         console.log(dmode)
 
         replywith("Switched default mode to "+dmode+" mode.")
-
+        localStorage.setItem(SaveKey+"defaultmode", dmode)
         haha = true;
     } else if (repl.includes(">pgs")) {
         try {
@@ -399,6 +522,7 @@ Productivity:
                 pages = 1
             }
             replywith("Set app dock pages to "+pages+".")
+            localStorage.setItem(SaveKey+"pages", pages)
         } catch {
             replywith("Error: Not a valid value.")
         }
@@ -448,6 +572,176 @@ Productivity:
                 return;
             }
         });
+        haha = true
+
+    } else if (repl.includes(">textms")) { 
+        try {
+            speed = repl.replace(">textms ", "")
+            speed = speed/1
+            if (speed < 0) {
+                speed = 0
+            } else if (speed > 100) {
+                speed = 100
+            }
+            replywith("Text speed set to "+speed+"ms.")
+
+            textspeed = speed;
+        } catch {
+            replywith("Error: Not a valid value. Please enter a number between 0 and 100.")
+        }
+        haha = true
+        localStorage.setItem(SaveKey+"textspeed", textspeed)
+
+
+    } else if (repl.includes(">remove")) {
+        try {
+            item = repl.replace(">remove ", "")
+            item = item/1 
+            item = Math.floor(item)
+            if (item < 1) {
+                item = 1
+            } else if (item > 10) {
+                item = 10
+            }
+            if (curpage == 1) {
+                returned = apppage1[item-1]
+                apppage1[item-1] = ""
+                document.getElementById("dockpic"+item).src = "Images/None.png";
+                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("docktext"+item).innerHTML = "";
+            } else if (curpage == 2) {
+                returned = apppage2[item-1]
+                apppage2[item-1] = ""
+                document.getElementById("dockpic"+item).src = "Images/None.png";
+                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("docktext"+item).innerHTML = "";
+            }
+            localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+            localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+            localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+            localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+
+            replywith("Removed "+returned+" from the dock.")
+        } catch {
+            replywith("Error: Not a valid value. Please enter a number between 1 and 10.")
+            return;
+        }
+        haha = true
+
+    } else if (repl.includes(">replace")) {
+        try {
+            item = repl.replace(">replace ", "")
+            item[0] = item[0]/1
+            item[0] = Math.floor(item[0])
+            itemd = item[0]
+            
+            if (item[1] == "0") {
+                itemd = 10
+            } 
+            if (itemd < 1) {
+                itemd = 1
+            }
+
+            item = item.replace(itemd, "")
+            console.log(item)
+                //item = repl.replace(" ", "")
+                console.log(supapps)
+                console.log(item)
+                item = item.slice(1)
+                
+                if (supapps.includes(item)) {
+                    item = item.replace(item[0], item[0].toUpperCase());
+                    i =0
+                    appti = 0;
+                    while (i < supapps.length) {
+                        if (supapps[i] == item) {
+                            appti = i;
+                            break;
+                        }
+                        i++
+                    }
+
+                    if (curpage == 1) {
+                        returned = apppage1[itemd-1]
+                        apppage1[itemd-1] = item[1]
+                        document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
+                        document.getElementById("dockclick"+itemd).href = appsites1[itemd-1];
+                        document.getElementById("docktext"+itemd).innerHTML = item;
+                        apppage1[itemd-1] = item;
+                        appsites1[itemd-1] = supsites[appti];
+                        localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+                        localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+                        localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+                        localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+                    } else if (curpage == 2) {
+                        returned = apppage2[itemd-1]
+                        apppage2[itemd-1] = item[1]
+                        document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
+                        document.getElementById("dockclick"+itemd).href = appsites2[itemd-1];
+                        document.getElementById("docktext"+itemd).innerHTML = item;
+                        apppage2[itemd-1] = item;
+                        appsites2[itemd-1] = supsites[appti];
+                        localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+                        localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+                        localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+                        localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+                    }
+                    replywith("Replaced slot "+itemd+" with "+item+" on page "+curpage+".")
+                } else if (item == "0") {
+                    if (curpage == 1) {
+                        returned = apppage1[itemd-1]
+                        apppage1[itemd-1] = ""
+                        document.getElementById("dockpic"+itemd).src = "Images/None.png";
+                        document.getElementById("dockclick"+itemd).href = "scros.html";
+                        document.getElementById("docktext"+itemd).innerHTML = "";
+                        apppage1[itemd-1] = item;
+                        appsites1[itemd-1] = supsites[appti];
+                        localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+                        localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+                        localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+                        localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+                    } else if (curpage == 2) {
+                        returned = apppage2[itemd-1]
+                        apppage2[itemd-1] = ""
+                        document.getElementById("dockpic"+itemd).src = "Images/None.png";
+                        document.getElementById("dockclick"+itemd).href = "scros.html";
+                        document.getElementById("docktext"+itemd).innerHTML = "";
+                        apppage2[itemd-1] = item;
+                        appsites2[itemd-1] = supsites[appti];
+                        localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+                        localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+                        localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+                        localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+                    }
+                    replywith("Removed "+returned+" from the dock.")
+
+                } else {
+                    replywith("Error: Not a valid app. Please use '>replace (number) (appname)' or '>replace (number) 0' to remove the app.")
+                    haha = true;
+                }
+                haha = true;
+ 
+ 
+            } catch {
+                replywith("Error: Invalid syntax. Please use '>replace (number) (appname)' or '>replace (number) 0' to remove the app.")
+                haha = true;
+            }
+
+
+    } else if (repl.includes(">settings")) {
+        alert(`Scr-OS Settings
+----------------
+Username: ${username}
+Background: ${localStorage.getItem(SaveKey+"TerryBgFile")}
+Font Color: ${localStorage.getItem(SaveKey+"TerryFontColor")}
+Outline Color: ${localStorage.getItem(SaveKey+"TerryOutlColor")}
+Font: ${localStorage.getItem(SaveKey+"TerryFont")}
+Clock Format: ${fclock ? "24-hour" : "12-hour"}
+Icon Pack: ${localStorage.getItem(SaveKey+"TerryIconPack")}
+Default Mode: ${dmode}
+App Dock Pages: ${pages}
+Text Speed: ${textspeed}ms
+----------------`)
         haha = true
 
     } else if (repl.includes(">compchk")) {
@@ -508,17 +802,33 @@ Productivity:
             localStorage.setItem(SaveKey+"savedd","lol")
             localStorage.setItem(SaveKey+"TerryBgFile", "BG.png")
             localStorage.setItem(SaveKey+"TerryUsername", "Guest")
-            localStorage.setitem(SaveKey+"TerryFontColor", "#000000")
-            document.body.style.color = "#000000"
             saved = localStorage.getItem(SaveKey+"savedd");
-            console.log(saved)
-            bgfile = localStorage.getItem(SaveKey+"TerryBgFile");
-            document.getElementById("mainbg").style.backgroundImage = "url(\"Images/"+bgfile+"\")";
-            username = localStorage.getItem(SaveKey+"TerryUsername");
+            localStorage.setitem(SaveKey+"TerryFontColor", "#000000")
+            localStorage.setItem(SaveKey+"TerryQuestData", "who made you?")
+            localStorage.setItem(SaveKey+"TerryAnsData", "My Creator, Imeanbusiness, of course!")
             learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
             learntdataquest = ["who made you?", "what are you?"]
             localStorage.setItem(SaveKey+"TerryQuestData", JSON.stringify(learntdataquest))
             localStorage.setItem(SaveKey+"TerryAnsData", JSON.stringify(learntdataans))
+            localStorage.setItem(SaveKey+"ClockFormat", JSON.stringify(true))
+            localStorage.setItem(SaveKey+"TerryFont", "Nunito")
+            localStorage.setItem(SaveKey+"TerryIconPack", "AppIcons")
+            flclock = true;
+            localStorage.setItem(SaveKey+"update1.1","lol")
+            localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+            localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+            localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+            localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+            localStorage.setItem(SaveKey+"defaultmode", dmode)
+            localStorage.setItem(SaveKey+"pages", 2)
+            localStorage.setItem(SaveKey+"textspeed", textspeed)
+
+
+
+
+            console.log(saved)
+
+
         }
         haha = true
     } else if (repl.includes(">fontcolor")) {
@@ -559,16 +869,87 @@ Productivity:
         
     } else if (repl.includes(">iconpack")) {
         iconpack = repl.replace(">iconpack ", "")
-        document.getElementById("dockpic1").src = iconpack+"/Gmail.png";
-        document.getElementById("dockpic2").src = iconpack+"/Spotify.png";
-        document.getElementById("dockpic3").src = iconpack+"/Youtube.png";
-        document.getElementById("dockpic4").src = iconpack+"/Instagram.png";  
-        document.getElementById("dockpic5").src = iconpack+"/Facebook.png";
-        document.getElementById("dockpic6").src = iconpack+"/Reddit.png";
-        document.getElementById("dockpic7").src = iconpack+"/X.png";
-        document.getElementById("dockpic8").src = iconpack+"/Amazon.png";
-        document.getElementById("dockpic9").src = iconpack+"/Office.png";
-        document.getElementById("dockpic10").src = iconpack+"/Weather.png";
+        for (let i = 0; i < 10; i++) {
+                
+                
+                itemd = apppage1[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+
+              
+            }
+
+
+            if (curpage == 1) {
+
+            for (let i = 0; i < 10; i++) {
+                itemd = apppage1[i];
+                
+                if (itemd == "") {
+                    itemd ="none"
+                }
+
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+            }
+
+        } else if (curpage == 2) {
+
+            for (let i = 0; i < 10; i++) {
+                itemd = apppage2[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites2[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
+
+        }
+        
+
+
+
         replywith("Icon pack changed to "+iconpack+".")
         localStorage.setItem(SaveKey+"TerryIconPack", iconpack)
         haha = true
