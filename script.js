@@ -1,5 +1,5 @@
 'ops'
-
+'>kill'
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
 chatmode = false;
@@ -405,7 +405,7 @@ Productivity:
 
 
         haha = true;
-    } else if (repl.includes(">yt")) {
+    }  else if (repl.includes(">yt")) {
         sit = repl.replace(">yt ","")
         replywith("Searching for your query on Youtube.")
         sleep(150).then(() => {
