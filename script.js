@@ -650,22 +650,29 @@ dmode                   Set default mode (chat or search) during startup.`);
                 item = item.slice(1)
                 
                 if (supapps.includes(item)) {
-                    item = item.replace(item[0], item[0].toUpperCase());
                     i =0
                     appti = 0;
-                    while (i < supapps.length) {
-                        if (supapps[i] == item) {
-                            appti = i;
+                    
+                    
+                    
+                    for (appti = 0; appti < supapps.length-1; appti++) {
+                        appchk = supapps[appti]
+                        console.log(appti)
+                        if (appchk == item) {
+                            console.log("phil has no friends")
                             break;
                         }
-                        i++
                     }
+                    
+                    item = item.replace(item[0], item[0].toUpperCase());
+              
+                    console.log(appti)
 
                     if (curpage == 1) {
                         returned = apppage1[itemd-1]
                         apppage1[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
-                        document.getElementById("dockclick"+itemd).href = appsites1[itemd-1];
+                        document.getElementById("dockclick"+itemd).href = supsites[appti];
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage1[itemd-1] = item;
                         appsites1[itemd-1] = supsites[appti];
@@ -677,7 +684,7 @@ dmode                   Set default mode (chat or search) during startup.`);
                         returned = apppage2[itemd-1]
                         apppage2[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
-                        document.getElementById("dockclick"+itemd).href = appsites2[itemd-1];
+                        document.getElementById("dockclick"+itemd).href = supsites[appti];
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage2[itemd-1] = item;
                         appsites2[itemd-1] = supsites[appti];
@@ -692,7 +699,7 @@ dmode                   Set default mode (chat or search) during startup.`);
                         returned = apppage1[itemd-1]
                         apppage1[itemd-1] = ""
                         document.getElementById("dockpic"+itemd).src = "Images/None.png";
-                        document.getElementById("dockclick"+itemd).href = "scros.html";
+                        document.getElementById("dockclick"+itemd).href = supsites[appti];
                         document.getElementById("docktext"+itemd).innerHTML = "";
                         apppage1[itemd-1] = item;
                         appsites1[itemd-1] = supsites[appti];
@@ -704,7 +711,7 @@ dmode                   Set default mode (chat or search) during startup.`);
                         returned = apppage2[itemd-1]
                         apppage2[itemd-1] = ""
                         document.getElementById("dockpic"+itemd).src = "Images/None.png";
-                        document.getElementById("dockclick"+itemd).href = "scros.html";
+                        document.getElementById("dockclick"+itemd).href = supsites[appti];
                         document.getElementById("docktext"+itemd).innerHTML = "";
                         apppage2[itemd-1] = item;
                         appsites2[itemd-1] = supsites[appti];
