@@ -26,7 +26,7 @@ This is the output of whatever commands you enter into the command panel.
 
 ### 3: App Dock
 
-These are the basic app icons you can click on to quickly navigate.
+These are the basic app icons you can click on to quickly navigate. Use the arrow keys on board to flip between pages.
 
 ### 4: Command Panel (Input)
 
@@ -78,6 +78,7 @@ Here is a list of every command and how to use it.
 | `>kill` | Exit Scr-OS. |
 | `>gh` | Open the Scr-OS GitHub repository. |
 | `>status` | Show Scr-OS version and system status. |
+| `>settings` | View your current settings. |
 
 ---
 
@@ -100,6 +101,9 @@ Here is a list of every command and how to use it.
 | `>compchk (number)` | Composite checker. Lists all factors and tells if the number is prime. |
 | `>reset` | Reset Scr-OS memory to default. Requires running twice to confirm. |
 | `>fclock` | Toggle between 12-hour and 24-hour clock format. |
+| `>textms (delay)` | Set a delay during text generation in milliseconds (ms). Must be within 0 to 100. |
+| `>remove (slot)` | Removes an app from the app dock on the current page. There are only slots 1 to 10. |
+| `>replace (slot) (appname)` | Replace a slot from the app dock on the current page with the app you request. Please submit an issue on GitHub if you would like to see more apps. Enter 0 as appname to remove the app. |
 
 ---
 
@@ -108,29 +112,7 @@ Here is a list of every command and how to use it.
 | Command | Description |
 |--------|-------------|
 | `mode` | Toggle between "chat mode" and "search mode". In chat mode, asking Terry questions will return short, top results. |
-| `who made you?`, `what are you?` | Ask Terry predefined questions. |
-| Custom Q&A | If Terry doesn't know something, he’ll ask you to teach him! |
+| `dmode` | Decides whether "chat mode" or "search mode" is set as default during startup. |
 
 ---
-
-## 🚀 Quick-Launch Apps *(via AI Chat)*
-
-You can also type commands like:
-- `"open google"`
-- `"open spotify"`
-- `"open youtube"`
-
-Terry will recognize and launch:
-- Google
-- Spotify
-- YouTube
-- Facebook
-- Instagram
-- X (Twitter)
-- TikTok
-- Reddit
-- GitHub
-- Netflix
-- Gmail
-- Office
 
