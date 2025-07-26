@@ -13,7 +13,7 @@ apppage2 = ["linkedin","netflix","github", "wikipedia","twitch", "", "","","",""
 appsites1 = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/"]
 appsites2 = ["https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
 sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://X.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/", "https://www.linkedin.com"]
-const APIkey = "AIzaSyD0nVj7f7BjOr-s3EJc-wdyCChKvWzn-aA"
+let APIkey;
 const SaveKey = "SCR-OS/"
 learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
 learntdataquest = ["who made you?", "what are you?"]
@@ -22,7 +22,8 @@ dmode = "search"
 pages = 2
 curpage = 1
 textspeed = 10;
-
+calcmode = true; // true for degrees, false for radians
+MaxDenominator = 500; // Default max denominator for fractions
 orgians = ""
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -32,6 +33,41 @@ resettypecount = 0
 feelings = "none"
 //learn
 async function checksaved() {
+
+        try {
+            saved = localStorage.getItem(SaveKey+"update1.1.2");
+            if (saved=="lol") {
+                MaxDenominator = localStorage.getItem(SaveKey+"MaxDenominator");
+                calcmode = JSON.parse(localStorage.getItem(SaveKey+"calcmode"));
+            } else {
+                localStorage.setItem(SaveKey+"update1.1.2","lol")
+                localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
+                localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
+                 alert("Scr-OS has been updated to version 1.1.1.")
+            }
+        } catch {
+                localStorage.setItem(SaveKey+"update1.1.2","lol")
+                localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
+                localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
+                alert("Scr-OS has been updated to version 1.1.1.")
+        }
+
+
+
+        try {
+            APIkey = localStorage.getItem(SaveKey+"APIkey");
+            if (APIkey == null ||  APIkey == "") {
+                APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
+                localStorage.setItem(SaveKey+"APIkey", APIkey)
+            }
+        } catch {
+            APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
+            localStorage.setItem(SaveKey+"APIkey", APIkey)
+        }
+
+
+
+
         try {
         saved = localStorage.getItem(SaveKey+"update1.1");
         if (saved == "lol") {
@@ -60,7 +96,7 @@ async function checksaved() {
             localStorage.setItem(SaveKey+"defaultmode", dmode)
             localStorage.setItem(SaveKey+"pages", 2)
             localStorage.setItem(SaveKey+"textspeed", textspeed)
-            alert("Scr-OS has been updated back to version 1.1.0 due to an error.")
+            alert("Scr-OS has been updated to version 1.1.0.")
         }
         } catch {
             localStorage.setItem(SaveKey+"update1.1","lol")
@@ -95,10 +131,11 @@ async function checksaved() {
 
         } else {
             localStorage.setItem(SaveKey+"savedd","lol")
-            localStorage.setItem(SaveKey+"TerryBgFile", "BG.png")
+            localStorage.setItem(SaveKey+"TerryBgFile", "bg3.jpg")
             localStorage.setItem(SaveKey+"TerryUsername", "Guest")
-            localStorage.setItem(SaveKey+"TerryFontColor", "#000000")
-            localStorage.setItem(SaveKey+"TerryOutlColor", "#000000")
+            saved = localStorage.getItem(SaveKey+"savedd");
+            localStorage.setItem(SaveKey+"TerryFontColor", "#ffffff")
+            localStorage.setItem(SaveKey+"TerryOutlColor", "#ffffff")
             localStorage.setItem(SaveKey+"TerryQuestData", "who made you?")
             localStorage.setItem(SaveKey+"TerryAnsData", "My Creator, Imeanbusiness, of course!")
             learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
@@ -114,10 +151,11 @@ async function checksaved() {
 
     } catch {
         localStorage.setItem(SaveKey+"savedd","lol")
-        localStorage.setItem(SaveKey+"TerryBgFile", "BG.png")
+        localStorage.setItem(SaveKey+"TerryBgFile", "bg3.jpg")
         localStorage.setItem(SaveKey+"TerryUsername", "Guest")
         saved = localStorage.getItem(SaveKey+"savedd");
-        localStorage.setitem(SaveKey+"TerryFontColor", "#000000")
+        localStorage.setItem(SaveKey+"TerryFontColor", "#ffffff")
+        localStorage.setItem(SaveKey+"TerryOutlColor", "#ffffff")
         localStorage.setItem(SaveKey+"TerryQuestData", "who made you?")
         localStorage.setItem(SaveKey+"TerryAnsData", "My Creator, Imeanbusiness, of course!")
         learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
@@ -333,6 +371,7 @@ async function replywith(x) {
      
 
     }
+    responding = false;
 
 }
 
@@ -387,8 +426,8 @@ currentquest = ""
 
 
 async function terrylearn(query) {
-    const API_KEY = "AIzaSyD0nVj7f7BjOr-s3EJc-wdyCChKvWzn-aA";
-    const CX = "a7997a360dbeb4aea";
+    const API_KEY = APIkey;
+    const CX = "a2bf692e8cf3748d9";
     const response = await fetch(
         `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&q=${encodeURIComponent(query)}`
     );
@@ -400,46 +439,47 @@ async function terrylearn(query) {
     }
 }
 
+function decimalAdjust(type, value, exp) {
+  type = String(type);
+  if (!["round", "floor", "ceil"].includes(type)) {
+    throw new TypeError(
+      "The type of decimal adjustment must be one of 'round', 'floor', or 'ceil'.",
+    );
+  }
+  exp = Number(exp);
+  value = Number(value);
+  if (exp % 1 !== 0 || Number.isNaN(value)) {
+    return NaN;
+  } else if (exp === 0) {
+    return Math[type](value);
+  }
+  const [magnitude, exponent = 0] = value.toString().split("e");
+  const adjustedValue = Math[type](`${magnitude}e${exponent - exp}`);
+  // Shift back
+  const [newMagnitude, newExponent = 0] = adjustedValue.toString().split("e");
+  return Number(`${newMagnitude}e${Number(newExponent) + exp}`);
+}
+
+// Decimal round
+const round10 = (value, exp) => decimalAdjust("round", value, exp);
+
 
 function command(repl) {
-    if (repl.includes(">help")) {
-        alert(`🎨 Customization
-------------------------
->bgc (filename)         Set the background to a specific image. Image must be in the Images folder.
->fontcolor (color)      Set the font color. Accepts hex codes or CSS color names.
->outlcolor (color)      Set the font outline color. Accepts hex codes or CSS color names.
->font (font name)       Set the font family. Example: Nunito, Arial.
->iconpack (folder name) Change the icon set. All icons should follow the format AppIcons/AppName.png. (Twitter must be named Twitter.png)
+    if (repl.includes(">gs ")) {
+        sit = repl.replace(">gs ","")
+        replywith("Searching for your query.")
+        sleep(150).then(() => {
+            window.open("https://www.google.com/search?q="+sit)
+        });
+        haha = true
+    } else if (repl.includes(">ts ")) {
+        que = repl.replace("ts ", "")
+        haha = true
+        terrylearn(que)
 
-🛠️ Assistance
-------------------------
->help                   View this help menu.
->kill                   Exit Scr-OS.
->gh                     Open the Scr-OS GitHub repository.
->status                 Show Scr-OS version and system status.
->settings               View your current settings.
-
-🔍 Search & Web
-------------------------
->gs (query)             Google Search the provided query.
->yt (query)             Search YouTube for the query.
->ms (query)             Search Spotify for the song/query.
->ops (site)             Open a website. Example: >ops amazon.com
-
-⚙️ System Utilities
-------------------------
->calc (expression)      Math evaluator. Supports functions like sqrt, sin, pi, log.
->compchk (number)       Composite checker. Lists all factors and tells if the number is prime.
->reset                  Reset Scr-OS memory to default. Requires running twice to confirm.
->fclock                 Toggle between 12-hour and 24-hour clock format.
->textms (delay)         Set a delay during text generation in milliseconds (0–100).
->remove (slot)          Removes an app from the app dock (slots 1 to 10).
->replace (slot) (app)   Replace a slot in the app dock. Use 0 as app name to remove an app.
-
-💬 AI/Chat Features
-------------------------
-mode                    Toggle between "chat mode" and "search mode".
-dmode                   Set default mode (chat or search) during startup.`);
+    }   
+    else if (repl.includes(">help")) {
+        alert(`Check the documentation for a list of commands and features. It is called README.md and is in the root directory of Scr-OS.`);
         haha = true
     } else if (repl.includes(">kill")) {
         close()
@@ -452,6 +492,11 @@ dmode                   Set default mode (chat or search) during startup.`);
             replywith("Switched to search mode. Hello "+username+". I am Terry. What do you need?")
         }
         haha = true;
+    } else if (repl.includes(">api")){
+        APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
+        localStorage.setItem(SaveKey+"APIkey", APIkey)
+        haha = true;
+
     } else if (repl.includes(">bgc ")) {
         sit = orgians.replace(">bgc ","")
         localStorage.setItem(SaveKey+"TerryBgFile",sit)
@@ -467,22 +512,15 @@ dmode                   Set default mode (chat or search) during startup.`);
             window.open("https://"+sit)
         });
         haha = true
-    } else if (repl.includes(">gs ")) {
-        sit = repl.replace(">gs ","")
-        replywith("Searching for your query.")
-        sleep(150).then(() => {
-            window.open("https://www.google.com/search?q="+sit)
-        });
-        haha = true
     } else if (repl.includes(">gh")) {
         replywith("Opening my github.")
         window.open("https://github.com/Imeanbusiness/TerryBot2.0")
         haha = true
     } else if (repl.includes(">status")) {
         try {
-            replywith("Systems: Normal. Version: 1.1.0 (OS Update)")
+            replywith("Systems: Normal. Version: 1.1.2 (Calc improvements)")
         } catch {
-            replywith("Systems: Abnormal. Version: 1.1.0 (OS Update) Restart recommended.")
+            replywith("Systems: Abnormal. Version: 1.1.2 (Calc improvements) Restart recommended.")
         }
         haha = true
         
@@ -537,33 +575,82 @@ dmode                   Set default mode (chat or search) during startup.`);
         });
         haha = true
 
-    } else if (repl.includes(">calc")) {
+    } else if (repl.includes(">calc ")) {
         cuc = repl.replace(">calc ", "")
-        replywith("Calculating your query.")
         
         sleep(300).then(() => {
              try {
                 
-                listoffunct = ["sin", "cos", "tan", "log", "ln", "exp", "sqrt", "abs", "round", "ceil", "floor", "max", "min", "asin", "acos", "atan", "sinh", "cosh", "tanh", "pi", "e"];
+                listoffunct = ["sin", "cos", "tan", "asin", "acos", "atan", "sinh", "cosh", "tanh", "log", "ln", "exp", "sqrt", "abs", "round", "ceil", "floor", "max", "min", "pi", "e"];
                 console.log("Evaluating: " + cuc);
-                for (let i =0; i < 21; i++) {
-                    console.log("Checking: " + listoffunct[i]);
-                    if (cuc.includes(listoffunct[i])) {
-                        console.log("Replacing: " + listoffunct[i]);
-                        if (listoffunct[i] == "pi") {
-                            cuc = cuc.replace(listoffunct[i], "Math.PI");
-                        } else if (listoffunct[i] == "e") {
-                            cuc = cuc.replace(listoffunct[i], "Math.E");
+
+                for (let i = 0; i < listoffunct.length; i++) {
+                    let f = listoffunct[i];
+                    if (cuc.includes(f)) {
+                        console.log("Replacing: " + f);
+                        if (f === "pi") {
+                            cuc = cuc.replaceAll(f, "Math.PI");
+                        } else if (f === "e") {
+                            cuc = cuc.replaceAll(f, "Math.E");
+                        } else if (["sin", "cos", "tan", "asin", "acos", "atan", "sinh", "cosh", "tanh"].includes(f) && calcmode === true) {
+                            cuc = cuc.replaceAll(new RegExp(`${f}\\(([^)]+)\\)`, 'g'), `Math.${f}((\$1)*Math.PI/180)`);
                         } else {
-                            cuc = cuc.replace(listoffunct[i], "Math." + listoffunct[i]);
-
+                            cuc = cuc.replaceAll(f, "Math." + f);
                         }
-                        
-
                     }
                 }
                 console.log("Evaluating: " + cuc);
-                ans = eval(cuc);
+                
+                
+
+                ans = round10(eval(cuc), -8);
+                
+                console.log("Answer: " + ans);
+                found = false;
+                for (let i = 2; i < MaxDenominator; i++) {
+                    if (ans%1 == 0) {
+                                    break
+                    }
+                    for (let j = 1; j < i; j++) {
+                        comp = round10(j/i, -8);    
+                        console.log(ans%comp)
+                        if (ans%comp == 0) {
+                            
+                            console.log(comp)
+                  
+                                console.log("Found: " + j + "/" + i);
+
+                                j = j*Math.floor(ans/comp);
+
+
+                                console.log ("Actually found: " + j + "/" + i);
+
+                                ans = j + "/" + i;
+                                console.log(j%i)
+    
+
+    
+    
+    
+                    
+    
+                                found = true;
+                                break;
+                                
+
+
+
+
+                        
+                        }
+
+                    }
+                    if (found) {
+                        break
+                    }
+
+
+                }
                 console.log("Result: " + ans);
                 replywith("Result: " + ans);
             } catch {
@@ -573,6 +660,41 @@ dmode                   Set default mode (chat or search) during startup.`);
             }
         });
         haha = true
+
+    } else if (repl.includes(">calcds ")) {
+        try {
+            num = repl.replace(">calcds ", "")
+            num = num/1
+            num = Math.floor(num)
+
+            if  (isNaN(num)) {
+                replywith("Error: Invalid syntax. Please enter a value between 1 and 1000.")
+                haha = true;
+                return;
+            }
+            if (num <  1 || num > 1000) {
+                replywith("Error: Invalid syntax. Please enter a value between 1 and 1000.")
+            } else {
+                MaxDenominator = num;
+                replywith("Max denominator set to " + MaxDenominator + ".")
+                localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
+            }
+        } catch {
+            replywith("Error: Invalid syntax. Please enter a value between 1 and 1000.")
+        }
+        haha = true
+
+
+    }  else if (repl.includes(">calcmode")) {
+        calcmode = !calcmode;
+        if (calcmode) {
+            replywith("Switched to degrees mode. Calculations will now return degrees.")
+        } else {
+            replywith("Switched to radians mode. Calculations will now return radians.")
+        }
+        localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode))
+        haha = true;
+
 
     } else if (repl.includes(">textms")) { 
         try {
@@ -748,6 +870,9 @@ Icon Pack: ${localStorage.getItem(SaveKey+"TerryIconPack")}
 Default Mode: ${dmode}
 App Dock Pages: ${pages}
 Text Speed: ${textspeed}ms
+Google API key: ${APIkey}
+Calculation Mode: ${calcmode ? "Degrees" : "Radians"}
+Max Denominator: ${MaxDenominator}
 ----------------`)
         haha = true
 
@@ -829,6 +954,12 @@ Text Speed: ${textspeed}ms
             localStorage.setItem(SaveKey+"defaultmode", dmode)
             localStorage.setItem(SaveKey+"pages", 2)
             localStorage.setItem(SaveKey+"textspeed", textspeed)
+            localStorage.setItem(SaveKey+"update1.1.2","lol")
+            localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
+            localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
+            localStorage.setItem(SaveKey+"APIkey", "");
+            localStorage.setItem(SaveKey+"dmode", "search");
+
 
 
 
@@ -1081,10 +1212,16 @@ function googlesearch(i) {
     sleep(100).then(() => {
         window.open("https://www.google.com/search?q="+i)
     });
+
     
 }
+responding = false;
 orgians;
 function respond() {
+    if (responding) {
+        return;
+    }
+    responding = true; 
     ans = document.getElementById("Resp");
     ans = ans.value;
     orgians = ans;
@@ -1107,9 +1244,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (key == "enter") { 
             respond()
         }
+
+        
     });
 });
-
+//status
 
 
 
