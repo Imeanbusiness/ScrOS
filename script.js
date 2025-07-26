@@ -20,6 +20,7 @@ learntdataquest = ["who made you?", "what are you?"]
 dockrow1 = ["Gmail", "Spotify", "Youtube", "Instagram", "Facebook"]
 dmode = "search"
 pages = 2
+username = "Guest"
 curpage = 1
 textspeed = 10;
 calcmode = true; // true for degrees, false for radians
