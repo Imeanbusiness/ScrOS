@@ -27,9 +27,10 @@ html {
 
 
 body {
+    color: white;
     -webkit-text-stroke: 0px;
     text-align: center;
-    background-image: url("Images/BG.png");
+    background-image: url("Images/bg3.jpg");
     background-repeat: none;
     background-size: cover;
     background-attachment: fixed;
@@ -373,3 +374,4 @@ input {
     grid-row: 3;
     grid-column: 6;
 }
+
