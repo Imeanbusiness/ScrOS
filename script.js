@@ -58,7 +58,7 @@ async function checksaved() {
 
         try {
             APIkey = localStorage.getItem(SaveKey+"APIkey");
-            if (APIkey == null ||  APIkey == "") {
+            if (APIkey == null) {
                 APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
                 localStorage.setItem(SaveKey+"APIkey", APIkey)
             }
