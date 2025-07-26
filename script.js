@@ -32,6 +32,7 @@ learningstate = false;
 resettypecount = 0
 feelings = "none"
 //learn
+//settings
 async function checksaved() {
 
         try {
@@ -481,6 +482,7 @@ function command(repl) {
     else if (repl.includes(">help")) {
         alert(`Check the documentation for a list of commands and features. It is called README.md and is in the root directory of Scr-OS.`);
         haha = true
+        responding = false;
     } else if (repl.includes(">kill")) {
         close()
     } else if (repl.includes(">mode")) {
@@ -496,6 +498,7 @@ function command(repl) {
         APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
         localStorage.setItem(SaveKey+"APIkey", APIkey)
         haha = true;
+        responding = false;
 
     } else if (repl.includes(">bgc ")) {
         sit = orgians.replace(">bgc ","")
@@ -875,6 +878,7 @@ Calculation Mode: ${calcmode ? "Degrees" : "Radians"}
 Max Denominator: ${MaxDenominator}
 ----------------`)
         haha = true
+        responding = false;
 
     } else if (repl.includes(">compchk")) {
         console.log("Checking number");
