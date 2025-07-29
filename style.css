@@ -11,10 +11,11 @@
 html {
     height: 100%;
     width: 100%;
-    font-family: "Nunito", sans-serif;
+    font-family: "Poppins", sans-serif;
 
 
 }
+
 
 .bot {
     text-align: center;
@@ -86,9 +87,9 @@ input {
     width: 500px
 }
 
-.intr {
+#intr {
     text-align: center;
-    top: 90%;
+    top: 53%;
     left: 50%;
     width: 100%;
     transform: translate(-50%, -90%);
@@ -121,7 +122,7 @@ input {
     outline: none;
     margin: 0;
     padding: 0;
-    top: 53%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
