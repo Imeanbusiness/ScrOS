@@ -4,7 +4,7 @@
 
 ### Installation
 
-1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.1.2`.
+1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.1.3`.
 
 2. Unzip the folder
 
