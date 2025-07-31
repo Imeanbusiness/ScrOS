@@ -1,5 +1,5 @@
 'ops'
-'chatmode'
+'status'
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
 chatmode = false;
@@ -562,9 +562,9 @@ function command(repl) {
         haha = true
     } else if (repl.includes(">status")) {
         try {
-            replywith("Systems: Normal. Version: 1.1.2 (Calc improvements)")
+            replywith("Systems: Normal. Version: 1.1.3 (Custom Pos)")
         } catch {
-            replywith("Systems: Abnormal. Version: 1.1.2 (Calc improvements) Restart recommended.")
+            replywith("Systems: Abnormal. Version: 1.1.3 (Custom Pos) Restart recommended.")
         }
         haha = true
         

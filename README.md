@@ -107,6 +107,9 @@ Here is a list of every command and how to use it.
 | `>remove (slot)` | Removes an app from the app dock on the current page. There are only slots 1 to 10. |
 | `>replace (slot) (appname)` | Replace a slot from the app dock on the current page with the app you request. Please submit an issue on GitHub if you would like to see more apps. Enter 0 as appname to remove the app. |
 | `>api` | Enter your own API to use some chat functions. You can get your own API [here](https://developers.google.com/custom-search/v1/overview) |
+| `>showclock` | Toggle the clock |
+| `>showdock` | Toggle the app dock. |
+| `>switchdock` | Switch the app dock and input positions. |
 
 ---
 
