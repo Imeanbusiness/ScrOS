@@ -1,5 +1,5 @@
 'ops'
-'chatmode'
+'status'
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
 chatmode = false;
@@ -24,7 +24,10 @@ username = "Guest"
 curpage = 1
 textspeed = 10;
 calcmode = true; // true for degrees, false for radians
+switchdock = true; // true for switchable dock, false for fixed dock
 MaxDenominator = 500; // Default max denominator for fractions
+showappdock = true;
+showclock = true;
 orgians = ""
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -33,7 +36,45 @@ learningstate = false;
 resettypecount = 0
 feelings = "none"
 //learn
+//settings
 async function checksaved() {
+        try {
+            saved = localStorage.getItem(SaveKey+"update1.1.3");
+            if (saved=="lol") {
+                showclock = JSON.parse(localStorage.getItem(SaveKey+"showclock"));
+                showappdock = JSON.parse(localStorage.getItem(SaveKey+"showappdock"));
+                switchdock = JSON.parse(localStorage.getItem(SaveKey+"switchdock"));
+                if (showclock) {
+                    document.getElementById("clock").style.display = "block";
+                } else {
+                    document.getElementById("clock").style.display = "none";
+                }
+                if (!showappdock) {
+                    document.getElementById("appdock").style.display = "none";
+                }
+                if (switchdock) {
+                    document.getElementById("appdock").style.top = "53%";
+                    document.getElementById("intr").style.top = "90%";
+                } else {
+                    document.getElementById("appdock").style.top = "70%";
+                    document.getElementById("intr").style.top = "60%";
+                }
+            } else {
+                localStorage.setItem(SaveKey+"update1.1.3","lol")
+                localStorage.setItem(SaveKey+"showclock", JSON.stringify(showclock));
+                localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
+                localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
+                alert("Scr-OS has been updated to version 1.1.3.")
+            }
+        } catch {
+            localStorage.setItem(SaveKey+"update1.1.3","lol")
+            localStorage.setItem(SaveKey+"showclock", JSON.stringify(showclock));
+                localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
+                localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
+            alert("Scr-OS has been updated to version 1.1.3.")
+        }
+
+
 
         try {
             saved = localStorage.getItem(SaveKey+"update1.1.2");
@@ -57,7 +98,7 @@ async function checksaved() {
 
         try {
             APIkey = localStorage.getItem(SaveKey+"APIkey");
-            if (APIkey == null ||  APIkey == "") {
+            if (APIkey == null) {
                 APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
                 localStorage.setItem(SaveKey+"APIkey", APIkey)
             }
@@ -144,7 +185,7 @@ async function checksaved() {
             localStorage.setItem(SaveKey+"TerryQuestData", JSON.stringify(learntdataquest))
             localStorage.setItem(SaveKey+"TerryAnsData", JSON.stringify(learntdataans))
             localStorage.setItem(SaveKey+"ClockFormat", JSON.stringify(true))
-            localStorage.setItem(SaveKey+"TerryFont", "Nunito")
+            localStorage.setItem(SaveKey+"TerryFont", "Poppins")
             localStorage.setItem(SaveKey+"TerryIconPack", "AppIcons")
             flclock = true;
             console.log(saved)
@@ -164,7 +205,7 @@ async function checksaved() {
         localStorage.setItem(SaveKey+"TerryQuestData", JSON.stringify(learntdataquest))
         localStorage.setItem(SaveKey+"TerryAnsData", JSON.stringify(learntdataans))
         localStorage.setItem(SaveKey+"ClockFormat", JSON.stringify(true))
-        localStorage.setItem(SaveKey+"TerryFont", "Nunito")
+        localStorage.setItem(SaveKey+"TerryFont", "Poppins")
         localStorage.setItem(SaveKey+"TerryIconPack", "AppIcons")
         flclock = true;
         console.log(saved)
@@ -482,6 +523,7 @@ function command(repl) {
     else if (repl.includes(">help")) {
         alert(`Check the documentation for a list of commands and features. It is called README.md and is in the root directory of Scr-OS.`);
         haha = true
+        responding = false;
     } else if (repl.includes(">kill")) {
         close()
     } else if (repl.includes(">mode")) {
@@ -497,6 +539,7 @@ function command(repl) {
         APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
         localStorage.setItem(SaveKey+"APIkey", APIkey)
         haha = true;
+        responding = false;
 
     } else if (repl.includes(">bgc ")) {
         sit = orgians.replace(">bgc ","")
@@ -519,9 +562,9 @@ function command(repl) {
         haha = true
     } else if (repl.includes(">status")) {
         try {
-            replywith("Systems: Normal. Version: 1.1.2 (Calc improvements)")
+            replywith("Systems: Normal. Version: 1.1.3 (Custom Pos)")
         } catch {
-            replywith("Systems: Abnormal. Version: 1.1.2 (Calc improvements) Restart recommended.")
+            replywith("Systems: Abnormal. Version: 1.1.3 (Custom Pos) Restart recommended.")
         }
         haha = true
         
@@ -614,20 +657,27 @@ function command(repl) {
                     }
                     for (let j = 1; j < i; j++) {
                         comp = round10(j/i, -8);    
-                        console.log(ans%comp)
-                        if (ans%comp == 0) {
+                   
+                        if (ans%comp == 0 || Number.isInteger(ans-comp)) {
                             
                             console.log(comp)
                   
                                 console.log("Found: " + j + "/" + i);
+                                if (Number.isInteger(ans-comp)) {
+                                    j = j+((ans-comp)*i)
+                                    mixed = j + "/" + i;
+                                    ans = mixed;
+                                    console.log ("Actually found: "+ans);
+                                } else {
+                                    j = j*Math.floor(ans/comp);
+    
+    
+                                    console.log ("Actually found: " + j + "/" + i);
+    
+                                    ans = j + "/" + i;
 
-                                j = j*Math.floor(ans/comp);
-
-
-                                console.log ("Actually found: " + j + "/" + i);
-
-                                ans = j + "/" + i;
-                                console.log(j%i)
+                                }
+                           
     
 
     
@@ -751,7 +801,49 @@ function command(repl) {
         }
         haha = true
 
-    } else if (repl.includes(">replace")) {
+    } else if (repl.includes(">showclock")) {
+        showclock = !showclock;
+        if (showclock) {
+            document.getElementById("clock").style.display = "block";
+            replywith("Clock is now visible.")
+        } else {
+            document.getElementById("clock").style.display = "none";
+            replywith("Clock is now hidden.")
+        }
+        localStorage.setItem(SaveKey+"showclock", showclock)
+        haha = true;
+
+    } else if (repl.includes(">showdock")) {
+        showappdock = !showappdock;
+        if (showappdock) {
+            document.getElementById("appdock").style.display = "grid";
+            replywith("App dock is now visible.")
+        } else {
+            document.getElementById("appdock").style.display = "none";
+            replywith("App dock is now hidden.")
+        }
+        localStorage.setItem(SaveKey+"showappdock", showappdock)
+        haha = true;
+
+
+
+
+
+    } else if (repl.includes("switchdock")) {
+        switchdock = !switchdock;
+        if (switchdock) {
+            document.getElementById("appdock").style.top = "53%";
+            document.getElementById("intr").style.top = "90%";
+            replywith("Switched dock and input. The app dock is now at the bottom of the screen.")
+        } else {
+            document.getElementById("appdock").style.top = "70%";
+            document.getElementById("intr").style.top = "60%";
+            replywith("Switched dock and input. The app dock is now at the top of the screen.")
+        }
+        localStorage.setItem(SaveKey+"switchdock", switchdock)
+        haha = true;
+
+    }  else if (repl.includes(">replace ")) {
         try {
             item = repl.replace(">replace ", "")
             item[0] = item[0]/1
@@ -876,6 +968,7 @@ Calculation Mode: ${calcmode ? "Degrees" : "Radians"}
 Max Denominator: ${MaxDenominator}
 ----------------`)
         haha = true
+        responding = false;
 
     } else if (repl.includes(">compchk")) {
         console.log("Checking number");
@@ -931,12 +1024,31 @@ Max Denominator: ${MaxDenominator}
         if (resettypecount < 2) {
             replywith("Are you sure? Run the commad one more time to reset.");
         } else {
+            apppage1 = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather"]
+            apppage2 = ["linkedin","netflix","github", "wikipedia","twitch", "", "","","","",]
+            appsites1 = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/"]
+            appsites2 = ["https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
+            sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://X.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/", "https://www.linkedin.com"]
+            let APIkey;
+            const SaveKey = "SCR-OS/"
+            learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
+            learntdataquest = ["who made you?", "what are you?"]
+            dockrow1 = ["Gmail", "Spotify", "Youtube", "Instagram", "Facebook"]
+            dmode = "search"
+            pages = 2
+            username = "Guest"
+            curpage = 1
+            textspeed = 10;
+            calcmode = true; // true for degrees, false for radians
+            MaxDenominator = 500; // Default max denominator for fractions
+            showappdock = true;
+            orgians = ""
             replywith ("Succesful.")
             localStorage.setItem(SaveKey+"savedd","lol")
-            localStorage.setItem(SaveKey+"TerryBgFile", "BG.png")
+            localStorage.setItem(SaveKey+"TerryBgFile", "bg3.jpg")
             localStorage.setItem(SaveKey+"TerryUsername", "Guest")
             saved = localStorage.getItem(SaveKey+"savedd");
-            localStorage.setitem(SaveKey+"TerryFontColor", "#000000")
+            localStorage.setItem(SaveKey+"TerryFontColor", "#ffffff")
             localStorage.setItem(SaveKey+"TerryQuestData", "who made you?")
             localStorage.setItem(SaveKey+"TerryAnsData", "My Creator, Imeanbusiness, of course!")
             learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
@@ -944,7 +1056,7 @@ Max Denominator: ${MaxDenominator}
             localStorage.setItem(SaveKey+"TerryQuestData", JSON.stringify(learntdataquest))
             localStorage.setItem(SaveKey+"TerryAnsData", JSON.stringify(learntdataans))
             localStorage.setItem(SaveKey+"ClockFormat", JSON.stringify(true))
-            localStorage.setItem(SaveKey+"TerryFont", "Nunito")
+            localStorage.setItem(SaveKey+"TerryFont", "Poppins")
             localStorage.setItem(SaveKey+"TerryIconPack", "AppIcons")
             flclock = true;
             localStorage.setItem(SaveKey+"update1.1","lol")
@@ -960,6 +1072,12 @@ Max Denominator: ${MaxDenominator}
             localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
             localStorage.setItem(SaveKey+"APIkey", "");
             localStorage.setItem(SaveKey+"dmode", "search");
+            localStorage.setItem(SaveKey+"update1.1.3","lol")
+            localStorage.setItem(SaveKey+"showclock", JSON.stringify(true));
+            localStorage.setItem(SaveKey+"showappdock", JSON.stringify(true));
+            localStorage.setItem(SaveKey+"switchdock", JSON.stringify(true));
+
+            checksaved();
 
 
 
