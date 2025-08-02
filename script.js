@@ -1,5 +1,6 @@
 'ops'
-'status'
+'bgtype'
+//page
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
 chatmode = false;
@@ -10,8 +11,12 @@ supsites = ["https://www.gmail.com", "https://open.spotify.com/","https://www.yo
 
 apppage1 = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather"]
 apppage2 = ["linkedin","netflix","github", "wikipedia","twitch", "", "","","","",]
+apppage3 = ["","","","","","","","","",""]
+apppage4 = ["","","","","","","","","",""]
 appsites1 = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/"]
 appsites2 = ["https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
+appsites3 = ["","","","","","","","","",""]
+appsites4 = ["","","","","","","","","",""]
 sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://X.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/", "https://www.linkedin.com"]
 let APIkey;
 const SaveKey = "SCR-OS/"
@@ -21,13 +26,28 @@ dockrow1 = ["Gmail", "Spotify", "Youtube", "Instagram", "Facebook"]
 dmode = "search"
 pages = 2
 username = "Guest"
+docklock = "open"
 curpage = 1
 textspeed = 10;
 calcmode = true; // true for degrees, false for radians
-switchdock = true; // true for switchable dock, false for fixed dock
+switchdock = true; 
 MaxDenominator = 500; // Default max denominator for fractions
 showappdock = true;
 showclock = true;
+lockeddock = false; // true for locked dock, false for unlocked dock
+const clientWidth = document.documentElement.clientWidth;
+const clientHeight = document.documentElement.clientHeight;
+const maxpages = 4;
+onealert = false;
+dockdownlmt = ((clientHeight+130)/clientHeight)*100;
+dockdownchklmt = ((clientHeight-130)/clientHeight);
+dockwidthlmt = ((clientWidth+100)/clientWidth)*100;
+dockwidthchklmt = ((clientWidth-100)/clientWidth);
+iconpack = "AppIcons"
+console.log(dockwidthlmt)
+
+simpledock = true; // true for simple dock, false for advanced dock
+dockpos = 2;
 orgians = ""
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -35,11 +55,236 @@ function sleep(ms) {
 learningstate = false;
 resettypecount = 0
 feelings = "none"
+showseconds = true; // true for showing seconds in clock, false for hiding seconds
+bgtype = "image"
+vbgfile = "City.mp4"
+dockloc = "open"
 //learn
 //settings
+
+async function replacedock() {
+    
+    if (switchdock && !simpledock) {
+                    document.getElementById("intr").style.top = "80%";
+    } else {
+        document.getElementById("intr").style.top = "60%";
+    }
+    if (!simpledock) {
+        
+        if (!simpledock) {
+            if (dockpos == 1) {
+                document.getElementById("appdock").style.gridTemplateColumns = "70px";
+                document.getElementById("appdock").style.height = "100vh";
+                document.getElementById("appdock").style.gridTemplateRows = "25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 25px";
+                document.getElementById("leftarrow").style.gridColumn = "1";
+                document.getElementById("leftarrow").style.gridRow = "1"
+                document.getElementById("leftarrow").innerHTML = "▲";
+                document.getElementById("rightarrow").innerHTML = "▼";
+
+                document.getElementById("rightarrow").style.gridColumn = "1";
+                document.getElementById("rightarrow").style.gridRow = "22";
+                for (let i = 0; i < 10; i++) {
+                    document.getElementById("dockpic"+(i+1)).style.width = "50px";   
+                    document.getElementById("dockpic"+(i+1)).style.height = "50px"; 
+                    document.getElementById("docktext"+(i+1)).style.fontSize   = "10px";
+                    document.getElementById("dockclick"+(i+1)).style.gridColumn = "1";
+                    document.getElementById("docktext"+(i+1)).style.gridColumn = "1";
+                    document.getElementById("dockclick"+(i+1)).style.gridRow = ((i+1)*2);
+                    document.getElementById("docktext"+(i+1)).style.gridRow = ((i+1)*2)+1;
+                    dockloc = "locked" 
+                    console.log((100-dockwidthlmt)+"%")
+                    document.getElementById("appdock").style.left = 100-dockwidthlmt+"%";
+                    document.getElementById("appdock").style.top = "55%";
+                    //document.getElementById("appdock").style.top = dockdownlmt + "%";
+                    document.getElementById("intr").style.top = "60%";
+                }
+            }
+            if (dockpos == 2) {
+                document.getElementById("appdock").style.gridTemplateColumns = "25px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 25px";
+                document.getElementById("appdock").style.gridTemplateRows = "70px 40px";
+                document.getElementById("rightarrow").style.gridColumn = "12";
+                document.getElementById("rightarrow").style.gridRow = "1";
+                document.getElementById("leftarrow").style.gridRow = "1";
+                document.getElementById("leftarrow").innerHTML = "◄";
+                document.getElementById("rightarrow").innerHTML = "►";
+                for (let i = 0; i < 10; i++) {
+                    document.getElementById("dockpic"+(i+1)).style.width = "65px";   
+                    document.getElementById("dockpic"+(i+1)).style.height = "65px"; 
+                    document.getElementById("docktext"+(i+1)).style.fontSize   = "15px";
+                }
+                for (let i = 0; i < 5; i++) {
+                    console.log(i)
+                    document.getElementById("dockclick"+(i+1)).style.gridColumn = (i+2);
+                    document.getElementById("dockclick"+(i+1)).style.gridRow = "1";
+                    document.getElementById("docktext"+(i+1)).style.gridColumn = (i+2);
+                    document.getElementById("docktext"+(i+1)).style.gridRow = "2";
+                }
+                for (let i = 5; i < 10; i++) {
+                    console.log(i)
+                    document.getElementById("dockclick"+(i+1)).style.gridColumn = (i+2);
+                    document.getElementById("dockclick"+(i+1)).style.gridRow = "1";
+                    document.getElementById("docktext"+(i+1)).style.gridColumn = (i+2);
+                    document.getElementById("docktext"+(i+1)).style.gridRow = "2";
+                }
+
+                dockloc = "locked" 
+                document.getElementById("appdock").style.height = "50px";
+                document.getElementById("appdock").style.top = dockdownlmt + "%";
+                document.getElementById("appdock").style.left = "50%";
+                document.getElementById("intr").style.top = "60%";
+            }
+            if (dockpos == 3) {
+                  document.getElementById("appdock").style.gridTemplateColumns = "70px";
+                  document.getElementById("appdock").style.height = "100vh";
+                  document.getElementById("appdock").style.gridTemplateRows = "25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 55px 25px 25px";
+                  document.getElementById("leftarrow").style.gridColumn = "1";
+                  document.getElementById("leftarrow").style.gridRow = "1"
+                  document.getElementById("leftarrow").innerHTML = "▲";
+                  document.getElementById("rightarrow").innerHTML = "▼";
+  
+                  document.getElementById("rightarrow").style.gridColumn = "1";
+                  document.getElementById("rightarrow").style.gridRow = "22";
+                  for (let i = 0; i < 10; i++) {
+                      document.getElementById("dockpic"+(i+1)).style.width = "50px";   
+                      document.getElementById("dockpic"+(i+1)).style.height = "50px"; 
+                      document.getElementById("docktext"+(i+1)).style.fontSize   = "10px";
+                      document.getElementById("dockclick"+(i+1)).style.gridColumn = "1";
+                      document.getElementById("docktext"+(i+1)).style.gridColumn = "1";
+                      document.getElementById("dockclick"+(i+1)).style.gridRow = ((i+1)*2);
+                      document.getElementById("docktext"+(i+1)).style.gridRow = ((i+1)*2)+1;
+                      dockloc = "locked" 
+                      console.log((100-dockwidthlmt)+"%")
+                      document.getElementById("appdock").style.left = dockwidthlmt+"%";
+                      document.getElementById("appdock").style.top = "55%";
+                      //document.getElementById("appdock").style.top = dockdownlmt + "%";
+                      document.getElementById("intr").style.top = "60%";
+                  }
+              }
+            if (lockeddock && !simpledock) {
+                if (dockpos == 1) {
+                    settop = 25/clientWidth*100;
+                    document.getElementById("appdock").style.left = settop  + "%";
+                }
+                if (dockpos == 2) {
+                    settop = 100-(90/clientHeight*100);
+                    document.getElementById("appdock").style.top = settop  + "%";
+                }
+                if (dockpos == 3) {
+                    settop = 100-(25/clientHeight*100);
+                    document.getElementById("appdock").style.left = settop  + "%";
+                }
+            }   
+         }
+
+         
+         localStorage.setItem(SaveKey+"dockpos", dockpos);
+
+}
+}
+
+
 async function checksaved() {
+    console.log("Checking saved data...")
+    try {
+        saved = localStorage.getItem(SaveKey+"update1.2");
+        if (saved == "lol") {
+            showseconds = JSON.parse(localStorage.getItem(SaveKey+"showseconds"));
+            dockpos = localStorage.getItem(SaveKey+"dockpos");
+            simpledock = JSON.parse(localStorage.getItem(SaveKey+"simpledock"));
+            appsites3 = JSON.parse(localStorage.getItem(SaveKey+"appsites3"));
+            appsites4 = JSON.parse(localStorage.getItem(SaveKey+"appsites4"))
+            apppage3 = JSON.parse(localStorage.getItem(SaveKey+"apppage3"));
+            apppage4 = JSON.parse(localStorage.getItem(SaveKey+"apppage4"));
+            supapps = JSON.parse(localStorage.getItem(SaveKey+"supapps"));
+            supsites = JSON.parse(localStorage.getItem(SaveKey+"supsites"));
+            vbgfile = localStorage.getItem(SaveKey+"vbgfile");
+            bgtype = localStorage.getItem(SaveKey+"bgtype");
+            lockeddock = JSON.parse(localStorage.getItem(SaveKey+"lockeddock"))
+            document.getElementById("VidBack").style.src = "Videos/"+vbgfile;
+            if (bgtype == "video") {
+                document.getElementById("VidBack").style.display = "block";
+            } else {
+                document.getElementById("VidBack").style.display = "none";
+            }
+            
+        } else {
+            localStorage.setItem(SaveKey+"update1.2","lol")
+            localStorage.setItem(SaveKey+"showseconds", JSON.stringify(showseconds));
+            localStorage.setItem(SaveKey+"dockpos", dockpos);
+            localStorage.setItem(SaveKey+"simpledock", JSON.stringify(true));
+            localStorage.setItem(SaveKey+"appsites3", JSON.stringify(appsites3));
+            localStorage.setItem(SaveKey+"appsites4", JSON.stringify(appsites4));
+            localStorage.setItem(SaveKey+"apppage3", JSON.stringify(apppage3));
+            localStorage.setItem(SaveKey+"apppage4", JSON.stringify(apppage4));
+            localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
+            localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
+            localStorage.setItem(SaveKey+"vbgfile", vbgfile);
+            localStorage.setItem(SaveKey+"bgtype", bgtype);
+            localStorage.setItem(SaveKey+"lockeddock", JSON.stringify(false))
+            if (bgtype == "video") {
+                document.getElementById("VidBack").style.display = "block";
+                console.log("hi")
+            } else {
+                console.log("bye")
+                document.getElementById("VidBack").style.display = "none";
+            }
+            
+            if (!onealert) {
+                alert("Scr-OS has been updated to version 1.2.0.")
+                onealert = true;
+            }
+        }
+    } catch {
+            localStorage.setItem(SaveKey+"update1.2","lol")
+            localStorage.setItem(SaveKey+"showseconds", JSON.stringify(showseconds));
+            localStorage.setItem(SaveKey+"dockpos", dockpos);
+            localStorage.setItem(SaveKey+"simpledock", JSON.stringify(true));
+            localStorage.setItem(SaveKey+"appsites3", JSON.stringify(appsites3));
+            localStorage.setItem(SaveKey+"appsites4", JSON.stringify(appsites4));
+            localStorage.setItem(SaveKey+"apppage3", JSON.stringify(apppage3));
+            localStorage.setItem(SaveKey+"apppage4", JSON.stringify(apppage4));
+            localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
+            localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
+            localStorage.setItem(SaveKey+"lockeddock", JSON.stringify(false))
+            localStorage.setItem(SaveKey+"vbgfile", vbgfile);
+            localStorage.setItem(SaveKey+"bgtype", bgtype);
+            if (bgtype == "video") {
+                document.getElementById("VidBack").style.display = "block";
+                console.log("hi")
+            } else {
+                console.log("bye")
+                document.getElementById("VidBack").style.display = "none";
+            }
+            
+            if (!onealert) {
+                alert("Scr-OS has been updated to version 1.2.0.")
+                onealert = true;
+            }
+    }
+         if (!simpledock) {
+            replacedock();
+         }
+         if (lockeddock) {
+            if (lockeddock && !simpledock) {
+                if (dockpos == 1) {
+                    settop = 25/clientWidth*100;
+                    document.getElementById("appdock").style.left = settop  + "%";
+                }
+                if (dockpos == 2) {
+                    settop = 100-(90/clientHeight*100);
+                    document.getElementById("appdock").style.top = settop  + "%";
+                }
+                if (dockpos == 3) {
+                    settop = 100-(25/clientHeight*100);
+                    document.getElementById("appdock").style.left = settop  + "%";
+                }
+            }   
+         }
+
+
         try {
             saved = localStorage.getItem(SaveKey+"update1.1.3");
+            console.log(saved)
             if (saved=="lol") {
                 showclock = JSON.parse(localStorage.getItem(SaveKey+"showclock"));
                 showappdock = JSON.parse(localStorage.getItem(SaveKey+"showappdock"));
@@ -52,26 +297,38 @@ async function checksaved() {
                 if (!showappdock) {
                     document.getElementById("appdock").style.display = "none";
                 }
-                if (switchdock) {
+                if (switchdock && dockloc=="locked") {
+                    document.getElementById("intr").style.top = "80%";
+                } else {
+                    document.getElementById("intr").style.top = "60%";
+                }
+                if (switchdock && dockloc != "locked") {
                     document.getElementById("appdock").style.top = "53%";
                     document.getElementById("intr").style.top = "90%";
-                } else {
+                } else if (dockloc != "locked") {
                     document.getElementById("appdock").style.top = "70%";
                     document.getElementById("intr").style.top = "60%";
                 }
+                
             } else {
                 localStorage.setItem(SaveKey+"update1.1.3","lol")
                 localStorage.setItem(SaveKey+"showclock", JSON.stringify(showclock));
                 localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
                 localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
-                alert("Scr-OS has been updated to version 1.1.3.")
+                if (!onealert) {
+                    alert("Scr-OS has been updated to version 1.1.3.")
+                onealert = true;
+            }
             }
         } catch {
             localStorage.setItem(SaveKey+"update1.1.3","lol")
             localStorage.setItem(SaveKey+"showclock", JSON.stringify(showclock));
                 localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
                 localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
-            alert("Scr-OS has been updated to version 1.1.3.")
+            if (!onealert) {
+                alert("Scr-OS has been updated to version 1.1.3.")
+                onealert = true;
+            }
         }
 
 
@@ -85,13 +342,19 @@ async function checksaved() {
                 localStorage.setItem(SaveKey+"update1.1.2","lol")
                 localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
                 localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
-                 alert("Scr-OS has been updated to version 1.1.1.")
+                if (!onealert) {
+                alert("Scr-OS has been updated to version 1.1.2.")
+                onealert = true;
+            }
             }
         } catch {
                 localStorage.setItem(SaveKey+"update1.1.2","lol")
                 localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
                 localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
-                alert("Scr-OS has been updated to version 1.1.1.")
+                if (!onealert) {
+                alert("Scr-OS has been updated to version 1.1.2.")
+                onealert = true;
+            }
         }
 
 
@@ -138,7 +401,10 @@ async function checksaved() {
             localStorage.setItem(SaveKey+"defaultmode", dmode)
             localStorage.setItem(SaveKey+"pages", 2)
             localStorage.setItem(SaveKey+"textspeed", textspeed)
-            alert("Scr-OS has been updated to version 1.1.0.")
+            if (!onealert) {
+                alert("Scr-OS has been updated to version 1.1.0.")
+                onealert = true;
+            }
         }
         } catch {
             localStorage.setItem(SaveKey+"update1.1","lol")
@@ -149,7 +415,10 @@ async function checksaved() {
             localStorage.setItem(SaveKey+"defaultmode", dmode)
             localStorage.setItem(SaveKey+"pages", 2)
             localStorage.setItem(SaveKey+"textspeed", textspeed)
-            alert("Scr-OS has been updated to version 1.1.0.")
+            if (!onealert) {
+                alert("Scr-OS has been updated to version 1.1.0.")
+                onealert = true;
+            }
         }
 
 
@@ -322,6 +591,62 @@ async function pagechange(dir) {
               
             }
 
+        } else if (curpage == 3) {
+
+            for (let i = 0; i < 10; i++) {
+                 await sleep(16.666666666666668);
+                itemd = apppage3[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites3[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
+
+        } else if (curpage == 4) {
+
+            for (let i = 0; i < 10; i++) {
+                 await sleep(16.666666666666668);
+                itemd = apppage4[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites4[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
+
         }
     } else if (dir=="left") {
         
@@ -379,6 +704,62 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = appsites2[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
+
+        } else if (curpage == 3) {
+
+            for (let i = 0; i < 10; i++) {
+                 await sleep(16.666666666666668);
+                itemd = apppage3[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites3[i];
+                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+                }
+              
+            }
+
+        } else if (curpage == 4) {
+
+            for (let i = 0; i < 10; i++) {
+                 await sleep(16.666666666666668);
+                itemd = apppage4[i];
+                if (itemd == "") {
+                    itemd ="none"
+                }
+                console.log(itemd[0].toUpperCase())
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+                console.log(itemd)
+                console.log(iconpack+"/"+itemd+".png")
+
+                
+
+                if (itemd == "None") {
+                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    
+                    document.getElementById("docktext"+(i+1)).innerHTML = "";
+                } else {
+                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+                    document.getElementById("dockclick"+(i+1)).href = appsites4[i];
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -548,8 +929,35 @@ function command(repl) {
         document.getElementById("mainbg").style.backgroundImage = "url(\"Images/"+sit+"\")";
         haha = true
     
-    } else if (repl.includes(">ops ")) {
+    } else if (repl.includes("vbgc ")) {
+        sit = repl.replace("vbgc ","")
+        localStorage.setItem(SaveKey+"vbgfile",sit)
+        document.getElementById("VidBack").style.src = "Videos/"+sit;
+        replywith('Set successfully.')
+        haha = true;
         
+
+
+    } else if (repl.includes("bgmode")) {
+        if (bgtype=="video") {
+            replywith("Switched background type to image. Set your background image with '>bgc (image_file)'")
+            bgtype = "image"
+        } else {
+            replywith("Switched background type to video. Set your background video with '>vbgc (video_file)'")
+            bgtype = "video" 
+        }
+        if (bgtype == "video") {
+                document.getElementById("VidBack").style.display = "block";
+                console.log("hi")
+        } else {
+                console.log("bye")
+                document.getElementById("VidBack").style.display = "none";
+        }
+        haha = true;
+        localStorage.setItem(SaveKey+"bgtype", bgtype)
+
+    } else if (repl.includes(">ops ")) {
+
         sit = repl.replace(">ops ","")
         replywith("Yes, opening now.")
         sleep(150).then(() => {
@@ -562,9 +970,9 @@ function command(repl) {
         haha = true
     } else if (repl.includes(">status")) {
         try {
-            replywith("Systems: Normal. Version: 1.1.3 (Custom Pos)")
+            replywith("Systems: Normal. Version: 1.2.0 (Marina)")
         } catch {
-            replywith("Systems: Abnormal. Version: 1.1.3 (Custom Pos) Restart recommended.")
+            replywith("Systems: Abnormal. Version: 1.2.0 (Marina) Restart recommended.")
         }
         haha = true
         
@@ -598,8 +1006,8 @@ function command(repl) {
             
             pages = Math.floor(pages)
             console.log(pages)
-            if (pages > 2) {
-                pages = 2
+            if (pages > maxpages) {
+                pages = maxpages
             } else if (pages <  1) {
                 pages = 1
             }
@@ -788,11 +1196,27 @@ function command(repl) {
                 document.getElementById("dockpic"+item).src = "Images/None.png";
                 document.getElementById("dockclick"+item).href = "scros.html";
                 document.getElementById("docktext"+item).innerHTML = "";
+            } else if (curpage == 3) {
+                returned = apppage3[item-1]
+                apppage3[item-1] = ""
+                document.getElementById("dockpic"+item).src = "Images/None.png";
+                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("docktext"+item).innerHTML = "";
+            } else if (curpage == 4) {
+                returned = apppage4[item-1]
+                apppage4[item-1] = ""
+                document.getElementById("dockpic"+item).src = "Images/None.png";
+                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("docktext"+item).innerHTML = "";
             }
             localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
             localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
             localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
             localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+            localStorage.setItem(SaveKey+"apppage3", JSON.stringify(apppage3))
+            localStorage.setItem(SaveKey+"appsites3", JSON.stringify(appsites3))
+            localStorage.setItem(SaveKey+"apppage4", JSON.stringify(apppage4))
+            localStorage.setItem(SaveKey+"appsites4", JSON.stringify(appsites4))
 
             replywith("Removed "+returned+" from the dock.")
         } catch {
@@ -809,6 +1233,18 @@ function command(repl) {
         } else {
             document.getElementById("clock").style.display = "none";
             replywith("Clock is now hidden.")
+        }
+        localStorage.setItem(SaveKey+"showclock", showclock)
+        haha = true;
+
+    }  else if (repl.includes(">showseconds")) {
+        showseconds = !showseconds;
+        if (showseconds) {
+            localStorage.setItem(SaveKey+"showseconds", JSON.stringify(showseconds))
+            replywith("Seconds are now visible.")
+        } else {
+            localStorage.setItem(SaveKey+"showseconds", JSON.stringify(showseconds))
+            replywith("Seconds are now hidden.")
         }
         localStorage.setItem(SaveKey+"showclock", showclock)
         haha = true;
@@ -831,19 +1267,197 @@ function command(repl) {
 
     } else if (repl.includes("switchdock")) {
         switchdock = !switchdock;
+
+        if (dockloc == "locked") {
+            if (switchdock) {
+
+                document.getElementById("intr").style.top = "80%";
+                replywith("Switched dock and input. The input is now at the bottom of the screen.")
+            } else {
+
+                document.getElementById("intr").style.top = "60%";
+                replywith("Switched dock and input. The input is now at the top of the screen.")
+            }
+            localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock))
+            haha = true;
+            return;
+        }
+        
         if (switchdock) {
             document.getElementById("appdock").style.top = "53%";
             document.getElementById("intr").style.top = "90%";
-            replywith("Switched dock and input. The app dock is now at the bottom of the screen.")
+            replywith("Switched dock and input. The app dock is now at the top of the screen.")
         } else {
             document.getElementById("appdock").style.top = "70%";
             document.getElementById("intr").style.top = "60%";
-            replywith("Switched dock and input. The app dock is now at the top of the screen.")
+            replywith("Switched dock and input. The app dock is now at the bottom of the screen.")
         }
-        localStorage.setItem(SaveKey+"switchdock", switchdock)
+        localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock))
         haha = true;
 
+    } else if (repl.includes(">appadd ")) {
+        try {
+            item = repl.replace(">appadd ", "")
+            itemsite = prompt("Please enter the full site address for the app.");
+            console.log(itemsite)
+            supapps.push(item);
+            supsites.push(itemsite);
+            localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
+            localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
+            replywith("Added "+item+" to the list of supported apps.")
+            
+            haha = true;
+            
+        } catch {
+            replywith("Error: Invalid syntax.")
+            haha = true;
+
+        }
+
+    } else if (repl.includes(">appremove ")) { 
+        try {
+            item = repl.replace(">appremove ", "")
+            for (let i = 0; i < supapps.length; i++) {
+                if (supapps[i].includes(item)) {
+                    supapps.splice(i, 1);
+                    supsites.splice(i, 1);
+                    localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
+                    localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
+                    replywith("Removed "+item+" from the list of supported apps.")
+                    haha = true;
+                    return;
+                }
+            }
+            replywith("Error: App not found in the list of supported apps.")
+            localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
+            localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
+            haha = true;
+        } catch {
+            replywith("Error: Invalid syntax.")
+            haha = true;
+        }
+    } else if (repl.includes(">lockdock")) {
+        if (simpledock) {
+            replywith("Error: I am unable to lock the dock at this time. Ensure that you have simple dock disabled by using >dockmode.")
+            haha = true;
+            return;
+        } else {
+            lockeddock = !lockeddock;
+            if (lockeddock) {
+                
+                replywith("Dock is now locked. You cannot move it.")
+            } else {
+                
+                replywith("Dock is now unlocked. You can move it.")
+            }           
+            if (lockeddock) {
+            if (lockeddock && !simpledock) {
+                    if (dockpos == 1) {
+                        settop = 25/clientWidth*100;
+                        document.getElementById("appdock").style.left = settop  + "%";
+                    }
+                    if (dockpos == 2) {
+                        settop = 100-(90/clientHeight*100);
+                        document.getElementById("appdock").style.top = settop  + "%";
+                    }
+                    if (dockpos == 3) {
+                        settop = 100-(25/clientHeight*100);
+                        document.getElementById("appdock").style.left = settop  + "%";
+                    }
+                   }   
+            }
+            localStorage.setItem(SaveKey+"lockeddock", lockeddock)
+            haha = true;
+        }
+
+
+    } else if (repl.includes(">dockmode")) {
+        simpledock = !simpledock;
+        if (!simpledock) {
+            replacedock();
+            replywith("Switched to dock mode. The dock is now on one of the sides of the screen and is animated.")
+        } else {
+            document.getElementById("appdock").style.gridTemplateColumns = "50px 150px 150px 150px 150px 150px 50px";
+            document.getElementById("appdock").style.gridTemplateRows = "100px 35px 100px 35px";
+            document.getElementById("leftarrow").style.gridRow = "2";
+            document.getElementById("leftarrow").style.gridColumn = "1";
+            document.getElementById("rightarrow").innerHTML = "";
+            document.getElementById("leftarrow").style.gridRow = "";
+            document.getElementById("rightarrow").style.gridRow = "2";
+            document.getElementById("rightarrow").style.gridColumn = "7";
+            document.getElementById("leftarrow").innerHTML = "◄";
+            document.getElementById("rightarrow").innerHTML = "►";
+            document.getElementById("intr").style.top = "60%";
+            for (let i = 0; i < 10; i++) {
+                document.getElementById("dockpic"+(i+1)).style.width = "80px";
+                document.getElementById("dockpic"+(i+1)).style.height = "80px";
+                document.getElementById("docktext"+(i+1)).style.fontSize = "22px";
+                
+            }
+            for (let i = 0; i <5 ; i++) {
+                document.getElementById("dockclick"+(i+1)).style.gridColumn = i+2;
+                document.getElementById("dockclick"+(i+1)).style.gridRow = 1;
+                document.getElementById("docktext"+(i+1)).style.gridColumn = i+2;
+                document.getElementById("docktext"+(i+1)).style.gridRow = 2;
+                document.getElementById("dockclick"+(i+6)).style.gridColumn = i+2;
+                document.getElementById("dockclick"+(i+6)).style.gridRow = 3;
+                document.getElementById("docktext"+(i+6)).style.gridColumn = i+2;
+                document.getElementById("docktext"+(i+6)).style.gridRow = 4;
+            }
+            document.getElementById("appdock").style.height = "50px";
+            document.getElementById("intr").style.top = "90%";
+            document.getElementById("appdock").style.top = "53%";
+            document.getElementById("appdock").style.left = "50%";
+            replywith("Switched to simple dock mode. The dock is now at the center of the screen.")
+            dockloc = "open"
+            haha = true;
+            switchdock = true;
+            localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock))
+
+            
+        }
+        localStorage.setItem(SaveKey+"simpledock", simpledock)
+        haha = true;
+
+
+    }  else if (repl.includes(">dockpos ")) {
+        if (simpledock) {
+            replywith("Error: You cannot change the dock position while in simple dock mode. Please disable simple dock mode using >dockmode.")
+            haha = true;
+            return;
+        } else {
+            try {
+                dockpos = repl.replace(">dockpos ", "")
+                dockpos = dockpos/1
+                dockpos = Math.floor(dockpos)
+                if (dockpos < 1 || dockpos > 3) {
+                    replywith("Error: Invalid dock position. Please enter a number between 1 and 3. (1 for left, 2 for bottom, 3 for right)")
+                    haha = true;
+                    return;
+                } else if (dockpos == 1) {
+                    replacedock(); 
+                    replywith("Dock position set to left. The dock is now on the left side of the screen.")
+                    haha = true;
+                } else if (dockpos == 2) {
+                    replacedock();
+                    replywith("Dock position set to bottom. The dock is now on the bottom side of the screen.")
+                    haha = true;
+                } else if (dockpos == 3) {
+                    replacedock();
+                    replywith("Dock position set to right. The dock is now on the right side of the screen.")
+                    haha = true;
+                }
+                localStorage.setItem(SaveKey+"dockpos", dockpos)
+            } catch {
+                replywith("Error: Invalid dock position. Please enter a number between 1 and 3. (1 for left, 2 for bottom, 3 for right)")
+                haha = true;
+                return;
+            }
+        }
+
+
     }  else if (repl.includes(">replace ")) {
+        //remove
         try {
             item = repl.replace(">replace ", "")
             item[0] = item[0]/1
@@ -859,7 +1473,7 @@ function command(repl) {
 
             item = item.replace(itemd, "")
             console.log(item)
-                //item = repl.replace(" ", "")
+                //remove
                 console.log(supapps)
                 console.log(item)
                 item = item.slice(1)
@@ -907,45 +1521,44 @@ function command(repl) {
                         localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
                         localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
                         localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+                    } else if (curpage == 3) {
+                        returned = apppage3[itemd-1]
+                        apppage3[itemd-1] = item[1]
+                        document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
+                        document.getElementById("dockclick"+itemd).href = supsites[appti];
+                        document.getElementById("docktext"+itemd).innerHTML = item;
+                        apppage3[itemd-1] = item;
+                        appsites3[itemd-1] = supsites[appti];
+                        localStorage.setItem(SaveKey+"apppage3", JSON.stringify(apppage3))
+      
+                        localStorage.setItem(SaveKey+"appsites3", JSON.stringify(appsites3))
+                    }
+                    else if (curpage == 4) {
+                        returned = apppage4[itemd-1]
+                        apppage4[itemd-1] = item[1]
+                        document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
+                        document.getElementById("dockclick"+itemd).href = supsites[appti];
+                        document.getElementById("docktext"+itemd).innerHTML = item;
+                        apppage4[itemd-1] = item;
+                        appsites4[itemd-1] = supsites[appti];
+                        localStorage.setItem(SaveKey+"apppage4", JSON.stringify(apppage4))
+      
+                        localStorage.setItem(SaveKey+"appsites4", JSON.stringify(appsites4))
+                   
                     }
                     replywith("Replaced slot "+itemd+" with "+item+" on page "+curpage+".")
-                } else if (item == "0") {
-                    if (curpage == 1) {
-                        returned = apppage1[itemd-1]
-                        apppage1[itemd-1] = ""
-                        document.getElementById("dockpic"+itemd).src = "Images/None.png";
-                        document.getElementById("dockclick"+itemd).href = supsites[appti];
-                        document.getElementById("docktext"+itemd).innerHTML = "";
-                        apppage1[itemd-1] = item;
-                        appsites1[itemd-1] = supsites[appti];
-                        localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
-                        localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
-                        localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
-                        localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
-                    } else if (curpage == 2) {
-                        returned = apppage2[itemd-1]
-                        apppage2[itemd-1] = ""
-                        document.getElementById("dockpic"+itemd).src = "Images/None.png";
-                        document.getElementById("dockclick"+itemd).href = supsites[appti];
-                        document.getElementById("docktext"+itemd).innerHTML = "";
-                        apppage2[itemd-1] = item;
-                        appsites2[itemd-1] = supsites[appti];
-                        localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
-                        localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
-                        localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
-                        localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
-                    }
-                    replywith("Removed "+returned+" from the dock.")
+                    
+                 
 
                 } else {
-                    replywith("Error: Not a valid app. Please use '>replace (number) (appname)' or '>replace (number) 0' to remove the app.")
+                    replywith("Error: Not a valid app. Please use '>replace (number) (appname)'.")
                     haha = true;
                 }
                 haha = true;
  
  
             } catch {
-                replywith("Error: Invalid syntax. Please use '>replace (number) (appname)' or '>replace (number) 0' to remove the app.")
+                replywith("Error: Invalid syntax. Please use '>replace (number) (appname)'.")
                 haha = true;
             }
 
@@ -955,6 +1568,8 @@ function command(repl) {
 ----------------
 Username: ${username}
 Background: ${localStorage.getItem(SaveKey+"TerryBgFile")}
+Video Background: ${localStorage.getItem(SaveKey+"vbgfile")}
+Background Type: ${bgtype}
 Font Color: ${localStorage.getItem(SaveKey+"TerryFontColor")}
 Outline Color: ${localStorage.getItem(SaveKey+"TerryOutlColor")}
 Font: ${localStorage.getItem(SaveKey+"TerryFont")}
@@ -966,6 +1581,10 @@ Text Speed: ${textspeed}ms
 Google API key: ${APIkey}
 Calculation Mode: ${calcmode ? "Degrees" : "Radians"}
 Max Denominator: ${MaxDenominator}
+Dock Mode: ${simpledock ? "Simple Dock" : "Fluid Dock"}
+Locked Dock: ${lockeddock ? "Locked" : "Unlocked"}
+Your Apps: ${supapps}
+Linked Sites to Respective Apps: ${supsites}
 ----------------`)
         haha = true
         responding = false;
@@ -1076,6 +1695,20 @@ Max Denominator: ${MaxDenominator}
             localStorage.setItem(SaveKey+"showclock", JSON.stringify(true));
             localStorage.setItem(SaveKey+"showappdock", JSON.stringify(true));
             localStorage.setItem(SaveKey+"switchdock", JSON.stringify(true));
+            localStorage.setItem(SaveKey+"update1.2","lol")
+            localStorage.setItem(SaveKey+"showseconds", JSON.stringify(showseconds));
+            localStorage.setItem(SaveKey+"dockpos", dockpos);
+            localStorage.setItem(SaveKey+"simpledock", JSON.stringify(true));
+            localStorage.setItem(SaveKey+"appsites3", JSON.stringify(appsites3));
+            localStorage.setItem(SaveKey+"appsites4", JSON.stringify(appsites4));
+            localStorage.setItem(SaveKey+"apppage3", JSON.stringify(apppage3));
+            localStorage.setItem(SaveKey+"apppage4", JSON.stringify(apppage4));
+            localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
+            localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
+            localStorage.setItem(SaveKey+"vbgfile", "City.mp4");
+            localStorage.setItem(SaveKey+"bgtype", "image");
+            localStorage.setItem(SaveKey+"lockeddock", false)
+
 
             checksaved();
 
@@ -1370,9 +2003,172 @@ document.addEventListener('DOMContentLoaded', () => {
 //status
 
 
+async function movedockup() {
+    curtop = document.getElementById("appdock").style.top;
+        curtop = parseFloat(curtop);
+ 
+
+    if ((clientHeight-curtop/100*clientHeight) > 90) {
+            return;
+    }
+    
+    for (let i =0 ; i < 1000; i++) {
+        await sleep(5);
+        curtop = document.getElementById("appdock").style.top;
+        curtop = parseFloat(curtop);
+        document.getElementById("appdock").style.top = curtop - 0.05 + "%";
+       
+        if (clientHeight-(curtop/100*clientHeight) > 90) {
+            break;
+        }
+    }
+    
+}
+async function leftmovedockright() {
+    curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+    console.log(curtop/clientWidth)
+
+    if ((curtop/100*clientWidth) > 25) {
+        
+            return;
+    }
+    
+    for (let i =0 ; i < 1000; i++) {
+        console.log(curtop)
+        await sleep(5);
+        curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+        document.getElementById("appdock").style.left = curtop + 0.05 + "%";
+       
+        if ((curtop/100*clientWidth) > 25) {
+            break;
+        }
+    }
+    
+}
+
+async function rightmovedockleft() {
+    curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+    console.log(curtop/100*clientWidth)
+    if (((curtop/100)*clientWidth) < clientWidth-25) {
+        
+            return;
+    }
+    
+    for (let i =0 ; i < 1000; i++) {
+        
+        await sleep(5);
+        curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+        document.getElementById("appdock").style.left = curtop - 0.05 + "%";
+       
+        if (((curtop/100)*clientWidth) < clientWidth-25) {
+            break;
+        }
+    }
+    
+}
+
+async function rightmovedockright() {
+    curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+
+
+    if ((curtop/100*clientWidth) > (dockwidthlmt/100*clientWidth)) {
+        
+            return;
+    }
+    
+    for (let i =0 ; i < 1000; i++) {
+        console.log(dockwidthlmt)
+        await sleep(5);
+        curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+        document.getElementById("appdock").style.left = curtop + 0.05 + "%";
+
+        if ((curtop/100*clientWidth) > (dockwidthlmt/100*clientWidth)) {
+            break;
+        }
+    }
+    
+}
+
+async function leftmovedockleft() {
+    curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+    console.log(curtop/clientWidth)
+
+    if ((curtop/100*clientWidth) < -(dockwidthlmt/100-1)*clientWidth) {
+        
+            return;
+    }
+    
+    for (let i =0 ; i < 1000; i++) {
+        console.log(curtop)
+        await sleep(5);
+        curtop = document.getElementById("appdock").style.left;
+        curtop = parseFloat(curtop);
+        document.getElementById("appdock").style.left = curtop - 0.05 + "%";
+
+        if ((curtop/100*clientWidth) < -(dockwidthlmt/100-1)*clientWidth) {
+            break;
+        }
+    }
+    
+}
+
+async function movedockdown() {
+    curtop = document.getElementById("appdock").style.top;
+    curtop = parseFloat(curtop);
+ 
+
+    if (curtop >= dockdownlmt) {
+            return;
+    }
+    
+    for (let i =0 ; i < 1000; i++) {
+        await sleep(5);
+        curtop = document.getElementById("appdock").style.top;
+        curtop = parseFloat(curtop);
+        document.getElementById("appdock").style.top = curtop + 0.05 + "%";
+       
+        if (curtop >= dockdownlmt) {
+            break;
+        }
+    }
+    
+}
 
 
 
+document.addEventListener('mousemove', function(event) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    //console.log(`Mouse position: X=${mouseX}, Y=${mouseY}`);
+    if ((mouseY/clientHeight) > dockdownchklmt && dockpos == 2 && !simpledock && !lockeddock) {
+        movedockup();
+    }
+    if ((mouseY/clientHeight) < 4*dockdownchklmt/5 && dockpos == 2 && !simpledock && !lockeddock) {
+        movedockdown();
+    }
+    if ((mouseX/clientWidth) < (1-dockwidthchklmt) && dockpos == 1 && !simpledock && !lockeddock) {
+
+
+        leftmovedockright();
+    }
+    if ((mouseX/clientWidth) > (1-dockwidthchklmt) && dockpos == 1 && !simpledock && !lockeddock) {
+        leftmovedockleft();
+    }
+    if ((mouseX/clientWidth) > (dockwidthchklmt) && dockpos == 3 && !simpledock && !lockeddock) {
+        rightmovedockleft();
+    }
+    if ((mouseX/clientWidth) < (dockwidthchklmt) && dockpos == 3 && !simpledock && !lockeddock) {
+        rightmovedockright();
+    }
+    
+});
 
 
 
