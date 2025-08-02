@@ -12,12 +12,15 @@
 <body id = "mainbg">
   <br>
   
-
+  <video src = "Videos/City.mp4" autoplay muted loop id="VidBack"></video>
   </div>
     <h1 id="clock">Loading...</h1>
 
     <script>
+        fclock = true; // true for 24-hour format, false for 12-hour format
+        showseconds = true; // true for showing seconds in clock, false for hiding seconds
         fclock = JSON.parse(localStorage.getItem("SCR-OS/ClockFormat"));
+        showseconds = JSON.parse(localStorage.getItem("SCR-OS/showseconds"));
        
         function updateClock() {
       
@@ -28,6 +31,7 @@
             if (fclock==true) {
         
                 // 24-hour format
+
                 document.getElementById('clock').style.fontSize = "80px";
             } else {
               console.log(fclock);
@@ -35,11 +39,23 @@
                 const period = hours >= 12 ? 'PM' : 'AM';
                 const hour12 = String(hours % 12 || 12).padStart(2, '0');
                 document.getElementById('clock').style.fontSize = "70px";
-                document.getElementById('clock').textContent = `${hour12}:${minutes}:${seconds} ${period}`;
+                if (showseconds) {
+                  document.getElementById('clock').textContent = `${hour12}:${minutes}:${seconds} ${period}`;
+                } else {
+                  document.getElementById('clock').style.fontSize = "80px";
+                  document.getElementById('clock').textContent = `${hour12}:${minutes} ${period}`;
+                }
                 return;
             }
-            const timeString = `${hours}:${minutes}:${seconds}`;
-            document.getElementById('clock').textContent = timeString;
+            if (showseconds) {
+                document.getElementById('clock').style.fontSize = "85px";
+                const timeString = `${hours}:${minutes}:${seconds}`;
+                document.getElementById('clock').textContent = timeString;
+            } else {
+                document.getElementById('clock').style.fontSize = "80px";
+                const timeString = `${hours}:${minutes}`;
+                document.getElementById('clock').textContent = timeString;
+            }
         }
 
         // Initial call
@@ -48,8 +64,9 @@
         setInterval(updateClock, 1000);
     </script>
   <div class = "bot">
-    <img>
+  
       <img src="images/Terry.png" alt="TerryBot" id="terrybot">
+      
     <h2 id = "Terry" class = "Terry" onload="greetings()">Hello. I am Terry. How may I assist you today?</h2>
     
     
@@ -83,8 +100,8 @@
       <p id="docktext9">Office</p>
       <p id="docktext10">Weather</p>
 
-      <p id="leftarrow" unselectable="on" onclick="pagechange('left')"><</p>
-      <p id="righttarrow" unselectable="on" onclick="pagechange('right')">></p>
+      <p id="leftarrow" unselectable="on" onclick="pagechange('left')">◄</p>
+      <p id="rightarrow" unselectable="on" onclick="pagechange('right')">►</p>
 
   </div>
   <div id = "intr" class="intr">

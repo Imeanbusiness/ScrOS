@@ -8,12 +8,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Inter:wght@400;700&family=Spectral:wght@400;700&family=Merriweather:wght@400;700&family=Alegreya:wght@400;700&family=Rokkitt:wght@400;700&family=Poppins:wght@400;700&family=Oswald:wght@400;700&family=Ultra&family=Roboto+Flex:wght@400;700&family=Fira+Sans:wght@400;700&family=Source+Sans+3:wght@400;700&family=EB+Garamond:wght@400;700&family=Jost:wght@400;700&family=Rubik:wght@400;700&family=Work+Sans:wght@400;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap');
 html {
     height: 100%;
     width: 100%;
     font-family: "Poppins", sans-serif;
+    overflow: hidden;
 
+}
 
+.element-with-hidden-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 
@@ -26,6 +32,19 @@ html {
     width: 70%;
 }
 
+#VidBack {
+
+      position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: -1;
+}
 
 body {
     color: white;
@@ -321,7 +340,7 @@ input {
     font-size: 30px;
 }
 
-#righttarrow {
+#rightarrow {
     grid-row: 2;
     grid-column: 7;
     text-shadow: 1px 1px 2px black;
@@ -375,4 +394,3 @@ input {
     grid-row: 3;
     grid-column: 6;
 }
-

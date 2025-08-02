@@ -26,7 +26,7 @@ This is the output of whatever commands you enter into the command panel.
 
 ### 3: App Dock
 
-These are the basic app icons you can click on to quickly navigate. Use the arrow keys on board to flip between pages.
+These are the basic app icons you can click on to quickly navigate. Use the arrow keys on board to flip between pages. You an custoize the postiion and available apps on this. 
 
 ### 4: Command Panel (Input)
 
@@ -34,13 +34,13 @@ This is like a terminal where you enter in all you commands, which are analyzed 
 
 ## Functions 
 
-### Conversation
+### Quick Research
 
-While limited, you can have basic conversation with Terry.
+In Chat Mode, you can access Google straight through Terry. You will need your own API key. 
 
-### Basic stuff
+### Convenience
 
-You can ask Terry to open up sites for you, or google search if it's something he doesn't know.
+You can ask Terry to open up sites for you, or google search if it's something he doesn't know. You can use terry to quickly search on Spotify and Youtube.
 
 ### Commands
 
@@ -50,9 +50,11 @@ You can run commands on Terry to make him work specifically.
 
 Running commands allows you to change up settings with the start up screen, whether it's the font family, background picture, font color, and more!
 
-### Ease of use
+## Other notes
 
-Scr-OS offers a home screen with some of the most used apps in social media for your reference! Running commands is easy and intuitive as well.
+### Issues 
+
+Please report any issues that you may have with Scr-OS to me on Scr-OS' GitHub. Run `>gh` to directly go to the Scr-OS GitHub page.
 
 ## Commands 
 
@@ -62,11 +64,24 @@ Here is a list of every command and how to use it.
 
 | Command | Description |
 |--------|-------------|
-| `>bgc (filename)` | Set the background to a specific image. Image must be in the `Images` folder. |
+| `>bgc (filename)` | Set the background to a specific image. Image must be in the `Images` folder. Example: `>bgc BG2.png` |
+| `>vbgc (filename)` | Set the background to a specific image. Image must be in the `Videos` folder. |
+| `>bgmode` | Toggle between your animated and static backgrounds. Static is on by default. |
 | `>fontcolor (color)` | Set the font color. Accepts hex codes or CSS color names. |
 | `>outlcolor (color)` | Set the font outline color. Accepts hex codes or CSS color names. |
-| `>font (font name)` | Set the font family. Example: `Nunito`, `Arial`. |
+| `>font (font name)` | Set the font family. Example: `Nunito`, `Arial`. Scr-OS currently supports 29 fonts: Montserrat, Noto Sans, Nunito, Open Sans, Roboto, Ubuntu, Poppins, Homenaje, Pixelify Sans, Raleway, Source Code Pro, Bebas Neue, Orbitron, Lato, Inter, Spectral, Merriweather, Alegreya, Rokkitt, Oswald, Ultra, Roboto Flex, Fira Sans, Source Sans 3, EB Garamond, Jost, Rubik, Work Sans, Frank Ruhl Libre |
 | `>iconpack (folder name)` | Change the icon set. All icons should follow the format `AppIcons/AppName.png`. (Twitter must be named `Twitter.png`) |
+| `>remove (slot)` | Removes an app from the app dock on the current page. There are only slots 1 to 10. |
+| `>replace (slot) (appname)` | Replace a slot from the app dock on the current page with the app you request. Please submit an issue on GitHub if you would like to see more apps. |
+| `>showclock` | Toggle the clock. |
+| `>showseconds` | Toggle whether you can see seconds or not on the clock. |
+| `>showdock` | Toggle the app dock. |
+| `>switchdock` | Switch the app dock and input positions. |
+| `>pgs (pages)` | Set your desired page count for your app dock. The minimum is 1, and the maximum is capped at 4 (for now).|
+| `>dockmode` | Toggle between fluid and simple dock modes. |
+| `>lockdock` | Lock the fluid dock in place |
+| `>appadd (appname)` | Add your own apps to te list of supported apps. Copy down the desired site location of your app before proceeding. For example, `https:/discord.com` is copied. Head into Scr-OS and add your app name. Note that everything except the first letter will automatically be lowercased. The first letter is always uppercased. Example: `>appadd Discord`. Proceed to paste the destination link into the prompt. Do not exit the page. You will need to add your own icons to your current iconpack. the format should be `Appname.png`. For example, if I am using AppIcons, I will put `Discord.png` inside AppIcons. The exact name of your app should be used. |
+| `>appremove (appname)` | Remove an App from the list of supported apps. Make sure you use the exact name. |
 
 ---
 
@@ -104,12 +119,8 @@ Here is a list of every command and how to use it.
 | `>reset` | Reset Scr-OS memory to default. Requires running twice to confirm. |
 | `>fclock` | Toggle between 12-hour and 24-hour clock format. |
 | `>textms (delay)` | Set a delay during text generation in milliseconds (ms). Must be within 0 to 100. |
-| `>remove (slot)` | Removes an app from the app dock on the current page. There are only slots 1 to 10. |
-| `>replace (slot) (appname)` | Replace a slot from the app dock on the current page with the app you request. Please submit an issue on GitHub if you would like to see more apps. Enter 0 as appname to remove the app. |
 | `>api` | Enter your own API to use some chat functions. You can get your own API [here](https://developers.google.com/custom-search/v1/overview) |
-| `>showclock` | Toggle the clock |
-| `>showdock` | Toggle the app dock. |
-| `>switchdock` | Switch the app dock and input positions. |
+
 
 ---
 
@@ -121,4 +132,6 @@ Here is a list of every command and how to use it.
 | `dmode` | Decides whether "chat mode" or "search mode" is set as default during startup. |
 
 ---
+
+
 
