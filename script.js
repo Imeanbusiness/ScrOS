@@ -200,7 +200,7 @@ async function checksaved() {
             vbgfile = localStorage.getItem(SaveKey+"vbgfile");
             bgtype = localStorage.getItem(SaveKey+"bgtype");
             lockeddock = JSON.parse(localStorage.getItem(SaveKey+"lockeddock"))
-            document.getElementById("VidBack").style.src = "Videos/"+vbgfile;
+            document.getElementById("VidBack").src = "Videos/"+vbgfile;
             if (bgtype == "video") {
                 document.getElementById("VidBack").style.display = "block";
             } else {
@@ -930,9 +930,10 @@ function command(repl) {
         haha = true
     
     } else if (repl.includes(">vbgc ")) {
-        sit = repl.replace(">vbgc ","")
+        sit = orgians.replace(">vbgc ","")
+        console.log(sit)
         localStorage.setItem(SaveKey+"vbgfile",sit)
-        document.getElementById("VidBack").style.src = "Videos/"+sit;
+        document.getElementById("VidBack").src = "Videos/"+sit;
         replywith('Set successfully.')
         haha = true;
         
@@ -1983,6 +1984,7 @@ function respond() {
    
     j = false;
     responses(ans);
+
     
 
     document.getElementById("Resp").value = "";
