@@ -1,5 +1,5 @@
 'ops'
-'bgtype'
+'vbgc'
 //page
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
@@ -929,8 +929,8 @@ function command(repl) {
         document.getElementById("mainbg").style.backgroundImage = "url(\"Images/"+sit+"\")";
         haha = true
     
-    } else if (repl.includes("vbgc ")) {
-        sit = repl.replace("vbgc ","")
+    } else if (repl.includes(">vbgc ")) {
+        sit = repl.replace(">vbgc ","")
         localStorage.setItem(SaveKey+"vbgfile",sit)
         document.getElementById("VidBack").style.src = "Videos/"+sit;
         replywith('Set successfully.')
@@ -938,7 +938,7 @@ function command(repl) {
         
 
 
-    } else if (repl.includes("bgmode")) {
+    } else if (repl.includes(">bgmode")) {
         if (bgtype=="video") {
             replywith("Switched background type to image. Set your background image with '>bgc (image_file)'")
             bgtype = "image"
