@@ -23,7 +23,7 @@ html {
 }
 
 
-.bot {
+#bot {
     text-align: center;
     top: 35%;
     left: 50%;
@@ -108,10 +108,10 @@ input {
 
 #intr {
     text-align: center;
-    top: 90%;
+    top: 60%;
     left: 50%;
     width: 100%;
-    transform: translate(-50%, -90%);
+    transform: translate(-50%, -50%);
     position: absolute;
 }
 
@@ -394,3 +394,5 @@ input {
     grid-row: 3;
     grid-column: 6;
 }
+
+/*clock*/

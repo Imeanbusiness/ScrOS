@@ -4,7 +4,7 @@
 
 ### Installation
 
-1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.2.0`, code name `Marina`.
+1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.2.1`, code name `Marina`.
 
 2. Unzip the folder
 
@@ -80,9 +80,11 @@ Here is a list of every command and how to use it.
 | `>pgs (pages)` | Set your desired page count for your app dock. The minimum is 1, and the maximum is capped at 4 (for now).|
 | `>dockmode` | Toggle between fluid and simple dock modes. |
 | `>lockdock` | Lock the fluid dock in place |
-| `>appadd (appname)` | Add your own apps to te list of supported apps. Copy down the desired site location of your app before proceeding. For example, `https:/discord.com` is copied. Head into Scr-OS and add your app name. Note that everything except the first letter will automatically be lowercased. The first letter is always uppercased. Example: `>appadd Discord`. Proceed to paste the destination link into the prompt. Do not exit the page. You will need to add your own icons to your current iconpack. the format should be `Appname.png`. For example, if I am using AppIcons, I will put `Discord.png` inside AppIcons. The exact name of your app should be used. |
+| `>appadd (appname)` | Add your own apps to the list of supported apps. Copy down the desired site location of your app before proceeding. For example, `https:/discord.com` is copied. Head into Scr-OS and add your app name. Note that everything except the first letter will automatically be lowercased. The first letter is always uppercased. Example: `>appadd Discord`. Proceed to paste the destination link into the prompt. Do not exit the page. You will need to add your own icons to your current iconpack. the format should be `Appname.png`. For example, if I am using AppIcons, I will put `Discord.png` inside AppIcons. The exact name of your app should be used. |
 | `>appremove (appname)` | Remove an App from the list of supported apps. Make sure you use the exact name. |
-
+| `>inpos (x value) (y value)` | Position the user input anywhere on the screen. Note that after using this, `>switchdock` will not save. Use this with caution. X and Y are based on the % height and width of your screen respectively. |
+| `outnpos (x value) (y value)` | Position the output anywhere on the screen. |
+| `clocknpos (x value) (y value)` | Position the clock anywhere on the screen. |
 ---
 
 ## 🛠️ Assistance
@@ -135,3 +137,39 @@ Here is a list of every command and how to use it.
 
 
 
+## Patch Notes 
+
+## Scr-OS Marina (Version 1.2.1 (Positioning)) 
+
+- Added custom positioning for the input, output, and clock
+- Scroll wheel can not be used to flip pages
+- Fixed `>switchdock` inconsistencies when fluid dock is enabled.
+
+## Scr-OS Marina (Version 1.2.0) 
+
+- Background type can now be toggled between video and static
+- The dock bar has become much more customizable. The maximum number of pages has doubled, going from 2 to 4.
+- You can now position the dock bar at the bottom, left, and right with `>dockmode` and `>dockpos`. You can toggle them to stay in place or pop up when your mouse is close enough with `>lockdock`. This may not work as well on smaller screens or windows.
+- You can now change what apps are supported and add your own icons for bookmarks, etc.
+- You can now toggle seconds being displayed on the clock.
+- The calculator now has an improved fraction mode.
+- 29 fonts are now supported, detailed in the ReadMe file.
+
+## Scr-OS Recto (Version 1.1.2 + 1.1.3)
+
+- Calculator with new fractions feature
+- Added degrees mode to calculator
+- Added option to use own API key
+- `>reset` dmode missing fix
+
+## Scr-OS Recto (Version 1.1.0 (App Dock Changes))
+
+- New App Dock pages and more customizability added.
+- Smoother Chat functions
+- Smoother load animations
+- Added default mode switching
+- `>reset` bug fixes
+
+## Scr-OS Release (Version 1.0)
+
+- First official release

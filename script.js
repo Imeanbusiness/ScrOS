@@ -1,11 +1,11 @@
 'ops'
-'vbgc'
+'settings'
 //page
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
 chatmode = false;
 apps = ["google","spotify","youtube","facebook","instagram","x","tiktok","reddit","github","netflix","gmail","office", "linkedin"]
-
+const devmode = false;
 supapps = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather", "linkedin","netflix","github", "wikipedia","twitch"]
 supsites = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/", "https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
 
@@ -59,14 +59,18 @@ showseconds = true; // true for showing seconds in clock, false for hiding secon
 bgtype = "image"
 vbgfile = "City.mp4"
 dockloc = "open"
+clockpos = ["50", "95"]
+inpos = ["50", "10"]
+const initinpos = ["50", "10"]
+outpos = ["50", "65"]
 //learn
 //settings
 
 async function replacedock() {
     
-    if (switchdock && !simpledock) {
+    if (switchdock && !simpledock && inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                     document.getElementById("intr").style.top = "80%";
-    } else {
+    } else if(inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
         document.getElementById("intr").style.top = "60%";
     }
     if (!simpledock) {
@@ -96,7 +100,11 @@ async function replacedock() {
                     document.getElementById("appdock").style.left = 100-dockwidthlmt+"%";
                     document.getElementById("appdock").style.top = "55%";
                     //document.getElementById("appdock").style.top = dockdownlmt + "%";
-                    document.getElementById("intr").style.top = "60%";
+                    if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                    document.getElementById("intr").style.top = "80%";
+                    } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                        document.getElementById("intr").style.top = "60%";
+                    }
                 }
             }
             if (dockpos == 2) {
@@ -131,7 +139,11 @@ async function replacedock() {
                 document.getElementById("appdock").style.height = "50px";
                 document.getElementById("appdock").style.top = dockdownlmt + "%";
                 document.getElementById("appdock").style.left = "50%";
-                document.getElementById("intr").style.top = "60%";
+                if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                    document.getElementById("intr").style.top = "80%";
+                } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                    document.getElementById("intr").style.top = "60%";
+                }
             }
             if (dockpos == 3) {
                   document.getElementById("appdock").style.gridTemplateColumns = "70px";
@@ -157,7 +169,11 @@ async function replacedock() {
                       document.getElementById("appdock").style.left = dockwidthlmt+"%";
                       document.getElementById("appdock").style.top = "55%";
                       //document.getElementById("appdock").style.top = dockdownlmt + "%";
-                      document.getElementById("intr").style.top = "60%";
+                      if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                        document.getElementById("intr").style.top = "80%";
+                        } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                            document.getElementById("intr").style.top = "60%";
+                        }
                   }
               }
             if (lockeddock && !simpledock) {
@@ -176,15 +192,69 @@ async function replacedock() {
             }   
          }
 
-         
          localStorage.setItem(SaveKey+"dockpos", dockpos);
 
 }
 }
 
+function Save(Title, Value) {
+    localStorage.setItem(SaveKey+Title, Value)
+}
+
+function Load(Title) {
+    localStorage.getItem(SaveKey+Title)
+}
+
 
 async function checksaved() {
     console.log("Checking saved data...")
+
+
+    try {
+        saved = localStorage.getItem(SaveKey+"update1.2.1")
+        if (saved=="lol") {
+            clockpos = JSON.parse(localStorage.getItem(SaveKey+"clockpos"))
+            inpos = JSON.parse(localStorage.getItem(SaveKey+"inpos"))
+            outpos = JSON.parse(localStorage.getItem(SaveKey+"outpos"))
+            
+
+        } else {
+            clockpos = ["50", "95"]
+            inpos = ["50", "10"]
+
+            outpos = ["50", "65"]
+            Save("update1.2.1", "lol")
+            Save("clockpos", JSON.stringify(clockpos))
+            Save("inpos", JSON.stringify(inpos))
+            Save("outpos", JSON.stringify(outpos))
+            if (!onealert) {
+                alert("Scr-OS has been updated to version 1.2.1.")
+                onealert = true;
+            }
+        }
+    } catch {
+        Save("update1.2.1", "lol")
+            Save("clockpos", JSON.stringify(clockpos))
+            Save("inpos", JSON.stringify(inpos))
+            Save("outpos", JSON.stringify(outpos))
+            if (!onealert) {
+                alert("Scr-OS has been updated to version 1.2.1.")
+                onealert = true;
+            }
+        }
+        
+        document.getElementById("clock").style.left = (clockpos[0])+"%"
+        document.getElementById("clock").style.top = (100-clockpos[1])+"%"
+        document.getElementById("intr").style.left = (inpos[0])+"%"
+        document.getElementById("intr").style.top = (100-inpos[1])+"%"
+        document.getElementById("bot").style.left = (outpos[0])+"%"
+        document.getElementById("bot").style.top = (100-outpos[1])+"%"
+        
+    
+    
+    
+    
+
     try {
         saved = localStorage.getItem(SaveKey+"update1.2");
         if (saved == "lol") {
@@ -235,145 +305,145 @@ async function checksaved() {
             }
         }
     } catch {
-            localStorage.setItem(SaveKey+"update1.2","lol")
-            localStorage.setItem(SaveKey+"showseconds", JSON.stringify(showseconds));
-            localStorage.setItem(SaveKey+"dockpos", dockpos);
-            localStorage.setItem(SaveKey+"simpledock", JSON.stringify(true));
-            localStorage.setItem(SaveKey+"appsites3", JSON.stringify(appsites3));
-            localStorage.setItem(SaveKey+"appsites4", JSON.stringify(appsites4));
-            localStorage.setItem(SaveKey+"apppage3", JSON.stringify(apppage3));
-            localStorage.setItem(SaveKey+"apppage4", JSON.stringify(apppage4));
-            localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
-            localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
-            localStorage.setItem(SaveKey+"lockeddock", JSON.stringify(false))
-            localStorage.setItem(SaveKey+"vbgfile", vbgfile);
-            localStorage.setItem(SaveKey+"bgtype", bgtype);
-            if (bgtype == "video") {
-                document.getElementById("VidBack").style.display = "block";
-                console.log("hi")
+        localStorage.setItem(SaveKey+"update1.2","lol")
+        localStorage.setItem(SaveKey+"showseconds", JSON.stringify(showseconds));
+        localStorage.setItem(SaveKey+"dockpos", dockpos);
+        localStorage.setItem(SaveKey+"simpledock", JSON.stringify(true));
+        localStorage.setItem(SaveKey+"appsites3", JSON.stringify(appsites3));
+        localStorage.setItem(SaveKey+"appsites4", JSON.stringify(appsites4));
+        localStorage.setItem(SaveKey+"apppage3", JSON.stringify(apppage3));
+        localStorage.setItem(SaveKey+"apppage4", JSON.stringify(apppage4));
+        localStorage.setItem(SaveKey+"supapps", JSON.stringify(supapps))
+        localStorage.setItem(SaveKey+"supsites", JSON.stringify(supsites))
+        localStorage.setItem(SaveKey+"lockeddock", JSON.stringify(false))
+        localStorage.setItem(SaveKey+"vbgfile", vbgfile);
+        localStorage.setItem(SaveKey+"bgtype", bgtype);
+        if (bgtype == "video") {
+            document.getElementById("VidBack").style.display = "block";
+            console.log("hi")
+        } else {
+            console.log("bye")
+            document.getElementById("VidBack").style.display = "none";
+        }
+        
+        if (!onealert) {
+            alert("Scr-OS has been updated to version 1.2.0.")
+            onealert = true;
+        }
+    }
+    if (!simpledock) {
+        replacedock();
+    }
+    if (lockeddock) {
+        if (lockeddock && !simpledock) {
+            if (dockpos == 1) {
+                settop = 25/clientWidth*100;
+                document.getElementById("appdock").style.left = settop  + "%";
+            }
+            if (dockpos == 2) {
+                settop = 100-(90/clientHeight*100);
+                document.getElementById("appdock").style.top = settop  + "%";
+            }
+            if (dockpos == 3) {
+                settop = 100-(25/clientHeight*100);
+                document.getElementById("appdock").style.left = settop  + "%";
+            }
+        }   
+    }
+    
+    
+    try {
+        saved = localStorage.getItem(SaveKey+"update1.1.3");
+        console.log(saved)
+        if (saved=="lol") {
+            showclock = JSON.parse(localStorage.getItem(SaveKey+"showclock"));
+            showappdock = JSON.parse(localStorage.getItem(SaveKey+"showappdock"));
+            switchdock = JSON.parse(localStorage.getItem(SaveKey+"switchdock"));
+            if (showclock) {
+                document.getElementById("clock").style.display = "block";
             } else {
-                console.log("bye")
-                document.getElementById("VidBack").style.display = "none";
+                document.getElementById("clock").style.display = "none";
+            }
+            if (!showappdock) {
+                document.getElementById("appdock").style.display = "none";
+            }
+            if (switchdock && dockloc=="locked" &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                document.getElementById("intr").style.top = "80%";
+            } else if ( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                document.getElementById("intr").style.top = "60%";
+            }
+            if (switchdock && dockloc != "locked" &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                document.getElementById("appdock").style.top = "53%";
+                document.getElementById("intr").style.top = "90%";
+            } else if (dockloc != "locked" &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
+                document.getElementById("appdock").style.top = "70%";
+                document.getElementById("intr").style.top = "60%";
             }
             
-            if (!onealert) {
-                alert("Scr-OS has been updated to version 1.2.0.")
-                onealert = true;
-            }
-    }
-         if (!simpledock) {
-            replacedock();
-         }
-         if (lockeddock) {
-            if (lockeddock && !simpledock) {
-                if (dockpos == 1) {
-                    settop = 25/clientWidth*100;
-                    document.getElementById("appdock").style.left = settop  + "%";
-                }
-                if (dockpos == 2) {
-                    settop = 100-(90/clientHeight*100);
-                    document.getElementById("appdock").style.top = settop  + "%";
-                }
-                if (dockpos == 3) {
-                    settop = 100-(25/clientHeight*100);
-                    document.getElementById("appdock").style.left = settop  + "%";
-                }
-            }   
-         }
-
-
-        try {
-            saved = localStorage.getItem(SaveKey+"update1.1.3");
-            console.log(saved)
-            if (saved=="lol") {
-                showclock = JSON.parse(localStorage.getItem(SaveKey+"showclock"));
-                showappdock = JSON.parse(localStorage.getItem(SaveKey+"showappdock"));
-                switchdock = JSON.parse(localStorage.getItem(SaveKey+"switchdock"));
-                if (showclock) {
-                    document.getElementById("clock").style.display = "block";
-                } else {
-                    document.getElementById("clock").style.display = "none";
-                }
-                if (!showappdock) {
-                    document.getElementById("appdock").style.display = "none";
-                }
-                if (switchdock && dockloc=="locked") {
-                    document.getElementById("intr").style.top = "80%";
-                } else {
-                    document.getElementById("intr").style.top = "60%";
-                }
-                if (switchdock && dockloc != "locked") {
-                    document.getElementById("appdock").style.top = "53%";
-                    document.getElementById("intr").style.top = "90%";
-                } else if (dockloc != "locked") {
-                    document.getElementById("appdock").style.top = "70%";
-                    document.getElementById("intr").style.top = "60%";
-                }
-                
-            } else {
-                localStorage.setItem(SaveKey+"update1.1.3","lol")
-                localStorage.setItem(SaveKey+"showclock", JSON.stringify(showclock));
-                localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
-                localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
-                if (!onealert) {
-                    alert("Scr-OS has been updated to version 1.1.3.")
-                onealert = true;
-            }
-            }
-        } catch {
+        } else {
             localStorage.setItem(SaveKey+"update1.1.3","lol")
             localStorage.setItem(SaveKey+"showclock", JSON.stringify(showclock));
-                localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
-                localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
+            localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
+            localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
             if (!onealert) {
                 alert("Scr-OS has been updated to version 1.1.3.")
                 onealert = true;
             }
         }
-
-
-
-        try {
-            saved = localStorage.getItem(SaveKey+"update1.1.2");
-            if (saved=="lol") {
-                MaxDenominator = localStorage.getItem(SaveKey+"MaxDenominator");
-                calcmode = JSON.parse(localStorage.getItem(SaveKey+"calcmode"));
-            } else {
-                localStorage.setItem(SaveKey+"update1.1.2","lol")
-                localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
-                localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
-                if (!onealert) {
-                alert("Scr-OS has been updated to version 1.1.2.")
-                onealert = true;
-            }
-            }
-        } catch {
-                localStorage.setItem(SaveKey+"update1.1.2","lol")
-                localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
-                localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
-                if (!onealert) {
+    } catch {
+        localStorage.setItem(SaveKey+"update1.1.3","lol")
+        localStorage.setItem(SaveKey+"showclock", JSON.stringify(showclock));
+        localStorage.setItem(SaveKey+"showappdock", JSON.stringify(showappdock));
+        localStorage.setItem(SaveKey+"switchdock", JSON.stringify(switchdock));
+        if (!onealert) {
+            alert("Scr-OS has been updated to version 1.1.3.")
+            onealert = true;
+        }
+    }
+    
+    
+    
+    try {
+        saved = localStorage.getItem(SaveKey+"update1.1.2");
+        if (saved=="lol") {
+            MaxDenominator = localStorage.getItem(SaveKey+"MaxDenominator");
+            calcmode = JSON.parse(localStorage.getItem(SaveKey+"calcmode"));
+        } else {
+            localStorage.setItem(SaveKey+"update1.1.2","lol")
+            localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
+            localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
+            if (!onealert) {
                 alert("Scr-OS has been updated to version 1.1.2.")
                 onealert = true;
             }
         }
-
-
-
-        try {
-            APIkey = localStorage.getItem(SaveKey+"APIkey");
-            if (APIkey == null) {
-                APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
-                localStorage.setItem(SaveKey+"APIkey", APIkey)
-            }
-        } catch {
+    } catch {
+        localStorage.setItem(SaveKey+"update1.1.2","lol")
+        localStorage.setItem(SaveKey+"MaxDenominator", MaxDenominator);
+        localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode));
+        if (!onealert) {
+            alert("Scr-OS has been updated to version 1.1.2.")
+            onealert = true;
+        }
+    }
+    
+    
+    
+    try {
+        APIkey = localStorage.getItem(SaveKey+"APIkey");
+        if (APIkey == null) {
             APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
             localStorage.setItem(SaveKey+"APIkey", APIkey)
         }
-
-
-
-
-        try {
+    } catch {
+        APIkey = prompt("Please enter your Google Custom Search API key. You can get one from https://developers.google.com/custom-search/v1/overview");
+        localStorage.setItem(SaveKey+"APIkey", APIkey)
+    }
+    
+    
+    
+    
+    try {
         saved = localStorage.getItem(SaveKey+"update1.1");
         if (saved == "lol") {
             appsites1 = JSON.parse(localStorage.getItem(SaveKey+"appsites1"))
@@ -406,22 +476,22 @@ async function checksaved() {
                 onealert = true;
             }
         }
-        } catch {
-            localStorage.setItem(SaveKey+"update1.1","lol")
-            localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
-            localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
-            localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
-            localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
-            localStorage.setItem(SaveKey+"defaultmode", dmode)
-            localStorage.setItem(SaveKey+"pages", 2)
-            localStorage.setItem(SaveKey+"textspeed", textspeed)
-            if (!onealert) {
-                alert("Scr-OS has been updated to version 1.1.0.")
-                onealert = true;
-            }
+    } catch {
+        localStorage.setItem(SaveKey+"update1.1","lol")
+        localStorage.setItem(SaveKey+"appsites1", JSON.stringify(appsites1))
+        localStorage.setItem(SaveKey+"appsites2", JSON.stringify(appsites2))
+        localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
+        localStorage.setItem(SaveKey+"apppage2", JSON.stringify(apppage2))
+        localStorage.setItem(SaveKey+"defaultmode", dmode)
+        localStorage.setItem(SaveKey+"pages", 2)
+        localStorage.setItem(SaveKey+"textspeed", textspeed)
+        if (!onealert) {
+            alert("Scr-OS has been updated to version 1.1.0.")
+            onealert = true;
         }
-
-
+    }
+    
+    
     
     try {
         saved = localStorage.getItem(SaveKey+"savedd");
@@ -438,8 +508,8 @@ async function checksaved() {
             fontchange = localStorage.getItem(SaveKey+"TerryFont")
             document.body.style.fontFamily = fontchange;
             iconpack = localStorage.getItem(SaveKey+"TerryIconPack")
-
-
+            
+            
         } else {
             localStorage.setItem(SaveKey+"savedd","lol")
             localStorage.setItem(SaveKey+"TerryBgFile", "bg3.jpg")
@@ -459,7 +529,7 @@ async function checksaved() {
             flclock = true;
             console.log(saved)
         }
-
+        
     } catch {
         localStorage.setItem(SaveKey+"savedd","lol")
         localStorage.setItem(SaveKey+"TerryBgFile", "bg3.jpg")
@@ -478,54 +548,54 @@ async function checksaved() {
         localStorage.setItem(SaveKey+"TerryIconPack", "AppIcons")
         flclock = true;
         console.log(saved)
-
+        
     }
     for (let i = 0; i < 10; i++) {
-                
-                
-                itemd = apppage1[i];
-                if (itemd == "") {
-                    itemd ="none"
-                }
-                
-                console.log(itemd[0].toUpperCase())
-                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                console.log(itemd)
-                console.log(iconpack+"/"+itemd+".png")
-
-
-                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
-                    
-                    document.getElementById("docktext"+(i+1)).innerHTML = "";
-
-              
-            }
+        
+        
+        itemd = apppage1[i];
+        if (itemd == "") {
+            itemd ="none"
+        }
+        
+        console.log(itemd[0].toUpperCase())
+        itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+        console.log(itemd)
+        console.log(iconpack+"/"+itemd+".png")
+        
+        
+        document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+        document.getElementById("dockclick"+(i+1)).href = "scros.html";
+        
+        document.getElementById("docktext"+(i+1)).innerHTML = "";
+        
+        
+    }
     for (let i = 0; i < 10; i++) {
-                await sleep(16.666666666666668);
-                
-                itemd = apppage1[i];
-                if (itemd == "") {
-                    itemd ="none"
-                }
-                
-                console.log(itemd[0].toUpperCase())
-                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                console.log(itemd)
-                console.log(iconpack+"/"+itemd+".png")
-
-                if (itemd == "None") {
-                    document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
-                    
-                    document.getElementById("docktext"+(i+1)).innerHTML = "";
-                } else {
-                    document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites1[i];
-                    document.getElementById("docktext"+(i+1)).innerHTML = itemd;
-                }
-              
-            }
+        await sleep(16.666666666666668);
+        
+        itemd = apppage1[i];
+        if (itemd == "") {
+            itemd ="none"
+        }
+        
+        console.log(itemd[0].toUpperCase())
+        itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
+        console.log(itemd)
+        console.log(iconpack+"/"+itemd+".png")
+        
+        if (itemd == "None") {
+            document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
+            document.getElementById("dockclick"+(i+1)).href = "scros.html";
+            
+            document.getElementById("docktext"+(i+1)).innerHTML = "";
+        } else {
+            document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
+            document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+            document.getElementById("docktext"+(i+1)).innerHTML = itemd;
+        }
+        
+    }
 }
 
 window.onload = checksaved()
@@ -537,7 +607,7 @@ async function pagechange(dir) {
             curpage = 1
         }
         if (curpage == 1) {
-
+            
             for (let i = 0; i < 10; i++) {
                 await sleep(16.666666666666668);
                 
@@ -939,6 +1009,141 @@ function command(repl) {
         
 
 
+    } else if (repl.includes(">inpos ")) {
+        try {
+            moved = repl.replace(">inpos ", "")
+            //find X
+            xp = ""
+            console.log(moved)
+            
+            for (let i = 0; i < moved.length; i++) {
+                console.log(moved[i])
+                if (moved[i]==" ") {
+                    break
+                }
+                xp += moved[i]
+            }
+            console.log(xp)
+
+            moved = moved.replace(xp, "")
+            //find Y
+            yp = moved
+            yp = yp/1
+            xp = xp/1
+            Math.floor(yp)
+            Math.floor(xp)
+
+
+
+            if (xp > 0 && xp < 101 && yp > 0 && yp < 101) {
+                document.getElementById("intr").style.top = (100-yp)+"%"
+                document.getElementById("intr").style.left = (xp)+"%"
+                replywith("Changed the Input's position to ("+xp+", "+yp+"). Warning: Moving it somewhere inaccessable may require a reset to restore functionality. ")
+                Save("inpos", JSON.stringify([xp, yp]))
+            } else {
+                replywith("Error: X and Y values must be between 1 and 100. These values are based on % of your current screen. The syntax is (>inpos <Xvalue> <Yvalue>)")
+            }
+            haha = true;
+        } catch {
+            replywith("Error: Invalid syntax.  X and Y values must be between 1 and 100. These values are based on % of your current screen. The syntax is (>inpos <Xvalue> <Yvalue>)")
+            haha = true;
+        }
+
+
+    } else if (repl.includes(">clockpos ")) {
+        try {
+            moved = repl.replace(">clockpos ", "")
+            //find X
+            xp = ""
+            console.log(moved)
+            
+            for (let i = 0; i < moved.length; i++) {
+                console.log(moved[i])
+                if (moved[i]==" ") {
+                    break
+                }
+                xp += moved[i]
+            }
+            console.log(xp)
+
+            moved = moved.replace(xp, "")
+            //find Y
+            yp = moved
+            yp = yp/1
+            xp = xp/1
+            Math.floor(yp)
+            Math.floor(xp)
+
+
+
+            if (xp > 0 && xp < 101 && yp > 0 && yp < 101) {
+                document.getElementById("clock").style.top = (100-yp)+"%"
+                document.getElementById("clock").style.left = (xp)+"%"
+                replywith("Changed the clock's position to ("+xp+", "+yp+"). Warning: Moving it somewhere inaccessable may require a reset to restore functionality. ")
+                 Save("clockpos", JSON.stringify([xp, yp]))
+            } else {
+                replywith("Error: X and Y values must be between 1 and 100. These values are based on % of your current screen. The syntax is (>clockpos <Xvalue> <Yvalue>)")
+            }
+            haha = true;
+        } catch {
+            replywith("Error: Invalid syntax.  X and Y values must be between 1 and 100. These values are based on % of your current screen. The syntax is (>clockpos <Xvalue> <Yvalue>)")
+            haha = true;
+        }
+
+
+    }  else if (repl.includes(">outpos ")) {
+        try {
+            moved = repl.replace(">outpos ", "")
+            //find X
+            xp = ""
+            console.log(moved)
+            
+            for (let i = 0; i < moved.length; i++) {
+                console.log(moved[i])
+                if (moved[i]==" ") {
+                    break
+                }
+                xp += moved[i]
+            }
+            console.log(xp)
+
+            moved = moved.replace(xp, "")
+            //find Y
+            yp = moved
+            yp = yp/1
+            xp = xp/1
+            Math.floor(yp)
+            Math.floor(xp)
+
+
+
+            if (xp > 0 && xp < 101 && yp > 0 && yp < 101) {
+                document.getElementById("bot").style.top = (100-yp)+"%"
+                document.getElementById("bot").style.left = (xp)+"%"
+                replywith("Changed the output's position to ("+xp+", "+yp+"). Warning: Moving it somewhere inaccessable may require a reset to restore functionality. ")
+                Save("outpos", JSON.stringify([xp, yp]))
+            } else {
+                replywith("Error: X and Y values must be between 1 and 100. These values are based on % of your current screen. The syntax is (>outpos <Xvalue> <Yvalue>)")
+            }
+            haha = true;
+        } catch {
+            replywith("Error: Invalid syntax.  X and Y values must be between 1 and 100. These values are based on % of your current screen. The syntax is (>outpos <Xvalue> <Yvalue>)")
+            haha = true;
+        }
+
+
+    } else if (repl.includes(">resetpos")) {
+            clockpos = ["50", "95"]
+            inpos = ["50", "10"]
+
+            outpos = ["50", "65"]
+       
+            Save("clockpos", JSON.stringify(clockpos))
+            Save("inpos", JSON.stringify(inpos))
+            Save("outpos", JSON.stringify(outpos))
+            replywith("Reset the positions to default.")
+            checksaved()
+            haha = true;
     } else if (repl.includes(">bgmode")) {
         if (bgtype=="video") {
             replywith("Switched background type to image. Set your background image with '>bgc (image_file)'")
@@ -1421,7 +1626,20 @@ function command(repl) {
         haha = true;
 
 
-    }  else if (repl.includes(">dockpos ")) {
+    } else if (devmode && repl.includes(">eval ")) {
+        repl = orgians
+        try {
+            lua = repl.replace(">eval ", "")
+            eval(lua)
+            replywith('Executed "'+lua+'" successfully.'+" Warning: Dont do anything too stupid! You may need to reset if something goes wrong.")
+        } catch (e) {
+            replywith(e+" Make sure you code in proper JS.")
+        }
+        haha = true;
+
+
+
+    } else if (repl.includes(">dockpos ")) {
         if (simpledock) {
             replywith("Error: You cannot change the dock position while in simple dock mode. Please disable simple dock mode using >dockmode.")
             haha = true;
@@ -1583,9 +1801,12 @@ Google API key: ${APIkey}
 Calculation Mode: ${calcmode ? "Degrees" : "Radians"}
 Max Denominator: ${MaxDenominator}
 Dock Mode: ${simpledock ? "Simple Dock" : "Fluid Dock"}
-Locked Dock: ${lockeddock ? "Locked" : "Unlocked"}
-Your Apps: ${supapps}
+Locked Dock: ${lockeddock ? "Locked" : "Unlocked"}`)
+        alert(`Your Apps: ${supapps}
 Linked Sites to Respective Apps: ${supsites}
+User-set Input Position: ${inpos[0] == initinpos[0] && inpos[1] == initinpos[1] ? "Default" : inpos}
+User-set Output Position: ${outpos}
+User-set Clock Position: ${clockpos}
 ----------------`)
         haha = true
         responding = false;
@@ -1709,6 +1930,14 @@ Linked Sites to Respective Apps: ${supsites}
             localStorage.setItem(SaveKey+"vbgfile", "City.mp4");
             localStorage.setItem(SaveKey+"bgtype", "image");
             localStorage.setItem(SaveKey+"lockeddock", false)
+            clockpos = ["50", "95"]
+            inpos = ["50", "10"]
+
+            outpos = ["50", "65"]
+            Save("update1.2.1", "lol")
+            Save("clockpos", JSON.stringify(clockpos))
+            Save("inpos", JSON.stringify(inpos))
+            Save("outpos", JSON.stringify(outpos))
 
 
             checksaved();
@@ -1986,32 +2215,21 @@ function respond() {
     responses(ans);
 
     
-
+    
     document.getElementById("Resp").value = "";
     
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    'use strict';
-    document.addEventListener('keydown', event => {
-        var key = event.key.toLowerCase();
-        if (key == "enter") { 
-            respond()
-        }
-
-        
-    });
-});
 //status
 
 
 async function movedockup() {
     curtop = document.getElementById("appdock").style.top;
-        curtop = parseFloat(curtop);
- 
-
+    curtop = parseFloat(curtop);
+    
+    
     if ((clientHeight-curtop/100*clientHeight) > 90) {
-            return;
+        return;
     }
     
     for (let i =0 ; i < 1000; i++) {
@@ -2019,7 +2237,7 @@ async function movedockup() {
         curtop = document.getElementById("appdock").style.top;
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.top = curtop - 0.05 + "%";
-       
+        
         if (clientHeight-(curtop/100*clientHeight) > 90) {
             break;
         }
@@ -2028,12 +2246,12 @@ async function movedockup() {
 }
 async function leftmovedockright() {
     curtop = document.getElementById("appdock").style.left;
-        curtop = parseFloat(curtop);
-    console.log(curtop/clientWidth)
-
+    curtop = parseFloat(curtop);
+    
+    
     if ((curtop/100*clientWidth) > 25) {
         
-            return;
+        return;
     }
     
     for (let i =0 ; i < 1000; i++) {
@@ -2042,7 +2260,7 @@ async function leftmovedockright() {
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.left = curtop + 0.05 + "%";
-       
+        
         if ((curtop/100*clientWidth) > 25) {
             break;
         }
@@ -2052,11 +2270,11 @@ async function leftmovedockright() {
 
 async function rightmovedockleft() {
     curtop = document.getElementById("appdock").style.left;
-        curtop = parseFloat(curtop);
-    console.log(curtop/100*clientWidth)
+    curtop = parseFloat(curtop);
+    
     if (((curtop/100)*clientWidth) < clientWidth-25) {
         
-            return;
+        return;
     }
     
     for (let i =0 ; i < 1000; i++) {
@@ -2065,7 +2283,7 @@ async function rightmovedockleft() {
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.left = curtop - 0.05 + "%";
-       
+        
         if (((curtop/100)*clientWidth) < clientWidth-25) {
             break;
         }
@@ -2075,12 +2293,12 @@ async function rightmovedockleft() {
 
 async function rightmovedockright() {
     curtop = document.getElementById("appdock").style.left;
-        curtop = parseFloat(curtop);
-
-
+    curtop = parseFloat(curtop);
+    
+    
     if ((curtop/100*clientWidth) > (dockwidthlmt/100*clientWidth)) {
         
-            return;
+        return;
     }
     
     for (let i =0 ; i < 1000; i++) {
@@ -2089,7 +2307,7 @@ async function rightmovedockright() {
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.left = curtop + 0.05 + "%";
-
+        
         if ((curtop/100*clientWidth) > (dockwidthlmt/100*clientWidth)) {
             break;
         }
@@ -2099,12 +2317,12 @@ async function rightmovedockright() {
 
 async function leftmovedockleft() {
     curtop = document.getElementById("appdock").style.left;
-        curtop = parseFloat(curtop);
-    console.log(curtop/clientWidth)
-
+    curtop = parseFloat(curtop);
+    
+    
     if ((curtop/100*clientWidth) < -(dockwidthlmt/100-1)*clientWidth) {
         
-            return;
+        return;
     }
     
     for (let i =0 ; i < 1000; i++) {
@@ -2113,7 +2331,7 @@ async function leftmovedockleft() {
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.left = curtop - 0.05 + "%";
-
+        
         if ((curtop/100*clientWidth) < -(dockwidthlmt/100-1)*clientWidth) {
             break;
         }
@@ -2124,10 +2342,10 @@ async function leftmovedockleft() {
 async function movedockdown() {
     curtop = document.getElementById("appdock").style.top;
     curtop = parseFloat(curtop);
- 
-
+    
+    
     if (curtop >= dockdownlmt) {
-            return;
+        return;
     }
     
     for (let i =0 ; i < 1000; i++) {
@@ -2135,7 +2353,7 @@ async function movedockdown() {
         curtop = document.getElementById("appdock").style.top;
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.top = curtop + 0.05 + "%";
-       
+        
         if (curtop >= dockdownlmt) {
             break;
         }
@@ -2156,8 +2374,8 @@ document.addEventListener('mousemove', function(event) {
         movedockdown();
     }
     if ((mouseX/clientWidth) < (1-dockwidthchklmt) && dockpos == 1 && !simpledock && !lockeddock) {
-
-
+        
+        
         leftmovedockright();
     }
     if ((mouseX/clientWidth) > (1-dockwidthchklmt) && dockpos == 1 && !simpledock && !lockeddock) {
@@ -2172,10 +2390,33 @@ document.addEventListener('mousemove', function(event) {
     
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    'use strict';
+    document.addEventListener('keydown', event => {
+        var key = event.key.toLowerCase();
+        if (key == "enter") { 
+            respond()
+        }
+
+        
+    });
+});
+
+const targetElement = document;
+currentapp = 0
 
 
 
+targetElement.addEventListener('wheel', (event) => {
+    console.log("bruh")
+    if (event.deltaY < 0) {
 
+            pagechange("left")
+    } else {
+        // User scrolled down
+        pagechange("right")
+    }
+});
 
 
 
