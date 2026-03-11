@@ -1,5 +1,6 @@
 'ops'
 'settings'
+const body = document.body;
 //page
 greets = ["hi", "hello", "hey", "greetings"]
 openapps = ["open","open up"]
@@ -8,7 +9,7 @@ apps = ["google","spotify","youtube","facebook","instagram","x","tiktok","reddit
 const devmode = false;
 supapps = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather", "linkedin","netflix","github", "wikipedia","twitch"]
 supsites = ["https://www.gmail.com", "https://open.spotify.com/","https://www.youtube.com/","https://www.instagram.com/","https://www.facebook.com/","https://www.reddit.com/","https://X.com/", "https://www.amazon.com/", "https://www.office.com/", "https://weather.com/", "https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
-
+let popupcount = 0;
 apppage1 = ["gmail","spotify","youtube","instagram","facebook","reddit","x", "amazon", "office", "weather"]
 apppage2 = ["linkedin","netflix","github", "wikipedia","twitch", "", "","","","",]
 apppage3 = ["","","","","","","","","",""]
@@ -17,6 +18,7 @@ appsites1 = ["https://www.gmail.com", "https://open.spotify.com/","https://www.y
 appsites2 = ["https://www.linkedin.com", "https://www.netflix.com/", "https://github.com/", "https://www.wikipedia.org/", "https://www.twitch.tv/"]
 appsites3 = ["","","","","","","","","",""]
 appsites4 = ["","","","","","","","","",""]
+let openedPopups = [];
 sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://X.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/", "https://www.linkedin.com"]
 let APIkey;
 const SaveKey = "SCR-OS/"
@@ -35,8 +37,8 @@ MaxDenominator = 500; // Default max denominator for fractions
 showappdock = true;
 showclock = true;
 lockeddock = false; // true for locked dock, false for unlocked dock
-const clientWidth = document.documentElement.clientWidth;
-const clientHeight = document.documentElement.clientHeight;
+let clientWidth = document.documentElement.clientWidth;
+let clientHeight = document.documentElement.clientHeight;
 const maxpages = 4;
 onealert = false;
 dockdownlmt = ((clientHeight+130)/clientHeight)*100;
@@ -207,6 +209,7 @@ function Load(Title) {
 
 
 async function checksaved() {
+    changeZoom();
     console.log("Checking saved data...")
 
 
@@ -564,8 +567,8 @@ async function checksaved() {
         console.log(iconpack+"/"+itemd+".png")
         
         
-        document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-        document.getElementById("dockclick"+(i+1)).href = "scros.html";
+        document.getElementById("dockpic"+(i+1)).display = "none";
+        document.getElementById("dockclick"+(i+1)).href = "#";
         
         document.getElementById("docktext"+(i+1)).innerHTML = "";
         
@@ -585,20 +588,67 @@ async function checksaved() {
         console.log(iconpack+"/"+itemd+".png")
         
         if (itemd == "None") {
-            document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-            document.getElementById("dockclick"+(i+1)).href = "scros.html";
+            document.getElementById("dockpic"+(i+1)).display = "none";
+            document.getElementById("dockclick"+(i+1)).href = "#";
             
             document.getElementById("docktext"+(i+1)).innerHTML = "";
         } else {
             document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-            document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+            document.getElementById("dockclick"+(i+1)).href = "#";
+            document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
             document.getElementById("docktext"+(i+1)).innerHTML = itemd;
         }
         
     }
 }
 
-window.onload = checksaved()
+setInterval(changeZoom, 200);
+
+function openApp(appsName) {
+    let newPopopup = window.open(appsName, "mypopup"+popupcount, "width=800,height=600,resizable=yes,scrollbars=yes");
+    openedPopups.push(newPopopup);
+    popupcount++;
+}
+
+function changeZoom() {
+    viewportWidth = window.innerWidth;
+    viewportHeight = window.innerHeight;
+    WindowPixels = viewportHeight * viewportWidth;
+    intendedWindowSize = 2048 * 1152;
+
+    console.log("Viewport Size: " + viewportWidth + "x" + viewportHeight);
+    console.log(Math.sqrt((WindowPixels / intendedWindowSize)));
+    
+
+    BodyZoom = Math.sqrt((WindowPixels / intendedWindowSize)) * 1.2;
+
+    body.style.width = viewportWidth/BodyZoom + "px";
+    body.style.height = viewportHeight/BodyZoom + "px";
+
+
+
+
+    document.body.style.zoom = BodyZoom;
+    document.body.backgroundSize = "cover";
+}
+
+function calcZoom() {
+    viewportWidth = window.innerWidth;
+    viewportHeight = window.innerHeight;
+    WindowPixels = viewportHeight * viewportWidth;
+    intendedWindowSize = 2048 * 1152;
+
+    console.log("Viewport Size: " + viewportWidth + "x" + viewportHeight);
+    console.log(Math.sqrt((WindowPixels / intendedWindowSize)));
+    
+
+    BodyZoom = Math.sqrt((WindowPixels / intendedWindowSize)) * 1.2;
+    return BodyZoom;
+}
+
+
+window.onload = checksaved();
+
 
 async function pagechange(dir) {
     if (dir=="right") {
@@ -622,12 +672,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -650,12 +701,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites2[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites2[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -678,12 +730,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites3[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites3[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -706,12 +759,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites4[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites4[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -741,12 +795,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites1[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
             }
@@ -768,12 +823,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites2[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites2[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -796,12 +852,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites3[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites3[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -824,12 +881,13 @@ async function pagechange(dir) {
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
-                    document.getElementById("dockclick"+(i+1)).href = appsites4[i];
+                    document.getElementById("dockclick"+(i+1)).href = "#";
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites4[i]+"')");
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -899,7 +957,7 @@ function appOpen(rep) {
             reply = replies[i];
             replywith(reply);
             sleep(1500).then(() => {
-                window.open(sites[jaz])
+                openApp(sites[jaz])
             });
 
             
@@ -962,7 +1020,9 @@ function command(repl) {
         sit = repl.replace(">gs ","")
         replywith("Searching for your query.")
         sleep(150).then(() => {
-            window.open("https://www.google.com/search?q="+sit)
+            let newPopup = window.open("https://www.google.com/search?q="+sit, "mypopup", "width=800,height=600,resizable=yes,scrollbars=yes")
+            openedPopups.push(newPopup)
+            popupcount++;
         });
         haha = true
     } else if (repl.includes(">ts ")) {
@@ -1167,12 +1227,16 @@ function command(repl) {
         sit = repl.replace(">ops ","")
         replywith("Yes, opening now.")
         sleep(150).then(() => {
-            window.open("https://"+sit)
+            let newPopup = window.open("https://"+sit, "mypopup", "width=800,height=600,resizable=yes,scrollbars=yes")
+            openedPopups.push(newPopup)
+            popupcount++;
         });
         haha = true
     } else if (repl.includes(">gh")) {
         replywith("Opening my github.")
-        window.open("https://github.com/Imeanbusiness/TerryBot2.0")
+        let newPopup = window.open("https://github.com/Imeanbusiness/TerryBot2.0", "mypopup", "width=800,height=600,resizable=yes,scrollbars=yes")
+        openedPopups.push(newPopup)
+        popupcount++;
         haha = true
     } else if (repl.includes(">status")) {
         try {
@@ -1186,7 +1250,9 @@ function command(repl) {
         sit = repl.replace(">ms ","")
         replywith("Searching for your query on Spotify.")
         sleep(150).then(() => {
-            window.open("https://open.spotify.com/search/"+sit)
+            let newPopup = window.open("https://open.spotify.com/search/"+sit, "mypopup", "width=800,height=600,resizable=yes,scrollbars=yes")
+            openedPopups.push(newPopup)
+            popupcount++;
         });
         haha = true
 
@@ -1229,7 +1295,9 @@ function command(repl) {
         sit = repl.replace(">yt ","")
         replywith("Searching for your query on Youtube.")
         sleep(150).then(() => {
-            window.open("https://www.youtube.com/results?search_query="+sit)
+            let newPopup = window.open("https://www.youtube.com/results?search_query="+sit, "mypopup", "width=800,height=600,resizable=yes,scrollbars=yes")
+            openedPopups.push(newPopup)
+            popupcount++;
         });
         haha = true
 
@@ -1394,25 +1462,25 @@ function command(repl) {
                 returned = apppage1[item-1]
                 apppage1[item-1] = ""
                 document.getElementById("dockpic"+item).src = "Images/None.png";
-                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("dockclick"+item).href = "#";
                 document.getElementById("docktext"+item).innerHTML = "";
             } else if (curpage == 2) {
                 returned = apppage2[item-1]
                 apppage2[item-1] = ""
                 document.getElementById("dockpic"+item).src = "Images/None.png";
-                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("dockclick"+item).href = "#";
                 document.getElementById("docktext"+item).innerHTML = "";
             } else if (curpage == 3) {
                 returned = apppage3[item-1]
                 apppage3[item-1] = ""
                 document.getElementById("dockpic"+item).src = "Images/None.png";
-                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("dockclick"+item).href = "#";
                 document.getElementById("docktext"+item).innerHTML = "";
             } else if (curpage == 4) {
                 returned = apppage4[item-1]
                 apppage4[item-1] = ""
                 document.getElementById("dockpic"+item).src = "Images/None.png";
-                document.getElementById("dockclick"+item).href = "scros.html";
+                document.getElementById("dockclick"+item).href = "#";
                 document.getElementById("docktext"+item).innerHTML = "";
             }
             localStorage.setItem(SaveKey+"apppage1", JSON.stringify(apppage1))
@@ -1626,17 +1694,6 @@ function command(repl) {
         haha = true;
 
 
-    } else if (devmode && repl.includes(">eval ")) {
-        repl = orgians
-        try {
-            lua = repl.replace(">eval ", "")
-            eval(lua)
-            replywith('Executed "'+lua+'" successfully.'+" Warning: Dont do anything too stupid! You may need to reset if something goes wrong.")
-        } catch (e) {
-            replywith(e+" Make sure you code in proper JS.")
-        }
-        haha = true;
-
 
 
     } else if (repl.includes(">dockpos ")) {
@@ -1720,7 +1777,8 @@ function command(repl) {
                         returned = apppage1[itemd-1]
                         apppage1[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
-                        document.getElementById("dockclick"+itemd).href = supsites[appti];
+                        document.getElementById("dockclick"+itemd).href = "#";
+                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage1[itemd-1] = item;
                         appsites1[itemd-1] = supsites[appti];
@@ -1732,7 +1790,8 @@ function command(repl) {
                         returned = apppage2[itemd-1]
                         apppage2[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
-                        document.getElementById("dockclick"+itemd).href = supsites[appti];
+                        document.getElementById("dockclick"+itemd).href = "#";
+                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage2[itemd-1] = item;
                         appsites2[itemd-1] = supsites[appti];
@@ -1744,7 +1803,8 @@ function command(repl) {
                         returned = apppage3[itemd-1]
                         apppage3[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
-                        document.getElementById("dockclick"+itemd).href = supsites[appti];
+                        document.getElementById("dockclick"+itemd).href = "#";
+                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage3[itemd-1] = item;
                         appsites3[itemd-1] = supsites[appti];
@@ -1756,7 +1816,8 @@ function command(repl) {
                         returned = apppage4[itemd-1]
                         apppage4[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
-                        document.getElementById("dockclick"+itemd).href = supsites[appti];
+                        document.getElementById("dockclick"+itemd).href = "#";
+                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage4[itemd-1] = item;
                         appsites4[itemd-1] = supsites[appti];
@@ -2004,7 +2065,7 @@ User-set Clock Position: ${clockpos}
 
 
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
 
@@ -2028,7 +2089,7 @@ User-set Clock Position: ${clockpos}
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
@@ -2054,7 +2115,7 @@ User-set Clock Position: ${clockpos}
 
                 if (itemd == "None") {
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
-                    document.getElementById("dockclick"+(i+1)).href = "scros.html";
+                    document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
@@ -2185,6 +2246,14 @@ function responses(arr) {
 }
 
 
+window.onfocus = function() {
+  for (let i = 0; i < openedPopups.length; i++) {
+    if (openedPopups[i] && !openedPopups[i].closed) {
+      openedPopups[i].focus();
+    }
+  }
+};
+
 function googlesearch(i) {
     replies = [`I will google ${i}. `, `Opening google to find "${i}". `]
     x = randint(1)
@@ -2192,9 +2261,11 @@ function googlesearch(i) {
     reply = replies[x]
     replywith(reply)
     sleep(100).then(() => {
-        window.open("https://www.google.com/search?q="+i)
+        let newPopup = window.open("https://www.google.com/search?q="+i, "mypopup"+popupcount, "width=800,height=600,resizable=yes,scrollbars=yes")
+        openedPopups.push(newPopup);
+        popupcount++;
     });
-
+    popupcount++;
     
 }
 responding = false;
@@ -2236,7 +2307,7 @@ async function movedockup() {
         await sleep(5);
         curtop = document.getElementById("appdock").style.top;
         curtop = parseFloat(curtop);
-        document.getElementById("appdock").style.top = curtop - 0.05 + "%";
+        document.getElementById("appdock").style.top = curtop - (0.05 * BodyZoom) + "%";
         
         if (clientHeight-(curtop/100*clientHeight) > 90) {
             break;
@@ -2259,7 +2330,7 @@ async function leftmovedockright() {
         await sleep(5);
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
-        document.getElementById("appdock").style.left = curtop + 0.05 + "%";
+        document.getElementById("appdock").style.left = curtop + (0.05 * BodyZoom) + "%";
         
         if ((curtop/100*clientWidth) > 25) {
             break;
@@ -2282,7 +2353,7 @@ async function rightmovedockleft() {
         await sleep(5);
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
-        document.getElementById("appdock").style.left = curtop - 0.05 + "%";
+        document.getElementById("appdock").style.left = curtop - (0.05 * BodyZoom) + "%";
         
         if (((curtop/100)*clientWidth) < clientWidth-25) {
             break;
@@ -2306,7 +2377,7 @@ async function rightmovedockright() {
         await sleep(5);
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
-        document.getElementById("appdock").style.left = curtop + 0.05 + "%";
+        document.getElementById("appdock").style.left = curtop + (0.05 * BodyZoom) + "%";
         
         if ((curtop/100*clientWidth) > (dockwidthlmt/100*clientWidth)) {
             break;
@@ -2330,7 +2401,7 @@ async function leftmovedockleft() {
         await sleep(5);
         curtop = document.getElementById("appdock").style.left;
         curtop = parseFloat(curtop);
-        document.getElementById("appdock").style.left = curtop - 0.05 + "%";
+        document.getElementById("appdock").style.left = curtop - (0.05 * BodyZoom) + "%";
         
         if ((curtop/100*clientWidth) < -(dockwidthlmt/100-1)*clientWidth) {
             break;
@@ -2352,7 +2423,7 @@ async function movedockdown() {
         await sleep(5);
         curtop = document.getElementById("appdock").style.top;
         curtop = parseFloat(curtop);
-        document.getElementById("appdock").style.top = curtop + 0.05 + "%";
+        document.getElementById("appdock").style.top = curtop + (0.05 * BodyZoom) + "%";
         
         if (curtop >= dockdownlmt) {
             break;
@@ -2366,6 +2437,8 @@ async function movedockdown() {
 document.addEventListener('mousemove', function(event) {
     const mouseX = event.clientX;
     const mouseY = event.clientY;
+    clientWidth = document.documentElement.clientWidth;
+    clientHeight = document.documentElement.clientHeight;
     //console.log(`Mouse position: X=${mouseX}, Y=${mouseY}`);
     if ((mouseY/clientHeight) > dockdownchklmt && dockpos == 2 && !simpledock && !lockeddock) {
         movedockup();
