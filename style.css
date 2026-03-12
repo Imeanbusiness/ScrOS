@@ -334,6 +334,7 @@ input {
 }
 
 #leftarrow {
+    user-select: none;  
     grid-row: 2;
     grid-column: 1;
     text-shadow: 1px 1px 2px black;
@@ -341,6 +342,7 @@ input {
 }
 
 #rightarrow {
+    user-select: none;  
     grid-row: 2;
     grid-column: 7;
     text-shadow: 1px 1px 2px black;
