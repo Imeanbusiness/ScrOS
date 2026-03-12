@@ -32,27 +32,22 @@
         
                 // 24-hour format
 
-                document.getElementById('clock').style.fontSize = "80px";
             } else {
               console.log(fclock);
                 // 12-hour format
                 const period = hours >= 12 ? 'PM' : 'AM';
                 const hour12 = String(hours % 12 || 12).padStart(2, '0');
-                document.getElementById('clock').style.fontSize = "70px";
                 if (showseconds) {
                   document.getElementById('clock').textContent = `${hour12}:${minutes}:${seconds} ${period}`;
                 } else {
-                  document.getElementById('clock').style.fontSize = "80px";
                   document.getElementById('clock').textContent = `${hour12}:${minutes} ${period}`;
                 }
                 return;
             }
             if (showseconds) {
-                document.getElementById('clock').style.fontSize = "85px";
                 const timeString = `${hours}:${minutes}:${seconds}`;
                 document.getElementById('clock').textContent = timeString;
             } else {
-                document.getElementById('clock').style.fontSize = "80px";
                 const timeString = `${hours}:${minutes}`;
                 document.getElementById('clock').textContent = timeString;
             }

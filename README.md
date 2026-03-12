@@ -4,7 +4,7 @@
 
 ### Installation
 
-1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.2.1`, code name `Marina`.
+1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.3.1`, code name `Mensura`.
 
 2. Unzip the folder
 
@@ -26,7 +26,7 @@ This is the output of whatever commands you enter into the command panel.
 
 ### 3: App Dock
 
-These are the basic app icons you can click on to quickly navigate. Use the arrow keys on board to flip between pages. You an custoize the postiion and available apps on this. 
+These are the basic app icons you can click on to quickly navigate. Use the arrow keys on board to flip between pages. You an custoize the postiion and available apps on this. Click it to open the window on top of ScrOS. CTRL+Click to open it in a new tab!
 
 ### 4: Command Panel (Input)
 
@@ -85,6 +85,9 @@ Here is a list of every command and how to use it.
 | `>inpos (x value) (y value)` | Position the user input anywhere on the screen. Note that after using this, `>switchdock` will not save. Use this with caution. X and Y are based on the % height and width of your screen respectively. |
 | `outnpos (x value) (y value)` | Position the output anywhere on the screen. |
 | `clocknpos (x value) (y value)` | Position the clock anywhere on the screen. |
+| `outputsize (font size)` | Resize the font of the output. Must be between 8 and 80. |
+| `clocksize (font size)` | Resize the font of the clock. Must be between 8 and 150. |
+| `docktopoffset (offset in %)` | You may notice that when the dock is on the left or right, your app dock may be slightly too high or too low. Use this command to move it manually. |
 ---
 
 ## 🛠️ Assistance
@@ -122,6 +125,8 @@ Here is a list of every command and how to use it.
 | `>fclock` | Toggle between 12-hour and 24-hour clock format. |
 | `>textms (delay)` | Set a delay during text generation in milliseconds (ms). Must be within 0 to 100. |
 | `>api` | Enter your own API to use some chat functions. You can get your own API [here](https://developers.google.com/custom-search/v1/overview) |
+| `>reload` | Reload Scr-OS. If the issues persist, feel free to say so on GitHub! |
+
 
 
 ---
@@ -138,6 +143,20 @@ Here is a list of every command and how to use it.
 
 
 ## Patch Notes 
+
+## Scr-OS Mensura (Version 1.3.1 (Resizer!) (Current))
+
+- Clock and Output are now resizable (fonts)!
+- Added command to fix dock issues
+- Fixed empty app slots on dock
+- Removed default scaling with clock
+
+## Scr-OS Mensura (Version 1.3.0)
+
+- Scr-OS is now extremely responsive, using zoom to adjust to your needs!
+- Apps now open in a popup window for more immersion! You can still ctrl+click to open new tabs. 
+- App slots on dock with nothing work nicer
+- Scr-OS can be resized to your pleasure thanks to new responsiveness!
 
 ## Scr-OS Marina (Version 1.2.1 (Positioning)) 
 

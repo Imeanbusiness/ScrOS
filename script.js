@@ -100,8 +100,8 @@ async function replacedock() {
                     dockloc = "locked" 
                     console.log((100-dockwidthlmt)+"%")
                     document.getElementById("appdock").style.left = 100-dockwidthlmt+"%";
-                    document.getElementById("appdock").style.top = "55%";
-                    //document.getElementById("appdock").style.top = dockdownlmt + "%";
+                    document.getElementById("appdock").style.top = (55-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
+                    //document.getElementById("appdock").style.top = dockdownlmt/3 + "%";
                     if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                     document.getElementById("intr").style.top = "80%";
                     } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
@@ -169,7 +169,7 @@ async function replacedock() {
                       dockloc = "locked" 
                       console.log((100-dockwidthlmt)+"%")
                       document.getElementById("appdock").style.left = dockwidthlmt+"%";
-                      document.getElementById("appdock").style.top = "55%";
+                      document.getElementById("appdock").style.top = (55-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
                       //document.getElementById("appdock").style.top = dockdownlmt + "%";
                       if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                         document.getElementById("intr").style.top = "80%";
@@ -211,6 +211,32 @@ function Load(Title) {
 async function checksaved() {
     changeZoom();
     console.log("Checking saved data...")
+    document.getElementById('clock').style.fontSize = "80px";
+
+    try {
+        saved = localStorage.getItem(SaveKey+"update1.3.1");
+        if (saved == "lol") {
+            clocksize = localStorage.getItem(SaveKey+"clocksize");
+            document.getElementById("clock").style.fontSize = clocksize+"px";
+            outputsize = localStorage.getItem(SaveKey+"outputsize");
+            document.getElementById("Terry").style.fontSize = outputsize+"px";
+            docktopoffset = localStorage.getItem(SaveKey+"docktopoffset");
+        } else {
+            localStorage.setItem(SaveKey+"update1.3.1", "lol");
+            localStorage.setItem(SaveKey+"clocksize", "80");
+            localStorage.setItem(SaveKey+"outputsize", "30");
+            localStorage.setItem(SaveKey+"docktopoffset", "0");
+            alert("Scr-OS has been updated to version 1.3.1.")
+
+        }
+    } catch {
+        localStorage.setItem(SaveKey+"update1.3.1", "lol");
+        localStorage.setItem(SaveKey+"clocksize", "80");
+        localStorage.setItem(SaveKey+"outputsize", "30");
+        localStorage.setItem(SaveKey+"docktopoffset", "0");
+        alert("Scr-OS has been updated to version 1.3.1.")
+
+    }
 
 
     try {
@@ -588,6 +614,7 @@ async function checksaved() {
         console.log(iconpack+"/"+itemd+".png")
         
         if (itemd == "None") {
+            document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
             document.getElementById("dockpic"+(i+1)).display = "none";
             document.getElementById("dockclick"+(i+1)).href = "#";
             
@@ -671,6 +698,7 @@ async function pagechange(dir) {
                 console.log(iconpack+"/"+itemd+".png")
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -700,6 +728,7 @@ async function pagechange(dir) {
                 
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -729,6 +758,7 @@ async function pagechange(dir) {
                 
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -758,6 +788,7 @@ async function pagechange(dir) {
                 
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -794,6 +825,7 @@ async function pagechange(dir) {
                 console.log(iconpack+"/"+itemd+".png")
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -822,6 +854,7 @@ async function pagechange(dir) {
                 
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -851,6 +884,7 @@ async function pagechange(dir) {
                 
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -880,10 +914,12 @@ async function pagechange(dir) {
                 
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
+                    
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
@@ -1240,9 +1276,9 @@ function command(repl) {
         haha = true
     } else if (repl.includes(">status")) {
         try {
-            replywith("Systems: Normal. Version: 1.2.0 (Marina)")
+            replywith("Systems: Normal. Version: 1.3.1 (Mensura)")
         } catch {
-            replywith("Systems: Abnormal. Version: 1.2.0 (Marina) Restart recommended.")
+            replywith("Systems: Abnormal. Version: 1.3.1 (Mensura) Reload with >reload.")
         }
         haha = true
         
@@ -1428,8 +1464,50 @@ function command(repl) {
         localStorage.setItem(SaveKey+"calcmode", JSON.stringify(calcmode))
         haha = true;
 
+    } else if (repl.includes(">clocksize ")) {
+        try {
+            clocksize = repl.replace(">clocksize ", "");
+            if (clocksize < 8 || clocksize > 150) {
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 150. This will be the font size of the clock in pixels.")
+            } else {
+                replywith("Clock font size set to "+clocksize+"px.")
+                Save("clocksize", clocksize);
+                document.getElementById("clock").style.fontSize = clocksize+"px";
+            }
+        } catch {
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 150. This will be the font size of the clock in pixels.")
+        }
+        haha = true;
 
-    } else if (repl.includes(">textms")) { 
+    } else if (repl.includes(">outputsize ")) {
+        try {
+            outputsize = repl.replace(">outputsize ", "");
+            if (outputsize < 8 || outputsize > 80) {
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 80. This will be the font size of the output in pixels.")
+            } else {
+                replywith("Output font size set to "+outputsize+"px.")
+                Save("outputsize", outputsize);
+                document.getElementById("Terry").style.fontSize = outputsize+"px";
+            }
+        } catch {
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 80. This will be the font size of the output in pixels.")
+        }
+        haha = true;
+    } else if (repl.includes(">docktopoffset ")) {
+        try {
+            docktopoffset = repl.replace(">docktopoffset ", "");
+            if (docktopoffset < -50 || docktopoffset > 50) {
+                replywith("Error: Invalid syntax. Please enter a value between -50 and 50. This will be the % offset of the dock's vertical placement.")
+            } else {
+                replywith("docktop font offset set to "+docktopoffset+"px.")
+                Save("docktopoffset", docktopoffset);
+                replacedock();
+            }
+        } catch {
+                replywith("Error: Invalid syntax. Please enter a value between -50 and 50. This will be the % offset of the dock's vertical placement.")
+        }
+        haha = true;
+     } else if (repl.includes(">textms")) { 
         try {
             speed = repl.replace(">textms ", "")
             speed = speed/1
@@ -1868,6 +1946,9 @@ Linked Sites to Respective Apps: ${supsites}
 User-set Input Position: ${inpos[0] == initinpos[0] && inpos[1] == initinpos[1] ? "Default" : inpos}
 User-set Output Position: ${outpos}
 User-set Clock Position: ${clockpos}
+Clock Size: ${clocksize}px
+Output Size: ${outputsize}px
+Dock Top Offset: ${docktopoffset}%
 ----------------`)
         haha = true
         responding = false;
@@ -1991,6 +2072,11 @@ User-set Clock Position: ${clockpos}
             localStorage.setItem(SaveKey+"vbgfile", "City.mp4");
             localStorage.setItem(SaveKey+"bgtype", "image");
             localStorage.setItem(SaveKey+"lockeddock", false)
+            localStorage.setItem(SaveKey+"update1.3.1", "lol");
+            localStorage.setItem(SaveKey+"clocksize", "80");
+            localStorage.setItem(SaveKey+"outputsize", "30");
+            localStorage.setItem(SaveKey+"docktopoffset", "0");
+            window.location.reload();
             clockpos = ["50", "95"]
             inpos = ["50", "10"]
 
@@ -2012,6 +2098,9 @@ User-set Clock Position: ${clockpos}
 
         }
         haha = true
+
+    } else if (repl.includes(">reload")) {
+        window.location.reload();
     } else if (repl.includes(">fontcolor")) {
         colorchange = repl.replace(">fontcolor ", "")
         document.body.style.color = colorchange;
@@ -2088,6 +2177,7 @@ User-set Clock Position: ${clockpos}
                 console.log(iconpack+"/"+itemd+".png")
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -2114,6 +2204,7 @@ User-set Clock Position: ${clockpos}
                 
 
                 if (itemd == "None") {
+                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
