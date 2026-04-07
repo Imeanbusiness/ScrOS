@@ -1509,23 +1509,23 @@ function command(repl) {
     } else if (repl.includes(">clocksize ")) {
         try {
             clocksize = repl.replace(">clocksize ", "");
-            if (clocksize < 8 || clocksize > 150) {
-                replywith("Error: Invalid syntax. Please enter a value between 8 and 150. This will be the font size of the clock in pixels.")
+            if (clocksize < 8 || clocksize > 300) {
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 300. This will be the font size of the clock in pixels.")
             } else {
                 replywith("Clock font size set to "+clocksize+"px.")
                 Save("clocksize", clocksize);
                 document.getElementById("clock").style.fontSize = clocksize+"px";
             }
         } catch {
-                replywith("Error: Invalid syntax. Please enter a value between 8 and 150. This will be the font size of the clock in pixels.")
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 300. This will be the font size of the clock in pixels.")
         }
         haha = true;
 
     } else if (repl.includes(">outputsize ")) {
         try {
             outputsize = repl.replace(">outputsize ", "");
-            if (outputsize < 8 || outputsize > 80) {
-                replywith("Error: Invalid syntax. Please enter a value between 8 and 80. This will be the font size of the output in pixels.")
+            if (outputsize < 8 || outputsize > 150) {
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 150. This will be the font size of the output in pixels.")
             } else {
                 replywith("Output font size set to "+outputsize+"px.")
                 Save("outputsize", outputsize);
@@ -1534,7 +1534,7 @@ function command(repl) {
                 }
             }
         } catch {
-                replywith("Error: Invalid syntax. Please enter a value between 8 and 80. This will be the font size of the output in pixels.")
+                replywith("Error: Invalid syntax. Please enter a value between 8 and 150. This will be the font size of the output in pixels.")
         }
         haha = true;
     } else if (repl.includes(">docktopoffset ")) {

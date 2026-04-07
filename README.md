@@ -85,8 +85,8 @@ Here is a list of every command and how to use it.
 | `>inpos (x value) (y value)` | Position the user input anywhere on the screen. Note that after using this, `>switchdock` will not save. Use this with caution. X and Y are based on the % height and width of your screen respectively. |
 | `>outnpos (x value) (y value)` | Position the output anywhere on the screen. |
 | `>clocknpos (x value) (y value)` | Position the clock anywhere on the screen. |
-| `>outputsize (font size)` | Resize the font of the output. Must be between 8 and 80. |
-| `>clocksize (font size)` | Resize the font of the clock. Must be between 8 and 150. |
+| `>outputsize (font size)` | Resize the font of the output. Must be between 8 and 150. |
+| `>clocksize (font size)` | Resize the font of the clock. Must be between 8 and 300. |
 | `>docktopoffset (offset in %)` | You may notice that when the dock is on the left or right, your app dock may be slightly too high or too low. Use this command to move it manually. |
 | `>toggleterry` | If displaying Terry on the screen is unpleasant for you, and you would not like feedback from commands, you can use this to hide the bot. |
 ---
