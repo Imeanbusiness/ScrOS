@@ -83,11 +83,12 @@ Here is a list of every command and how to use it.
 | `>appadd (appname)` | Add your own apps to the list of supported apps. Copy down the desired site location of your app before proceeding. For example, `https:/discord.com` is copied. Head into Scr-OS and add your app name. Note that everything except the first letter will automatically be lowercased. The first letter is always uppercased. Example: `>appadd Discord`. Proceed to paste the destination link into the prompt. Do not exit the page. You will need to add your own icons to your current iconpack. the format should be `Appname.png`. For example, if I am using AppIcons, I will put `Discord.png` inside AppIcons. The exact name of your app should be used. |
 | `>appremove (appname)` | Remove an App from the list of supported apps. Make sure you use the exact name. |
 | `>inpos (x value) (y value)` | Position the user input anywhere on the screen. Note that after using this, `>switchdock` will not save. Use this with caution. X and Y are based on the % height and width of your screen respectively. |
-| `outnpos (x value) (y value)` | Position the output anywhere on the screen. |
-| `clocknpos (x value) (y value)` | Position the clock anywhere on the screen. |
-| `outputsize (font size)` | Resize the font of the output. Must be between 8 and 80. |
-| `clocksize (font size)` | Resize the font of the clock. Must be between 8 and 150. |
-| `docktopoffset (offset in %)` | You may notice that when the dock is on the left or right, your app dock may be slightly too high or too low. Use this command to move it manually. |
+| `>outnpos (x value) (y value)` | Position the output anywhere on the screen. |
+| `>clocknpos (x value) (y value)` | Position the clock anywhere on the screen. |
+| `>outputsize (font size)` | Resize the font of the output. Must be between 8 and 80. |
+| `>clocksize (font size)` | Resize the font of the clock. Must be between 8 and 150. |
+| `>docktopoffset (offset in %)` | You may notice that when the dock is on the left or right, your app dock may be slightly too high or too low. Use this command to move it manually. |
+| `>toggleterry` | If displaying Terry on the screen is unpleasant for you, and you would not like feedback from commands, you can use this to hide the bot. |
 ---
 
 ## 🛠️ Assistance
@@ -146,6 +147,7 @@ Here is a list of every command and how to use it.
 
 ## Scr-OS Mensura (Version 1.3.2) (Latest)
 
+- Added >toggleterry to hide the bot
 - Fixed problems regarding dock positions
 - Dock is now fully responsive
 

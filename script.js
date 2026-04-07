@@ -68,6 +68,8 @@ outpos = ["50", "65"]
 //learn
 //settings
 
+showTerry = true;
+
 
 async function replacedock(checking = true) {
     
@@ -220,13 +222,34 @@ async function checksaved() {
     console.log("Checking saved data...")
     document.getElementById('clock').style.fontSize = "80px";
 
+     try {
+        saved = localStorage.getItem(SaveKey+"update1.3.3");
+        if (saved == "lol") {
+            showTerry = JSON.parse(localStorage.getItem(SaveKey+"showTerry"));
+        } else {
+            localStorage.setItem(SaveKey+"update1.3.3", "lol");
+            localStorage.setItem(SaveKey+"showTerry", JSON.stringify(true));
+        }
+     } catch {
+        localStorage.setItem(SaveKey+"update1.3.3", "lol");
+        localStorage.setItem(SaveKey+"showTerry", JSON.stringify(true));
+    }
+
+    if (showTerry) {
+        document.getElementById("bot").style.display = "block";
+    } else {
+        document.getElementById("bot").style.display = "none";
+    }
+
     try {
         saved = localStorage.getItem(SaveKey+"update1.3.1");
         if (saved == "lol") {
             clocksize = localStorage.getItem(SaveKey+"clocksize");
             document.getElementById("clock").style.fontSize = clocksize+"px";
             outputsize = localStorage.getItem(SaveKey+"outputsize");
-            document.getElementById("Terry").style.fontSize = outputsize+"px";
+            if (showTerry) {
+                document.getElementById("Terry").style.fontSize = outputsize+"px";
+            }
             docktopoffset = localStorage.getItem(SaveKey+"docktopoffset");
         } else {
             localStorage.setItem(SaveKey+"update1.3.1", "lol");
@@ -283,8 +306,12 @@ async function checksaved() {
         document.getElementById("clock").style.top = (100-clockpos[1])+"%"
         document.getElementById("intr").style.left = (inpos[0])+"%"
         document.getElementById("intr").style.top = (100-inpos[1])+"%"
-        document.getElementById("bot").style.left = (outpos[0])+"%"
-        document.getElementById("bot").style.top = (100-outpos[1])+"%"
+
+        if (showTerry) {
+            document.getElementById("bot").style.left = (outpos[0])+"%"
+            document.getElementById("bot").style.top = (100-outpos[1])+"%"
+
+        }
         
     
     
@@ -658,9 +685,9 @@ function changeZoom() {
     BodyZoom = Math.sqrt((WindowPixels / intendedWindowSize)) * 1.2;
 
     dockdownlmt = ((clientHeight+130)/clientHeight)*100;
-    dockdownchklmt = ((clientHeight-130)/clientHeight);
+    dockdownchklmt = ((clientHeight-150 * (clientHeight / 1080))/clientHeight);
     dockwidthlmt = ((clientWidth+100)/clientWidth)*100;
-    dockwidthchklmt = ((clientWidth-100)/clientWidth);
+    dockwidthchklmt = ((clientWidth-100* (clientHeight / 1080))/clientWidth);
 
     body.style.width = viewportWidth/BodyZoom + "px";
     body.style.height = viewportHeight/BodyZoom + "px";
@@ -952,6 +979,12 @@ async function pagechange(dir) {
 
 async function replywith(x) {
     
+
+    if (!showTerry) {
+        responding = false;
+        return;
+    }
+
     v=""
     msg = "Thinking..."
 
@@ -1227,10 +1260,12 @@ function command(repl) {
 
 
             if (xp > 0 && xp < 101 && yp > 0 && yp < 101) {
+                if (showTerry) {
                 document.getElementById("bot").style.top = (100-yp)+"%"
                 document.getElementById("bot").style.left = (xp)+"%"
                 replywith("Changed the output's position to ("+xp+", "+yp+"). Warning: Moving it somewhere inaccessable may require a reset to restore functionality. ")
                 Save("outpos", JSON.stringify([xp, yp]))
+                }
             } else {
                 replywith("Error: X and Y values must be between 1 and 100. These values are based on % of your current screen. The syntax is (>outpos <Xvalue> <Yvalue>)")
             }
@@ -1317,6 +1352,17 @@ function command(repl) {
 
         replywith("Switched default mode to "+dmode+" mode.")
         localStorage.setItem(SaveKey+"defaultmode", dmode)
+        haha = true;
+
+    } else if (repl.includes(">toggleterry")) {
+        showTerry = !showTerry;
+        if (showTerry) {
+            document.getElementById("bot").style.display = "block";
+        } else {
+            document.getElementById("bot").style.display = "none";
+        }
+        if (showTerry) replywith("Terry is now shown on the desktop.");
+        localStorage.setItem(SaveKey+"showTerry", JSON.stringify(showTerry));
         haha = true;
     } else if (repl.includes(">pgs")) {
         try {
@@ -1500,7 +1546,9 @@ function command(repl) {
             } else {
                 replywith("Output font size set to "+outputsize+"px.")
                 Save("outputsize", outputsize);
-                document.getElementById("Terry").style.fontSize = outputsize+"px";
+                if (showTerry) {
+                    document.getElementById("Terry").style.fontSize = outputsize+"px";
+                }
             }
         } catch {
                 replywith("Error: Invalid syntax. Please enter a value between 8 and 80. This will be the font size of the output in pixels.")
