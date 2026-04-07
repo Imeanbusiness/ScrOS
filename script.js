@@ -100,8 +100,13 @@ async function replacedock(checking = true) {
                     document.getElementById("docktext"+(i+1)).style.gridRow = ((i+1)*2)+1;
                     dockloc = "locked" 
                     console.log((100-dockwidthlmt)+"%")
+
+                    const ZoomFactor = clientHeight/1080;
+                    
+                    
+                    
                     if (!checking) document.getElementById("appdock").style.left = 100-dockwidthlmt+"%";
-                    document.getElementById("appdock").style.top = (55*Math.sqrt(BodyZoom)-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
+                    document.getElementById("appdock").style.top = (63*ZoomFactor-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
                     //document.getElementById("appdock").style.top = dockdownlmt/3 + "%";
                     if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                     document.getElementById("intr").style.top = "80%";
@@ -140,12 +145,12 @@ async function replacedock(checking = true) {
 
                 dockloc = "locked" 
                 document.getElementById("appdock").style.height = "50px";
-                document.getElementById("appdock").style.top = dockdownlmt + "%";
+                if (!checking) document.getElementById("appdock").style.top = dockdownlmt + "%";
                 document.getElementById("appdock").style.left = "50%";
                 if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                      if (!checking) document.getElementById("intr").style.top = "80%";
                 } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                    document.getElementById("intr").style.top = "60%";
+                    if (!checking) document.getElementById("intr").style.top = "60%";
                 }
             }
             if (dockpos == 3) {
@@ -168,9 +173,10 @@ async function replacedock(checking = true) {
                       document.getElementById("dockclick"+(i+1)).style.gridRow = ((i+1)*2);
                       document.getElementById("docktext"+(i+1)).style.gridRow = ((i+1)*2)+1;
                       dockloc = "locked" 
+                      const ZoomFactor = clientHeight/1080;
                       console.log((100-dockwidthlmt)+"%")
                        if (!checking) document.getElementById("appdock").style.left = dockwidthlmt+"%";
-                      document.getElementById("appdock").style.top = (55*Math.sqrt(BodyZoom)-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
+                      document.getElementById("appdock").style.top = (63*ZoomFactor-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
                       //document.getElementById("appdock").style.top = dockdownlmt + "%";
                       if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                         document.getElementById("intr").style.top = "80%";
