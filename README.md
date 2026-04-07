@@ -147,6 +147,7 @@ Here is a list of every command and how to use it.
 
 ## Scr-OS Mensura (Version 1.3.2) (Latest)
 
+- \>dockmode defaults dock to bottom, bug!
 - Added >toggleterry to hide the bot
 - Fixed problems regarding dock positions
 - Dock is now fully responsive

@@ -63,7 +63,7 @@ vbgfile = "City.mp4"
 dockloc = "open"
 clockpos = ["50", "95"]
 inpos = ["50", "10"]
-const initinpos = ["50", "10"]
+const initinpos = ["50", "10.001"]
 outpos = ["50", "65"]
 //learn
 //settings
@@ -73,11 +73,6 @@ showTerry = true;
 
 async function replacedock(checking = true) {
     
-    if (switchdock && !simpledock && inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                    document.getElementById("intr").style.top = "80%";
-    } else if(inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-        document.getElementById("intr").style.top = "60%";
-    }
     if (!simpledock) {
         
         if (!simpledock) {
@@ -110,11 +105,6 @@ async function replacedock(checking = true) {
                     if (!checking) document.getElementById("appdock").style.left = 100-dockwidthlmt+"%";
                     document.getElementById("appdock").style.top = (63*ZoomFactor-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
                     //document.getElementById("appdock").style.top = dockdownlmt/3 + "%";
-                    if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                    document.getElementById("intr").style.top = "80%";
-                    } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                        document.getElementById("intr").style.top = "60%";
-                    }
                 }
             }
             if (dockpos == 2) {
@@ -149,11 +139,6 @@ async function replacedock(checking = true) {
                 document.getElementById("appdock").style.height = "50px";
                 if (!checking) document.getElementById("appdock").style.top = dockdownlmt + "%";
                 document.getElementById("appdock").style.left = "50%";
-                if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                     if (!checking) document.getElementById("intr").style.top = "80%";
-                } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                    if (!checking) document.getElementById("intr").style.top = "60%";
-                }
             }
             if (dockpos == 3) {
                   document.getElementById("appdock").style.gridTemplateColumns = "70px";
@@ -180,11 +165,6 @@ async function replacedock(checking = true) {
                        if (!checking) document.getElementById("appdock").style.left = dockwidthlmt+"%";
                       document.getElementById("appdock").style.top = (63*ZoomFactor-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
                       //document.getElementById("appdock").style.top = dockdownlmt + "%";
-                      if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                        document.getElementById("intr").style.top = "80%";
-                        } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                            document.getElementById("intr").style.top = "60%";
-                        }
                   }
               }
             if (lockeddock && !simpledock) {
@@ -1362,6 +1342,7 @@ function command(repl) {
             document.getElementById("bot").style.top = (100-outpos[1])+"%"
         } else {
             document.getElementById("bot").style.display = "none";
+            responding = false;
         }
         if (showTerry) replywith("Terry is now shown on the desktop.");
         localStorage.setItem(SaveKey+"showTerry", JSON.stringify(showTerry));
@@ -1789,6 +1770,7 @@ function command(repl) {
     } else if (repl.includes(">dockmode")) {
         simpledock = !simpledock;
         if (!simpledock) {
+            dockpos = 2;
             replacedock(false);
             replywith("Switched to dock mode. The dock is now on one of the sides of the screen and is animated.")
         } else {
