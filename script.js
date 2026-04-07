@@ -1358,6 +1358,8 @@ function command(repl) {
         showTerry = !showTerry;
         if (showTerry) {
             document.getElementById("bot").style.display = "block";
+            document.getElementById("bot").style.left = (outpos[0])+"%"
+            document.getElementById("bot").style.top = (100-outpos[1])+"%"
         } else {
             document.getElementById("bot").style.display = "none";
         }
