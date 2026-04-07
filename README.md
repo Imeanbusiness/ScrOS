@@ -144,7 +144,12 @@ Here is a list of every command and how to use it.
 
 ## Patch Notes 
 
-## Scr-OS Mensura (Version 1.3.1 (Resizer!) (Current))
+## Scr-OS Mensura (Version 1.3.2) (Latest)
+
+- Fixed problems regarding dock positions
+- Dock is now fully responsive
+
+## Scr-OS Mensura (Version 1.3.1 (Resizer!))
 
 - Clock and Output are now resizable (fonts)!
 - Added command to fix dock issues

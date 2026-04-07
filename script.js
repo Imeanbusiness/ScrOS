@@ -68,7 +68,8 @@ outpos = ["50", "65"]
 //learn
 //settings
 
-async function replacedock() {
+
+async function replacedock(checking = true) {
     
     if (switchdock && !simpledock && inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                     document.getElementById("intr").style.top = "80%";
@@ -99,8 +100,8 @@ async function replacedock() {
                     document.getElementById("docktext"+(i+1)).style.gridRow = ((i+1)*2)+1;
                     dockloc = "locked" 
                     console.log((100-dockwidthlmt)+"%")
-                    document.getElementById("appdock").style.left = 100-dockwidthlmt+"%";
-                    document.getElementById("appdock").style.top = (55-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
+                    if (!checking) document.getElementById("appdock").style.left = 100-dockwidthlmt+"%";
+                    document.getElementById("appdock").style.top = (55*Math.sqrt(BodyZoom)-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
                     //document.getElementById("appdock").style.top = dockdownlmt/3 + "%";
                     if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                     document.getElementById("intr").style.top = "80%";
@@ -142,7 +143,7 @@ async function replacedock() {
                 document.getElementById("appdock").style.top = dockdownlmt + "%";
                 document.getElementById("appdock").style.left = "50%";
                 if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
-                    document.getElementById("intr").style.top = "80%";
+                     if (!checking) document.getElementById("intr").style.top = "80%";
                 } else if( inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                     document.getElementById("intr").style.top = "60%";
                 }
@@ -168,8 +169,8 @@ async function replacedock() {
                       document.getElementById("docktext"+(i+1)).style.gridRow = ((i+1)*2)+1;
                       dockloc = "locked" 
                       console.log((100-dockwidthlmt)+"%")
-                      document.getElementById("appdock").style.left = dockwidthlmt+"%";
-                      document.getElementById("appdock").style.top = (55-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
+                       if (!checking) document.getElementById("appdock").style.left = dockwidthlmt+"%";
+                      document.getElementById("appdock").style.top = (55*Math.sqrt(BodyZoom)-localStorage.getItem(SaveKey+"docktopoffset"))+"%";
                       //document.getElementById("appdock").style.top = dockdownlmt + "%";
                       if (switchdock && !simpledock &&  inpos[0] == initinpos[0] && inpos[1] == initinpos[1]) {
                         document.getElementById("intr").style.top = "80%";
@@ -361,7 +362,7 @@ async function checksaved() {
         }
     }
     if (!simpledock) {
-        replacedock();
+        replacedock(false);
     }
     if (lockeddock) {
         if (lockeddock && !simpledock) {
@@ -630,6 +631,7 @@ async function checksaved() {
 }
 
 setInterval(changeZoom, 200);
+setInterval(replacedock, 1000);
 
 function openApp(appsName) {
     let newPopopup = window.open(appsName, "mypopup"+popupcount, "width=800,height=600,resizable=yes,scrollbars=yes");
@@ -648,6 +650,11 @@ function changeZoom() {
     
 
     BodyZoom = Math.sqrt((WindowPixels / intendedWindowSize)) * 1.2;
+
+    dockdownlmt = ((clientHeight+130)/clientHeight)*100;
+    dockdownchklmt = ((clientHeight-130)/clientHeight);
+    dockwidthlmt = ((clientWidth+100)/clientWidth)*100;
+    dockwidthchklmt = ((clientWidth-100)/clientWidth);
 
     body.style.width = viewportWidth/BodyZoom + "px";
     body.style.height = viewportHeight/BodyZoom + "px";
@@ -1501,7 +1508,7 @@ function command(repl) {
             } else {
                 replywith("docktop font offset set to "+docktopoffset+"px.")
                 Save("docktopoffset", docktopoffset);
-                replacedock();
+                replacedock(false);
             }
         } catch {
                 replywith("Error: Invalid syntax. Please enter a value between -50 and 50. This will be the % offset of the dock's vertical placement.")
@@ -1726,7 +1733,7 @@ function command(repl) {
     } else if (repl.includes(">dockmode")) {
         simpledock = !simpledock;
         if (!simpledock) {
-            replacedock();
+            replacedock(false);
             replywith("Switched to dock mode. The dock is now on one of the sides of the screen and is animated.")
         } else {
             document.getElementById("appdock").style.gridTemplateColumns = "50px 150px 150px 150px 150px 150px 50px";
@@ -1789,15 +1796,15 @@ function command(repl) {
                     haha = true;
                     return;
                 } else if (dockpos == 1) {
-                    replacedock(); 
+                    replacedock(false); 
                     replywith("Dock position set to left. The dock is now on the left side of the screen.")
                     haha = true;
                 } else if (dockpos == 2) {
-                    replacedock();
+                    replacedock(false);
                     replywith("Dock position set to bottom. The dock is now on the bottom side of the screen.")
                     haha = true;
                 } else if (dockpos == 3) {
-                    replacedock();
+                    replacedock(false);
                     replywith("Dock position set to right. The dock is now on the right side of the screen.")
                     haha = true;
                 }
@@ -2388,9 +2395,11 @@ function respond() {
 async function movedockup() {
     curtop = document.getElementById("appdock").style.top;
     curtop = parseFloat(curtop);
+
+    spaceNeeded = 10 * Math.sqrt(BodyZoom);
     
     
-    if ((clientHeight-curtop/100*clientHeight) > 90) {
+    if (((100 -curtop)) > spaceNeeded) {
         return;
     }
     
@@ -2400,7 +2409,7 @@ async function movedockup() {
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.top = curtop - (0.05 * BodyZoom) + "%";
         
-        if (clientHeight-(curtop/100*clientHeight) > 90) {
+        if (((100 - curtop)) > spaceNeeded) {
             break;
         }
     }
@@ -2410,8 +2419,9 @@ async function leftmovedockright() {
     curtop = document.getElementById("appdock").style.left;
     curtop = parseFloat(curtop);
     
+    spaceNeeded = 25 *Math.sqrt(BodyZoom);
     
-    if ((curtop/100*clientWidth) > 25) {
+    if ((curtop/100*clientWidth) > spaceNeeded) {
         
         return;
     }
@@ -2423,7 +2433,7 @@ async function leftmovedockright() {
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.left = curtop + (0.05 * BodyZoom) + "%";
         
-        if ((curtop/100*clientWidth) > 25) {
+        if ((curtop/100*clientWidth) > spaceNeeded) {
             break;
         }
     }
@@ -2433,8 +2443,10 @@ async function leftmovedockright() {
 async function rightmovedockleft() {
     curtop = document.getElementById("appdock").style.left;
     curtop = parseFloat(curtop);
+
+    spaceNeeded = 25 *Math.sqrt(BodyZoom);
     
-    if (((curtop/100)*clientWidth) < clientWidth-25) {
+    if (((curtop/100)*clientWidth) < clientWidth-spaceNeeded) {
         
         return;
     }
@@ -2446,7 +2458,7 @@ async function rightmovedockleft() {
         curtop = parseFloat(curtop);
         document.getElementById("appdock").style.left = curtop - (0.05 * BodyZoom) + "%";
         
-        if (((curtop/100)*clientWidth) < clientWidth-25) {
+        if (((curtop/100)*clientWidth) < clientWidth-spaceNeeded) {
             break;
         }
     }
