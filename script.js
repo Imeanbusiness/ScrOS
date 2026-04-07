@@ -2450,7 +2450,7 @@ async function movedockup() {
     curtop = document.getElementById("appdock").style.top;
     curtop = parseFloat(curtop);
 
-    spaceNeeded = 10 * Math.sqrt(BodyZoom);
+    spaceNeeded = 11 * clientHeight/1080;
     
     
     if (((100 -curtop)) > spaceNeeded) {
@@ -2473,7 +2473,7 @@ async function leftmovedockright() {
     curtop = document.getElementById("appdock").style.left;
     curtop = parseFloat(curtop);
     
-    spaceNeeded = 25 *Math.sqrt(BodyZoom);
+    spaceNeeded = 26.5 * clientWidth/1920;
     
     if ((curtop/100*clientWidth) > spaceNeeded) {
         
@@ -2498,7 +2498,7 @@ async function rightmovedockleft() {
     curtop = document.getElementById("appdock").style.left;
     curtop = parseFloat(curtop);
 
-    spaceNeeded = 25 *Math.sqrt(BodyZoom);
+    spaceNeeded = 26.5 * clientWidth/1920;
     
     if (((curtop/100)*clientWidth) < clientWidth-spaceNeeded) {
         
