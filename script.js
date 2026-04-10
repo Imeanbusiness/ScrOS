@@ -1307,9 +1307,9 @@ function command(repl) {
         haha = true
     } else if (repl.includes(">status")) {
         try {
-            replywith("Systems: Normal. Version: 1.3.1 (Mensura)")
+            replywith("Systems: Normal. Version: 1.3.2 (Mensura)")
         } catch {
-            replywith("Systems: Abnormal. Version: 1.3.1 (Mensura) Reload with >reload.")
+            replywith("Systems: Abnormal. Version: 1.3.2 (Mensura) Reload with >reload.")
         }
         haha = true
         
