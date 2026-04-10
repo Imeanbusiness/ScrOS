@@ -1094,7 +1094,10 @@ function command(repl) {
 
     }   
     else if (repl.includes(">help")) {
-        alert(`Check the documentation for a list of commands and features. It is called README.md and is in the root directory of Scr-OS.`);
+        replywith("Opening ScrOS help manual online for you.")
+        let newPopup = window.open("https://github.com/Imeanbusiness/ScrOS/blob/main/README.md", "mypopup", "width=800,height=600,resizable=yes,scrollbars=yes")
+        openedPopups.push(newPopup)
+        popupcount++;
         haha = true
         responding = false;
     } else if (repl.includes(">kill")) {
