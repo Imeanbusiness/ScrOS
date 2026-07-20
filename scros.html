@@ -14,11 +14,706 @@
   
   <video src = "Videos/City.mp4" autoplay muted loop id="VidBack"></video>
   </div>
+
+    <img src = "Images/settings.png" id = "settingsButton" onclick="openSettings()">
+
+    <img src = "Images/Menu.png" id = "menuButton" onclick="openAppsMenu()">
+
+    <img src = "Images/settings.png" id = "settingsButton2" onclick="openSettings()">
+
+    <img src = "Images/Menu.png" id = "menuButton2" onclick="openAppsMenu()">
+
+
+  <div id = "appsMenu" class = "systemMenu" id ="dragApps" onmousedown="decideZ('appsMenu')">
+    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('appsMenu')">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('appsMenu')">
+
+      
+      <div id = "appsMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "appsTitle">APPS</h1></div>
+      <div id = "realAppsMenu" class = "realMenu"></div>
+
+
+  </div>
+
+  <div id = "clockMenu" class = "systemMenu" id ="dragclock" onmousedown="decideZ('clockMenu')">
+    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('clockMenu')">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('clockMenu')">
+
+      
+      <div id = "clockMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "clockTitle">CLOCK</h1></div>
+      <div id = "realClockMenu" class = "realMenu"></div>
+
+
+  </div>
+
+  <div id = "terminalMenu" class = "systemMenu" id ="dragTerminal" onmousedown="decideZ('terminalMenu')">
+    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('terminalMenu')">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('terminalMenu')">
+
+      
+      <div id = "terminalMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "terminalTitle">Terminal</h1></div>
+      <div id = "realTerminalMenu" class = "realMenu">
+        <div id = "terminalOutput">
+          SYSTEM: Welcome to the ScrOS Terminal. Run >help for a list of commands.<br>
+        </div>
+        <input id = "terminalInput" value=">">
+      </div>
+
+
+  </div>
+
+  <div id = "helpMenu" class = "systemMenu" id ="dragHelp" onmousedown="decideZ('helpMenu')">
+    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('helpMenu')">
+        <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('helpMenu')">
+        <div id = "helpMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "helpTitle">HELP</h1></div>
+      <div class = "realMenu" id = "realHelpMenu">
+          <h2>Scr-OS Manual</h2>
+          <h3>Getting started</h3>
+
+
+          <h3>Basics</h3>
+          <p>Scr-OS is a browser-based desktop simulation with a clock, command panel, and app dock.</p>
+          <ol>
+            <li><strong>Clock</strong><br>Shows the current time. By default it is set to 24-hour format. Use the <code>>fclock</code> command to switch formats.</li>
+            <li><strong>Command Output</strong><br>Displays the result of commands entered in the command panel.</li>
+            <li><strong>App Dock</strong><br>Click icons to open apps quickly. Use the arrows to flip pages. Customize the dock position and app slots. Click an icon to open it on top of Scr-OS. Hold <code>CTRL</code> and click to open a new tab.</li>
+            <li><strong>Command Panel (Input)</strong><br>Enter commands here. Terry analyzes your request and shows output in the command area.</li>
+          </ol>
+
+          <h3>Functions</h3>
+          <p><strong>Quick Research</strong><br>In chat mode, Terry can access Google searches. You must provide your own API key for some chat features.</p>
+          <p><strong>Convenience</strong><br>Terry can open websites and search Spotify or YouTube directly.</p>
+          <p><strong>Commands</strong><br>Use commands to control Scr-OS behavior, open apps, and change settings.</p>
+          <p><strong>Customization</strong><br>Commands let you change the background, icons, font style, and other UI settings.</p>
+
+          <h3>Issues</h3>
+          <p>If you find bugs or issues, report them on the Scr-OS GitHub page. Run <code>>gh</code> to open the repository.</p>
+
+          <h3>Commands</h3>
+          <h4>🎨 Customization</h4>
+          <table>
+            <tr><th>Command</th><th>Description</th></tr>
+            <tr><td><code>>bgc (filename)</code></td><td>Set the background image to a file from the <code>Images</code> folder. Example: <code>>bgc BG2.png</code></td></tr>
+            <tr><td><code>>vbgc (filename)</code></td><td>Set the background video file from the <code>Videos</code> folder.</td></tr>
+            <tr><td><code>>bgmode</code></td><td>Toggle between animated and static backgrounds.</td></tr>
+            <tr><td><code>>fontcolor (color)</code></td><td>Change the font color using a hex code or CSS color name.</td></tr>
+            <tr><td><code>>outlcolor (color)</code></td><td>Change the font outline color.</td></tr>
+            <tr><td><code>>font (font name)</code></td><td>Set the font family. Example: <code>Nunito</code>, <code>Arial</code>.</td></tr>
+            <tr><td><code>>iconpack (folder name)</code></td><td>Change the icon set. Add icons in the format <code>AppIcons/AppName.png</code>.</td></tr>
+            <tr><td><code>>remove (slot)</code></td><td>Remove an app from the current dock page slot (1–10).</td></tr>
+            <tr><td><code>>replace (slot) (appname)</code></td><td>Replace a dock slot with another supported app.</td></tr>
+            <tr><td><code>>showclock</code></td><td>Toggle the clock display.</td></tr>
+            <tr><td><code>>showseconds</code></td><td>Toggle seconds on the clock.</td></tr>
+            <tr><td><code>>showdock</code></td><td>Toggle the app dock.</td></tr>
+            <tr><td><code>>switchdock</code></td><td>Switch dock and input positions.</td></tr>
+            <tr><td><code>>pgs (pages)</code></td><td>Set the number of dock pages (1–4).</td></tr>
+            <tr><td><code>>dockmode</code></td><td>Toggle between fluid and simple dock modes.</td></tr>
+            <tr><td><code>>lockdock</code></td><td>Lock the fluid dock in place.</td></tr>
+            <tr><td><code>>appadd (appname)</code></td><td>Add a custom supported app. Paste the destination link when prompted. Add an icon to the active icon pack.</td></tr>
+            <tr><td><code>>appremove (appname)</code></td><td>Remove an app from the supported list.</td></tr>
+            <tr><td><code>>inpos (x value) (y value)</code></td><td>Move the input box to a custom screen location. Coordinates are percentages.</td></tr>
+            <tr><td><code>>outnpos (x value) (y value)</code></td><td>Move the output box to a custom screen location.</td></tr>
+            <tr><td><code>>clocknpos (x value) (y value)</code></td><td>Move the clock to a custom screen location.</td></tr>
+            <tr><td><code>>outputsize (font size)</code></td><td>Resize the output font (8–150).</td></tr>
+            <tr><td><code>>clocksize (font size)</code></td><td>Resize the clock font (8–300).</td></tr>
+            <tr><td><code>>docktopoffset (offset in %)</code></td><td>Adjust the dock's vertical position when it is on the left or right.</td></tr>
+            <tr><td><code>>toggleterry</code></td><td>Hide or show Terry.</td></tr>
+          </table>
+
+          <h4>🛠️ Assistance</h4>
+          <table>
+            <tr><th>Command</th><th>Description</th></tr>
+            <tr><td><code>>help</code></td><td>Open the Scr-OS local help manual.</td></tr>
+            <tr><td><code>>kill</code></td><td>Exit Scr-OS.</td></tr>
+            <tr><td><code>>gh</code></td><td>Open the Scr-OS GitHub repository.</td></tr>
+            <tr><td><code>>status</code></td><td>Show Scr-OS version and system status.</td></tr>
+            <tr><td><code>>settings</code></td><td>Open the settings menu.</td></tr>
+          </table>
+
+          <h4>🔍 Search & Web</h4>
+          <table>
+            <tr><th>Command</th><th>Description</th></tr>
+            <tr><td><code>>gs (query)</code></td><td>Search Google for the provided query.</td></tr>
+            <tr><td><code>>yt (query)</code></td><td>Search YouTube for the query.</td></tr>
+            <tr><td><code>>ms (query)</code></td><td>Search Spotify for the query.</td></tr>
+            <tr><td><code>>ops (site)</code></td><td>Open a website. Example: <code>>ops amazon.com</code>.</td></tr>
+          </table>
+
+          <h4>⚙️ System Utilities</h4>
+          <table>
+            <tr><th>Command</th><th>Description</th></tr>
+            <tr><td><code>>calc (expression)</code></td><td>Evaluate math expressions. Supports functions like <code>sqrt</code>, <code>sin</code>, <code>pi</code>, and <code>log</code>.</td></tr>
+            <tr><td><code>>calcds (maximum denominator)</code></td><td>Set the maximum denominator for fraction simplification (1–1000).</td></tr>
+            <tr><td><code>>fclock</code></td><td>Toggle between 12-hour and 24-hour clock formats.</td></tr>
+            <tr><td><code>>textms (delay)</code></td><td>Set command text output delay in milliseconds (0–100).</td></tr>
+            <tr><td><code>>api</code></td><td>Enter your own API key for chat features.</td></tr>
+            <tr><td><code>>reload</code></td><td>Reload Scr-OS.</td></tr>
+          </table>
+
+          <h4>💬 AI/Chat Features</h4>
+          <p><strong>mode</strong><br>Toggle between chat mode and search mode.</p>
+          <p><strong>dmode</strong><br>Choose the default start-up mode for Terry.</p>
+
+          <h3>Patch Notes</h3>
+          <p><strong>Scr-OS Fenestra (Version 1.4.0)</strong><br>- Added settings UI interface.<br>- Changed default look.</p>
+          <p><strong>Scr-OS Mensura (Version 1.3.2)</strong><br>- <code>>dockmode</code> defaults dock to bottom, bug!<br>- Added <code>>toggleterry</code> to hide the bot.<br>- Fixed dock position problems.<br>- Dock is now fully responsive.</p>
+          <p><strong>Scr-OS Mensura (Version 1.3.1)</strong><br>- Clock and output are now resizable.<br>- Added command to fix dock issues.<br>- Fixed empty app slots on dock.<br>- Removed default scaling with clock.</p>
+          <p><strong>Scr-OS Mensura (Version 1.3.0)</strong><br>- App popups for more immersion.<br>- App dock slots with nothing work nicer.<br>- UI uses responsive zoom.</p>
+          <p><strong>Scr-OS Marina (Version 1.2.1)</strong><br>- Added custom positioning for input, output, and clock.<br>- Scroll wheel cannot flip pages.<br>- Fixed <code>>switchdock</code> inconsistencies with fluid dock.</p>
+          <p><strong>Scr-OS Marina (Version 1.2.0)</strong><br>- Background type now toggles between video and static.<br>- Dock is more customizable with up to 4 pages.<br>- Dock position can be left, right, or bottom.<br>- You can change supported apps and add icons.<br>- Added seconds toggle for clock.<br>- Improved calculator fraction mode.<br>- Added 29 fonts.</p>
+          <p><strong>Scr-OS Recto (Version 1.1.2 + 1.1.3)</strong><br>- Calculator improvements.<br>- Added degrees mode.<br>- Added API key option.<br>- Fixed <code>>reset</code> bug.</p>
+          <p><strong>Scr-OS Recto (Version 1.1.0)</strong><br>- New dock pages and customization.<br>- Smoother chat functions and load animations.<br>- Fixed <code>>reset</code> bugs.</p>
+          <p><strong>Scr-OS Release (Version 1.0)</strong><br>- First official release.</p>
+      </div>
+  </div>
+
+
+
+    <div id = "settingsMenu" class = "systemMenu" id ="dragSettings" onmousedown="decideZ('settingsMenu')">
+      <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('settingsMenu')">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('settingsMenu')">
+
+      
+      <div id = "settingsMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "settingsTitle">SETTINGS</h1></div>
+
+
+        <div id = "realSettingsMenu" class = "realMenu">
+
+          <h2 id = "minorSettingsTitle">🎨 Customization 🎨</h2>
+    
+    
+          <div class = "settingBar">
+
+              <h3 class = "subMinorSettingsTitle">Background</h3>
+
+    
+    
+    
+            <div class = "innerSettingBar">
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Background Image File</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id = "TerryBgFile"> 
+    
+              </div>
+    
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Background Video File</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id = "vbgfile"> 
+    
+              </div>
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Background Type</p>
+    
+              </div>
+    
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id = "bgtype">
+                  <option>Static</option>
+                  <option>Video</option>
+                </select>
+    
+              </div>
+
+              <div class = "settingTextDiv">
+                <p>Theme</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <select class = "smallSettingUserInput" id = "systemTheme">
+                  <option>Light</option>
+                  <option>Dark</option>
+                </select>
+    
+              </div>
+    
+            </div>
+
+            
+
+            
+        </div>
+
+
+
+        <div class = "settingsGapDiv"></div>
+
+
+
+
+
+         <div class = "settingBar">
+    
+            <h3 class = "subMinorSettingsTitle">Font</h3>
+    
+            <div class = "innerSettingBar">
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Color (Hex Code or Name)</p>
+    
+              </div>
+
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id = "TerryFontColor"> 
+    
+              </div>
+    
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Outline Color (Hex Code or Name)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id = "TerryOutlColor">  
+    
+              </div>
+
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Output Font Size (less than 150)</p>
+    
+              </div>
+
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="outputFontSize"> 
+    
+              </div>
+    
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Clock Font Size (less than 300)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="clockFontSize"> 
+    
+              </div>
+
+
+    
+              <div class = "settingTextDiv">
+                <p>Font Style</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <input class = "settingUserInput" id = "TerryFont"> 
+    
+              </div>
+    
+            </div>
+
+         </div>
+
+
+
+
+
+         <div class = "settingsGapDiv"></div>
+
+
+
+
+
+
+         <div class = "settingBar">
+    
+            <h3 class = "subMinorSettingsTitle">App Dock</h3>
+    
+            <div class = "innerSettingBar">
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Icon Pack (Folder Name)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="iconPack"> 
+    
+              </div>
+    
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>App Dock Pages</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="appDockPages">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+    
+              </div>
+
+
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Dock Mode</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="dockMode">
+                  <option>Simple</option>
+                  <option>Fluid</option>
+                </select>
+    
+              </div>
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Dock Position (only with Fluid Dock)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="dockPosition">
+                  <option>Left</option>
+                  <option>Bottom</option>
+                  <option>Right</option>
+                </select>
+    
+              </div>
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Lock Dock (only with Fluid Dock)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="lockDock">
+                  <option>Fluid</option>
+                  <option>Locked</option>
+                </select>
+    
+              </div>
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Switch Dock (only with Simple Dock)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="switchDock">
+                  <option>Normal</option>
+                  <option>Switch</option>
+                </select>
+    
+              </div>
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Complex Dock (Dock Override)</p>
+    
+              </div>
+
+
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="complexDock">
+                  <option>Off</option>
+                  <option>On</option>
+                </select>
+    
+              </div>
+
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Complex Dock Columns</p>
+    
+              </div>
+
+
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id = "complexDockColumns">
+    
+              </div>
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Complex Dock Rows</p>
+    
+              </div>
+
+
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id = "complexDockRows">
+    
+              </div>
+
+              <div class = "settingTextDiv">
+                <p>Show Dock</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <select class = "smallSettingUserInput" id="showDock">
+                  <option>On</option>
+                  <option>Off</option>
+                </select>
+    
+              </div>
+    
+            </div>
+
+         </div>
+
+
+
+          <div class = "settingsGapDiv"></div>
+
+
+
+
+
+         <div class = "settingBar">
+    
+            <h3 class = "subMinorSettingsTitle">Positioning</h3>
+    
+            <div class = "innerSettingBar">
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Input Position (x,y)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="inputPosition"> 
+    
+              </div>
+    
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Output Position (x,y)</p>
+    
+              </div>
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="outputPosition"> 
+    
+              </div>
+    
+              <div class = "consecutiveSettingTextDiv">
+                <p>Clock Position (x,y)</p>
+    
+              </div>
+    
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="clockPosition"> 
+    
+              </div>
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Complex Dock Position</p>
+    
+              </div>
+
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="complexDockPos"> 
+    
+              </div>
+
+              <div class = "settingTextDiv">
+                <p>Dock's Y offset (%)</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <input class = "settingUserInput" id="dockYOffset"> 
+    
+              </div>
+
+
+    
+            </div>
+
+         </div>
+
+         <div class = "settingsGapDiv"></div>
+
+
+
+
+
+         <div class = "settingBar">
+    
+            <h3 class = "subMinorSettingsTitle">Clock</h3>
+  
+
+            <div class = "innerSettingBar">
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Show Seconds</p>
+    
+              </div>
+    
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="showSeconds">
+                  <option>On</option>
+                  <option>Off</option>
+                </select>
+    
+              </div>
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Clock Hour Format</p>
+    
+              </div>
+    
+              <div class = "consecutiveSettingInputDiv">
+                <select class = "smallSettingUserInput" id="clockHourFormat">
+                  <option>12</option>
+                  <option>24</option>
+                </select>
+    
+              </div>
+
+              <div class = "settingTextDiv">
+                <p>Show Clock</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <select class = "smallSettingUserInput" id="showClock">
+                  <option>On</option>
+                  <option>Off</option>
+                </select>
+    
+              </div>
+
+
+
+
+    
+            </div>
+
+         </div>
+
+
+
+
+         <div class = "settingsGapDiv"></div>
+
+
+
+
+
+         <div class = "settingBar">
+    
+            <h3 class = "subMinorSettingsTitle">Terry</h3>
+  
+
+            <div class = "innerSettingBar">
+
+              <div class = "settingTextDiv">
+                <p>Show Terry</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <select class = "smallSettingUserInput" id="showTerry">
+                  <option>On</option>
+                  <option>Off</option>
+                </select>
+    
+              </div>
+
+
+    
+            </div>
+
+         </div>
+
+
+
+
+         <h2 id = "minorSettingsTitle">⚙️ System Utilities ⚙️</h2>
+
+
+
+          <div class = "settingBar">
+    
+            <h3 class = "subMinorSettingsTitle">Calculator</h3>
+
+            <div class = "innerSettingBar">
+
+              <div class = "consecutiveSettingTextDiv">
+                <p>Maximum Denominator</p>
+    
+              </div>
+    
+              <div class = "consecutiveSettingInputDiv">
+                <input class = "settingUserInput" id="maxDenominator"> 
+    
+              </div>
+
+
+              <div class = "settingTextDiv">
+                <p>Calculator Angle Mode</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <select class = "smallSettingUserInput" id="calculatorAngleMode">
+                  <option>Radians</option>
+                  <option>Degrees</option>
+                </select>
+    
+              </div>
+
+
+    
+            </div>
+
+         </div>
+
+         <div class = "settingsGapDiv"></div>
+
+         <div class = "settingBar">
+    
+            <h3 class = "subMinorSettingsTitle">Other</h3>
+
+            <div class = "innerSettingBar">
+
+              <div class = "settingTextDiv">
+                <p>Text Speed (MS)</p>
+    
+              </div>
+    
+              <div class = "settingInputDiv">
+                <input class = "settingUserInput" id="textSpeed"> 
+    
+              </div>
+
+
+  
+
+
+    
+            </div>
+
+         </div>
+
+         <div class = "settingsGapDiv"></div>
+
+
+
+
+
+
+        
+
+
+      </div>
+
+    </div>
+
+
     <h1 id="clock">Loading...</h1>
 
     <script>
-        fclock = true; // true for 24-hour format, false for 12-hour format
-        showseconds = true; // true for showing seconds in clock, false for hiding seconds
+        fclock = false; // true for 24-hour format, false for 12-hour format
+        showseconds = false; // true for showing seconds in clock, false for hiding seconds
         fclock = JSON.parse(localStorage.getItem("SCR-OS/ClockFormat"));
         showseconds = JSON.parse(localStorage.getItem("SCR-OS/showseconds"));
        
@@ -58,6 +753,70 @@
         // Update every second
         setInterval(updateClock, 1000);
     </script>
+
+    <div id = "batteryTab1" class = "batteryTab">
+      <p class = "batteryMessages">Calculating...</p>
+    </div>
+    <div id = "batteryIndicator1" class = "batteryIndicator" onmouseover = "showBatteryTab(1)" onmouseout="hideBatteryTab(1)">
+      <div class = "batteryIcon">
+        <div class = "batteryCase">
+          <img src="Images/Charging.png" class="batteryCharging">
+          <div class = "batteryChart">
+
+          </div>
+        </div>
+        <div class = "batteryNotch">
+
+        </div>
+        
+      </div>
+      <p class="batteryPercentage">100%</p>
+    </div>
+    <div id = "batteryTab2" class = "batteryTab">
+      <p class = "batteryMessages">Calculating...</p>
+    </div>
+    <div id = "batteryIndicator2" class = "batteryIndicator" onmouseover = "showBatteryTab(2)" onmouseout="hideBatteryTab(2)">
+      <div class = "batteryIcon">
+        <div class = "batteryCase">
+          <img src="Images/Charging.png" class="batteryCharging">
+          <div class = "batteryChart">
+
+          </div>
+        </div>
+        <div class = "batteryNotch">
+
+        </div>
+        
+      </div>
+      <p class="batteryPercentage">100%</p>
+    </div>
+    <div id = "batteryTab3" class = "batteryTab">
+      <p class = "batteryMessages">Calculating...</p>
+    </div>
+    <div id = "batteryIndicator3" class = "batteryIndicator" onmouseover = "showBatteryTab(3)" onmouseout="hideBatteryTab(3)">
+      <div class = "batteryIcon">
+        <div class = "batteryCase">
+          <img src="Images/Charging.png" class="batteryCharging">
+          <div class = "batteryChart">
+
+          </div>
+        </div>
+        <div class = "batteryNotch">
+
+        </div>
+        
+      </div>
+      <p class="batteryPercentage">100%</p>
+    </div>
+
+
+
+      <img src = "Images/Wifi.png" id = "wifiIcon1" class = "wifiIcon" onmouseover = "showWifiTab(1)" onmouseout="hideBatteryTab(1)">
+
+    <img src = "Images/Wifi.png" id = "wifiIcon2" class = "wifiIcon" onmouseover = "showWifiTab(2)" onmouseout="hideBatteryTab(2)">
+    <img src = "Images/Wifi.png" id = "wifiIcon3" class = "wifiIcon" onmouseover = "showWifiTab(3)" onmouseout="hideBatteryTab(3)">
+
+
   <div class = "bot" id ="bot">
   
       <img src="Images/Terry.png" alt="TerryBot" id="terrybot">
@@ -95,16 +854,16 @@
       <p id="docktext9">Office</p>
       <p id="docktext10">Weather</p>
 
-      <p id="leftarrow" unselectable="on" onclick="pagechange('left')">◄</p>
-      <p id="rightarrow" unselectable="on" onclick="pagechange('right')">►</p>
+      <p id="leftarrow" onclick="pagechange('left')">◄</p>
+      <p id="rightarrow" onclick="pagechange('right')">►</p>
 
   </div>
-  <div id = "intr" class="intr">
-    <span>
+
+  
       <input id = "Resp" class = "Resp">
 
-    </span>
-  </div>
+
+
   <script src="script.js"></script>
 
 </body>

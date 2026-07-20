@@ -10,11 +10,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Inter:wght@400;700&family=Spectral:wght@400;700&family=Merriweather:wght@400;700&family=Alegreya:wght@400;700&family=Rokkitt:wght@400;700&family=Poppins:wght@400;700&family=Oswald:wght@400;700&family=Ultra&family=Roboto+Flex:wght@400;700&family=Fira+Sans:wght@400;700&family=Source+Sans+3:wght@400;700&family=EB+Garamond:wght@400;700&family=Jost:wght@400;700&family=Rubik:wght@400;700&family=Work+Sans:wght@400;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+
 html {
     height: 100%;
     width: 100%;
     font-family: "Poppins", sans-serif;
     overflow: hidden;
+    user-select: none;
 
 }
 
@@ -45,6 +48,385 @@ html {
   object-fit: cover;
   z-index: -1;
 }
+
+#realTerminalMenu {
+    align-items: center;
+    display: grid;
+    grid-template-rows: 630px 50px;
+    overflow: hidden;
+}
+
+#terminalOutput {
+    width: 600px;
+    padding: 15px;
+    text-align: left;
+    overflow-y: scroll;
+    font-family: "source code pro", monospace;
+    box-sizing: border-box;
+    background-color: black;
+    color: white;
+}
+
+
+#terminalOutput::-webkit-scrollbar {
+  width: 10px;
+  height: 8px
+}
+
+#terminalOutput::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#terminalOutput::-webkit-scrollbar-thumb {
+  background: #888888;
+  border-radius: 10px;
+}
+
+#terminalOutput::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+#terminalInput {
+    width: 600px;
+    height: 50px;
+    font-size: 15px;
+    padding: 17.5px;
+    font-family: "source code pro", monospace;
+    box-sizing: border-box;
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+
+
+.systemMenu {
+    color: black;
+    text-shadow: none;
+      top: 50%;
+      left: 50%;
+    height: 800px;
+    width: 600px;
+    transform: translate(-50%, -50%);
+    background-color: #DCDCDC;
+    border: solid grey 2px;
+    position: fixed;
+    border-radius: 30px;
+    text-align: center;
+    justify-content: center;
+    user-select: none;
+    grid-template-rows: 120px;
+    resize: both; 
+    display: none;
+    overflow: hidden;
+}
+
+
+.systemTitle {
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-bottom: solid grey 2px;
+    border-radius: 30px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background: #F0F0F0; 
+    position: fixed;
+    left: 0px;
+    width: 600px;
+}
+
+
+.realMenu {
+    width: 600px;
+    height: 680px;
+    box-sizing: border-box;
+}
+
+.realMenu::-webkit-scrollbar {
+  width: 10px;
+  height: 8px
+}
+
+.realMenu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.realMenu::-webkit-scrollbar-thumb {
+  background: #888888;
+  border-radius: 10px;
+}
+
+.realMenu::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+#realHelpMenu {
+    width: 500px;
+    overflow: scroll;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    text-align: left;
+}
+
+
+
+.systemMenuHeader {
+    cursor: move;
+}
+
+
+
+#appsMenu {
+
+    z-index: 10;
+    display: none;
+    
+
+}
+
+.appIcon {
+    margin: 10px;
+}
+
+#realAppsMenu {
+    width: 600px;
+    height: 680px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: grid;
+    justify-content: center;
+}
+
+
+
+
+
+#menuButton2 {
+    height: 39px;
+    width: 39px;
+    margin: 0px;
+    position: absolute;
+    padding: 0px;
+    left:60.5px;
+    top: 14.5px;
+    cursor: pointer;
+
+}
+
+#settingsButton2 {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    position: absolute;
+    padding: 0px;
+    left: 0px;
+    top: 9px;
+    cursor: pointer;
+}
+
+
+
+#menuButton {
+    height: 39px;
+    width: 39px;
+    margin: 0px;
+    position: absolute;
+    padding: 0px;
+    right: 60.5px;
+    top: 14.5px;
+    cursor: pointer;
+
+}
+
+#settingsButton {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    position: absolute;
+    padding: 0px;
+    right: 0px;
+    top: 9px;
+    cursor: pointer;
+}
+
+
+
+
+#settingsMenu {
+    z-index: 10;
+    display: none;
+    grid-template-rows: 120px;
+}
+
+
+#realSettingsMenu {
+    width: 600px;
+    height: 680px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.settingsGapDiv {
+    height:40px;
+}
+
+
+
+
+
+.settingsTitle {
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-bottom: solid grey 2px;
+    border-radius: 30px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background: #F0F0F0; 
+    position: fixed;
+    left: 0px;
+    width: 600px;
+}
+
+#settingsMenuHeader {
+    cursor: move;
+}
+
+.minorSettingsTitle {
+    margin: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.subMinorSettingsTitle {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.settingsFillerDiv {
+    width: 600px;
+    height: 105px;
+}
+
+.settingBar {
+    left: 30px;
+    width: 540px;
+    padding: 0px;
+    border: solid grey 2px;
+    background: #F0F0F0; 
+    border-radius: 10px;
+    position: relative;
+    font-size: 20px;
+
+}
+
+.innerSettingBar {
+    display: grid;
+    width: 500px;
+    grid-template-columns: 325px 175px;
+    grid-template-rows: 70px;
+    padding: 20px;
+    align-items: center;
+    row-gap: 10px;
+    position: relative;
+    margin: 0px;
+}
+
+.settingTextDiv {
+    display: flex;
+    height: 70px;
+    text-align: left;
+    align-items: center;
+}
+
+.consecutiveSettingTextDiv {
+    display: flex;
+    height: 70px;
+    text-align: left;
+    border-bottom: 2px grey solid;
+    align-items: center;
+}
+
+
+.settingInputDiv {
+    display: flex;
+    height: 70px;
+    text-align: center;
+    justify-content: right;
+    align-items: center;
+}
+
+.consecutiveSettingInputDiv {
+    display: flex;
+    height: 70px;
+    text-align: right;
+    justify-content: right;
+
+    align-items: center;
+    border-bottom: 2px grey solid;
+}
+
+.settingUserInput {
+    width: 175px;
+    height: 30px;
+    border: white solid 2px;
+    color: white;
+    font-family: "source code pro", monospace;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 2px;
+    background: black;
+}
+
+.smallSettingUserInput {
+    width: 100px;
+    height: 35px;
+    border: white solid 2px;
+    color: white;
+    font-family: "source code pro", monospace;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 2px;
+    background: black;
+    cursor: pointer;
+}
+
+option {
+    cursor: pointer;
+}
+
+.systemX {
+
+    height: 20px;
+    width: 20px;
+    right: 10px;
+    top: 10px;
+    position: fixed;
+    z-index: 12;
+    cursor: pointer;
+
+
+}
+
+.systemFS {
+
+    height: 20px;
+    width: 20px;
+    right: 35px;
+    top: 10px;
+    position: fixed;
+    z-index: 12;
+    cursor: pointer;
+
+
+}
+
 
 body {
     color: white;
@@ -106,14 +488,6 @@ input {
     width: 500px
 }
 
-#intr {
-    text-align: center;
-    top: 60%;
-    left: 50%;
-    width: 100%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-}
 
 
 .Resp {
@@ -126,6 +500,11 @@ input {
     font-size: 20px;
     padding: 5px;
     background: black;
+    z-index: 9;
+    position: absolute;
+     top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
 }
 
@@ -398,3 +777,153 @@ input {
 }
 
 /*clock*/
+
+
+
+
+
+#batteryIndicator1 {
+    right: 15px;
+    bottom: 10px;
+}
+
+#batteryIndicator2 {
+    left: 15px;
+    top: 10px;
+}
+
+#batteryIndicator3 {
+    left: 15px;
+    bottom: 10px;
+}
+
+.batteryCase {
+    width: 35px;
+    height: 15px;
+    border: white solid 2px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    z-index: 5;
+
+}
+
+.batteryNotch {
+    width: 3px;
+    height: 6px;
+    background-color: white;
+}
+
+.batteryIcon {
+    display: grid;
+    width: 38px;
+    grid-template-columns: 35px 3px;
+    align-items: center;
+    justify-content: center;
+}
+
+.batteryChart {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-sizing: border-box;
+    border: black solid 1px;
+    border-radius: 2px;
+    z-index: -8;
+}
+
+.batteryPercentage {
+    font-size: 15px;
+}
+
+
+.batteryIndicator {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 50px;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 40px 30px;
+    column-gap: 5px;
+    z-index: 5;
+}
+
+.batteryCharging {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    left: 12.5px;
+    z-index: 1;
+}
+
+.batteryTab {
+    z-index: 5;
+    border-radius: 10px;
+    height: 120px;
+    width: 200px; 
+    background-color: rgb(27, 27, 27, 0.8);
+    position: absolute;
+    align-items: center;
+    text-align: left;
+    padding: 0px  10px;
+    box-sizing: border-box;
+    
+    
+}
+
+#batteryTab1 {
+    right: 15px;
+    bottom: 70px;
+    display: none;
+    justify-content: center;
+}
+
+#batteryTab2 {
+    left: 15px;
+    top: 70px;
+    display: none;
+    justify-content: center;
+}
+
+#batteryTab3 {
+    left: 15px;
+    bottom: 70px;
+    display: none;
+    justify-content: center;
+}
+
+.batteryMessages {
+    font-size: 18px;
+    color: white;
+    margin: 0;
+
+}
+
+.wifiIcon {
+    z-index: 5;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    pointer-events: auto;
+    display: block;
+}
+
+#wifiIcon1 {
+    right: 112.5px;
+    bottom: 22.5px;
+}   
+
+#wifiIcon2 {
+    left: 112.5px;
+    top: 22.5px;
+}   
+
+#wifiIcon3 {
+    left: 112.5px;
+    bottom: 22.5px;
+}   
+.realWifiIcon {
+    height: 100%;
+    width: 100%;
+}

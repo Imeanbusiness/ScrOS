@@ -4,7 +4,7 @@
 
 ### Installation
 
-1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.3.2`, code name `Mensura`.
+1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v2.0.0`, code name `Fenestra`.
 
 2. Unzip the folder
 
@@ -89,6 +89,10 @@ Here is a list of every command and how to use it.
 | `>clocksize (font size)` | Resize the font of the clock. Must be between 8 and 300. |
 | `>docktopoffset (offset in %)` | You may notice that when the dock is on the left or right, your app dock may be slightly too high or too low. Use this command to move it manually. |
 | `>toggleterry` | If displaying Terry on the screen is unpleasant for you, and you would not like feedback from commands, you can use this to hide the bot. |
+| `>complexdock` | Toggle complex dock. Allows for complex positioning. Supports up to 15 x 15 icon slots. Does not support pages. |
+| `>complexdocklayout (rows) (columns)` | Set complex dock layout. |
+| `>complexdockpos (x) (y)` | Set the complex dock position. |
+
 ---
 
 ## 🛠️ Assistance
@@ -120,7 +124,7 @@ Here is a list of every command and how to use it.
 |--------|-------------|
 | `>calc (expression)` | Math evaluator. Supports functions like `sqrt`, `sin`, `pi`, `log`. |
 | `>calcds (maximum denominator)`| Sets up a maximum denominator value for simplifying to fractions. Must be between 1 and 1000. Keep in mind that the calculator will run exponentially slower per higher value.|
-| `calcmode` | Switch between degrees and radians. Radians are on by default |
+| `calcmode` | Switch between degrees and radians. Degrees are on by default |
 | `>compchk (number)` | Composite checker. Lists all factors and tells if the number is prime. |
 | `>reset` | Reset Scr-OS memory to default. Requires running twice to confirm. |
 | `>fclock` | Toggle between 12-hour and 24-hour clock format. |
@@ -145,7 +149,18 @@ Here is a list of every command and how to use it.
 
 ## Patch Notes 
 
-## Scr-OS Mensura (Version 1.3.2) (Latest)
+## Scr-OS Fenestra (Version 1.4.0) (Latest)
+
+- Added settings UI interface!
+- Changed default look.
+- Made system apps in Window UI
+- Added complex dock positioning
+- Fixed input dock mixup bug
+- Added battery and wifi indicators
+- Added terminal app. Added help app. Added app lister.
+- Light and dark modes
+
+## Scr-OS Mensura (Version 1.3.2)
 
 - \>dockmode defaults dock to bottom, bug!
 - Added >toggleterry to hide the bot
