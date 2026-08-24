@@ -191,7 +191,14 @@ async function replacedock(checking = true) {
                     document.getElementById("appdock").appendChild(newIcon);
                     newIcon = document.createElement("img");
                     newIcon.id = "dockpic"+(i+1);
-                    newIcon.src = iconpack+"/"+[apppage1[i]]+".png";
+                    appName = "";
+                    try {
+                        appName = apppage1[i][0].toUpperCase()+apppage1[i].slice(1);
+
+                    } catch (e) {
+                        appName = apppage1[i][0].toUpperCase();
+                    }
+                    newIcon.src = iconpack+"/"+appName+".png";
                     document.getElementById("dockclick"+(i+1)).appendChild(newIcon);
                     newText = document.createElement("p");
                     newText.id = "docktext"+(i+1);
@@ -363,7 +370,14 @@ async function replacedock(checking = true) {
                         document.getElementById("dockclick"+(i+1)).style.gridRow = (setRow);
                         newIcon = document.createElement("img");
                         newIcon.id = "dockpic"+(i+1);
-                        newIcon.src = iconpack+"/"+[complexDockPage[i]]+".png";
+                        appName = "";
+                        try {
+                            appName = complexDockPage[i][0].toUpperCase()+complexDockPage[i].slice(1);
+
+                        } catch (e) {
+                            appName = complexDockPage[i][0].toUpperCase();
+                        }
+                        newIcon.src = iconpack+"/"+appName+".png";
                         document.getElementById("dockclick"+(i+1)).appendChild(newIcon);
                         newText = document.createElement("p");
                         newText.id = "docktext"+(i+1);
@@ -428,16 +442,19 @@ async function replacedock(checking = true) {
             document.getElementById("appdock").appendChild(newIcon);
             newIcon = document.createElement("img");
             newIcon.id = "dockpic"+(i+1);
-            newIcon.src = iconpack+"/"+[apppage1[i]]+".png";
+            appName = "";
+            try {
+                appName = apppage1[i][0].toUpperCase()+apppage1[i].slice(1);
+
+            } catch (e) {
+                appName = apppage1[i][0].toUpperCase();
+            }
+            newIcon.src = iconpack+"/"+[appName]+".png";
             document.getElementById("dockclick"+(i+1)).appendChild(newIcon);
              newText = document.createElement("p");
             newText.id = "docktext"+(i+1);
-            try {
-                newText.innerHTML = apppage1[i][0].toUpperCase() + apppage1[i].slice(1);
+            newText.innerHTML = appName;
 
-            } catch {
-                newText.innerHTML = apppage1[i][0].toUpperCase()
-            }
             if (apppage1[i] == "None") newText.innerHTML = " "
             document.getElementById("appdock").appendChild(newText);
             document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
