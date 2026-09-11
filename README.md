@@ -1,4 +1,4 @@
-# Scr-OS Manual
+    # Scr-OS Manual
 
 ## Getting started
 
@@ -30,7 +30,19 @@ These are the basic app icons you can click on to quickly navigate. Use the arro
 
 ### 4: Command Panel (Input)
 
-This is like a terminal where you enter in all you commands, which are analyzed by Terry before being output-ted onto the Command Output text area.
+This is like a terminal where you enter in all you commands, which are analyzed by Terry before being output-ted onto the Command Output text area. Press Alt + T to summon a terminal that does not take in google searches automatically.
+
+### 5: Status Bar
+
+Hover over the status bar to view your power stats and wifi stats. Note that these do not work properly across all browsers. Power stats can be estimated using >calibratebat
+
+### 6: App Menu Button
+
+Open the apps menu. You can select different websites and system apps here. System apps have windows that can be managed within the environment!
+
+### 7: Settings Button
+
+Customizing with commands too complex for you? Hit the settings button and be boring.
 
 ## Functions 
 
@@ -89,6 +101,7 @@ Here is a list of every command and how to use it.
 | `>clocksize (font size)` | Resize the font of the clock. Must be between 8 and 300. |
 | `>docktopoffset (offset in %)` | You may notice that when the dock is on the left or right, your app dock may be slightly too high or too low. Use this command to move it manually. |
 | `>toggleterry` | If displaying Terry on the screen is unpleasant for you, and you would not like feedback from commands, you can use this to hide the bot. |
+| `>toggletheme` | Toggle between dark and light mode. |
 | `>complexdock` | Toggle complex dock. Allows for complex positioning. Supports up to 15 x 15 icon slots. Does not support pages. |
 | `>complexdocklayout (rows) (columns)` | Set complex dock layout. |
 | `>complexdockpos (x) (y)` | Set the complex dock position. |
@@ -131,7 +144,8 @@ Here is a list of every command and how to use it.
 | `>textms (delay)` | Set a delay during text generation in milliseconds (ms). Must be within 0 to 100. |
 | `>api` | Enter your own API to use some chat functions. You can get your own API [here](https://developers.google.com/custom-search/v1/overview) |
 | `>reload` | Reload Scr-OS. If the issues persist, feel free to say so on GitHub! |
-
+| `>calibratebat` | Calibrate your system's battery life and charging time. This uses linear interpolation. It is recommended to drain 15% and/or charge 15% without leaving the site, or without returning to it for reliable accuracy. |
+| `>resetbattery` | Reset the stats tracked by your battery. |
 
 
 ---
@@ -159,6 +173,7 @@ Here is a list of every command and how to use it.
 - Added battery and wifi indicators
 - Added terminal app. Added help app. Added app lister.
 - Light and dark modes
+- Linux fix for icons not working.
 
 ## Scr-OS Mensura (Version 1.3.2)
 

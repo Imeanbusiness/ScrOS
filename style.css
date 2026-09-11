@@ -172,6 +172,11 @@ html {
     text-align: left;
 }
 
+.helpMenuLogo {
+    width:200px;
+    height:200px;
+}
+
 
 
 .systemMenuHeader {
@@ -443,8 +448,8 @@ body {
 
 
 #terrybot {
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
 }
 
 #clock {

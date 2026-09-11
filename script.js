@@ -558,7 +558,7 @@ async function checksaved() {
     document.getElementById('clock').style.fontSize = "80px";
 
     try {
-        saved = localStorage.getItem(SaveKey+"update2.0");
+        saved = localStorage.getItem(SaveKey+"update1.4.0");
         if (saved == "lol") {
             theme = localStorage.getItem(SaveKey+"theme");
             batteryInfo.levelGained = parseInt(localStorage.getItem(SaveKey+"levelGained"));
@@ -573,7 +573,7 @@ async function checksaved() {
             complexDockPos = JSON.parse(localStorage.getItem(SaveKey+"complexDockPos"));
 
         } else {
-            localStorage.setItem(SaveKey+"update2.0", "lol");
+            localStorage.setItem(SaveKey+"update1.4.0", "lol");
             localStorage.setItem(SaveKey+"theme", "light");
             localStorage.setItem(SaveKey+"levelGained", 0);
             localStorage.setItem(SaveKey+"timeGained", 0);
@@ -585,10 +585,11 @@ async function checksaved() {
             localStorage.setItem(SaveKey+"complexDockLayout", JSON.stringify(complexDockLayout));
             localStorage.setItem(SaveKey+"complexDockPos", JSON.stringify(complexDockPos));
 
-            updateAlert("Scr-OS has been updated to version 2.0.");
+            updateAlert("Scr-OS has been updated to version 1.4.0.");
+            openApp("scros://helpMenu");
         }
     } catch {
-        localStorage.setItem(SaveKey+"update2.0", "lol");
+        localStorage.setItem(SaveKey+"update1.4.0", "lol");
         localStorage.setItem(SaveKey+"theme", "light");
         localStorage.setItem(SaveKey+"levelGained", 0);
         localStorage.setItem(SaveKey+"timeGained", 0);
@@ -599,7 +600,8 @@ async function checksaved() {
         localStorage.setItem(SaveKey+"complexDockSites", JSON.stringify(complexDockSites));
         localStorage.setItem(SaveKey+"complexDockLayout", JSON.stringify(complexDockLayout));
         localStorage.setItem(SaveKey+"complexDockPos", JSON.stringify(complexDockPos));
-        updateAlert("Scr-OS has been updated to version 2.0.");
+        updateAlert("Scr-OS has been updated to version 1.4.0.");
+        openApp("scros://helpMenu");
     }
 
      try {
@@ -1004,9 +1006,7 @@ function openApp(appsName) {
         return;
     }
 
-    let newPopopup = window.open(appsName, "mypopup"+popupcount, "width=800,height=600,resizable=yes,scrollbars=yes");
-    openedPopups.push(newPopopup);
-    popupcount++;
+    window.open(appsName);
 }
 
 function changeZoom() {
@@ -1666,9 +1666,9 @@ function command(repl) {
         haha = true
     } else if (repl.includes(">status")) {
         try {
-            replywith("Systems: Normal. Version: 1.4 (Fenestra)")
+            replywith("Systems: Normal. Version: 1.4.0 (Fenestra)")
         } catch {
-            replywith("Systems: Abnormal. Version: 1.4 (Fenestra) Reload with >reload.")
+            replywith("Systems: Abnormal. Version: 1.4.0 (Fenestra) Reload with >reload.")
         }
         haha = true
         
@@ -2719,7 +2719,7 @@ Complex Dock Position: (${complexDockPos[0]}, ${100-complexDockPos[1]})<br>
             localStorage.setItem(SaveKey+"clocksize", "120");
             localStorage.setItem(SaveKey+"outputsize", "30");
             localStorage.setItem(SaveKey+"docktopoffset", "0");
-            localStorage.setItem(SaveKey+"update2.0", "lol");
+            localStorage.setItem(SaveKey+"update1.4.0", "lol");
             localStorage.setItem(SaveKey+"theme", "light");
             clockpos = ["50", "97"]
             inpos = ["50", "10"]
@@ -3252,10 +3252,13 @@ document.addEventListener('mousemove', function(event) {
     
 });
 
+let activeKeys = {};
+
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
     document.addEventListener('keydown', event => {
         var key = event.key.toLowerCase();
+        activeKeys[key] = true;
         if (key == "enter") { 
             if (document.getElementById("Resp") == document.activeElement) respond("Resp");
             if (document.getElementById("terminalInput") == document.activeElement) respond("terminalInput");
@@ -3292,6 +3295,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         
     });
+
+    window.addEventListener('keyup', (event) => {
+        var key = event.key.toLowerCase();
+        activeKeys[key] = false;
+    });
+    
 });
 
 const targetElement = document;
@@ -3791,10 +3800,16 @@ function openAppsMenu() {
             try {
                 newName = iconpack+"/"+supapps[id][0].toUpperCase()+supapps[id].slice(1);
             } catch (e) {
-                newName = iconpack+"/"+supapps[id].toUpperCase(); 
+                try {
+                    //console.log(supapps[id])
+                    newName = iconpack+"/"+supapps[id][0].toUpperCase(); 
+
+                } catch (e) {
+                    newName = "";
+                }
             }
             newApp.src = newName+".png";
-            console.log("Name: "+newName)
+            //console.log("Name: "+newName)
             const siteUrl = supsites[id];
             newApp.onclick = function() {
                 if (siteUrl) openApp(siteUrl);
@@ -3820,11 +3835,18 @@ function openAppsMenu() {
             for (let i = 0; i < appColumns; i++) {
             let id = supapps.indexOf(tempApps[textCount]);
             const newTitle = document.createElement("p");
+            let titleText = "";
 
-            titleText = supapps[id][0].toUpperCase();
+            try {
+                titleText = supapps[id][0].toUpperCase();
+    
+                if (supapps[id].length > 1) titleText += supapps[id].slice(1);
 
-            if (supapps[id].length > 1) titleText += supapps[id].slice(1);
-
+            } catch {
+                titleText = "";
+            }
+            
+            
             newTitle.innerHTML = titleText;
             const titleSite = supsites[id];
             newTitle.onclick = function() {
@@ -3834,7 +3856,7 @@ function openAppsMenu() {
             newTitle.style.cursor = "pointer";
 
             textCount++;
-
+            
             realAppsMenu.appendChild(newTitle);
 
         }
@@ -4039,7 +4061,12 @@ function syncResizedAppsMenu() {
             try {
                 newName = iconpack+"/"+supapps[id][0].toUpperCase()+supapps[id].slice(1);
             } catch (e) {
-                newName = iconpack+"/"+supapps[id][0].toUpperCase(); 
+                try {
+                    newName = iconpack+"/"+supapps[id][0].toUpperCase(); 
+
+                } catch {
+                    newName = ""
+                }
             }
             newApp.src = newName+".png";
 
@@ -4070,15 +4097,24 @@ function syncResizedAppsMenu() {
             let id = supapps.indexOf(tempApps[textCount]);
             const newTitle = document.createElement("p");
 
-            titleText = supapps[id][0].toUpperCase();
+            let titleText = "";
 
-            if (supapps[id].length > 1) titleText += supapps[id].slice(1);
+            try {
+                titleText = supapps[id][0].toUpperCase();
+    
+                if (supapps[id].length > 1) titleText += supapps[id].slice(1);
+
+            } catch {
+                titleText = "";
+            }
 
             newTitle.innerHTML = titleText;
             const titleSite = supsites[id];
             newTitle.onclick = function() {
                 if (titleSite) openApp(titleSite);
             };
+
+            console.log(titleText);
             newTitle.style.margin = 0;
             newTitle.style.cursor = "pointer";
 
@@ -4503,3 +4539,10 @@ for (let i = 0; i < smallSettingInputs.length; i++) {
 
 //sleep(2000).then(replacedock(false));
 
+setInterval(checkShortcuts, 33);
+
+function checkShortcuts() {
+    if (activeKeys["t"] && activeKeys["alt"]) {
+        openApp("scros://terminalMenu")
+    }
+}

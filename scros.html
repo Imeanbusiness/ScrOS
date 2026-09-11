@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <title>Scr-OS</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
-  <link rel="icon" type="image/x-icon" href="Images/Terry.png">
+  <link rel="icon" type="image/x-icon" href="Images/Logo.png">
 </head>
 
 <body id = "mainbg">
@@ -67,17 +67,33 @@
         <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('helpMenu')">
         <div id = "helpMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "helpTitle">HELP</h1></div>
       <div class = "realMenu" id = "realHelpMenu">
-          <h2>Scr-OS Manual</h2>
-          <h3>Getting started</h3>
+
+        <center>
+            <h2>Welcome!</h2>
+
+            <img src="Images/Logo.png" class="helpMenuLogo">
+
+          <br>
+
+          
+        </center>
+        
+        <p>Welcome to ScrOS v1.4.0 Fenestra! Thank you for choosing ScrOS. Feel free to begin exploration!</p>
+
+        <p><strong>New additions</strong><br>- Added settings UI interface.<br>- Added complex dock customizations.<br>- Added system apps.<br>- Added status indiacators<br>- Theme toggles.</p>
+
+          <h2>Getting started</h2>
 
 
           <h3>Basics</h3>
-          <p>Scr-OS is a browser-based desktop simulation with a clock, command panel, and app dock.</p>
+          <p>Scr-OS is a browser-based desktop simulation with lots of customization opstions.</p>
           <ol>
             <li><strong>Clock</strong><br>Shows the current time. By default it is set to 24-hour format. Use the <code>>fclock</code> command to switch formats.</li>
             <li><strong>Command Output</strong><br>Displays the result of commands entered in the command panel.</li>
             <li><strong>App Dock</strong><br>Click icons to open apps quickly. Use the arrows to flip pages. Customize the dock position and app slots. Click an icon to open it on top of Scr-OS. Hold <code>CTRL</code> and click to open a new tab.</li>
             <li><strong>Command Panel (Input)</strong><br>Enter commands here. Terry analyzes your request and shows output in the command area.</li>
+            <li><strong>Status Bar</strong><br>Hover over the status bar to view your power stats and wifi stats. Note that these do not work properly across all browsers. Power stats can be estimated using >calibratebat.</li>
+            <li><strong>System buttons</strong><br>Open apps menu and GUIed settings here.</li>
           </ol>
 
           <h3>Functions</h3>
@@ -89,7 +105,7 @@
           <h3>Issues</h3>
           <p>If you find bugs or issues, report them on the Scr-OS GitHub page. Run <code>>gh</code> to open the repository.</p>
 
-          <h3>Commands</h3>
+          <h2>Commands</h2>
           <h4>🎨 Customization</h4>
           <table>
             <tr><th>Command</th><th>Description</th></tr>
@@ -118,6 +134,10 @@
             <tr><td><code>>clocksize (font size)</code></td><td>Resize the clock font (8–300).</td></tr>
             <tr><td><code>>docktopoffset (offset in %)</code></td><td>Adjust the dock's vertical position when it is on the left or right.</td></tr>
             <tr><td><code>>toggleterry</code></td><td>Hide or show Terry.</td></tr>
+            <tr><td><code>>toggletheme</code></td><td>Toggle between dark and light mode.</td></tr>
+            <tr><td><code>>complexdock</code></td><td>Toggle complex dock. Allows for complex positioning. Supports up to 15 x 15 icon slots. Does not support pages.</td></tr>
+            <tr><td><code>>complexdocklayout (rows) (columns)</code></td><td>Set complex dock layout.</td></tr>
+            <tr><td><code>>complexdockpos (x) (y)</code></td><td>Set the complex dock position.</td></tr>
           </table>
 
           <h4>🛠️ Assistance</h4>
@@ -148,14 +168,15 @@
             <tr><td><code>>textms (delay)</code></td><td>Set command text output delay in milliseconds (0–100).</td></tr>
             <tr><td><code>>api</code></td><td>Enter your own API key for chat features.</td></tr>
             <tr><td><code>>reload</code></td><td>Reload Scr-OS.</td></tr>
+            <tr><td><code>>calibratebat</code></td><td>Calibrate your system's battery life and charging time. This uses linear interpolation.</td></tr>
           </table>
 
           <h4>💬 AI/Chat Features</h4>
           <p><strong>mode</strong><br>Toggle between chat mode and search mode.</p>
           <p><strong>dmode</strong><br>Choose the default start-up mode for Terry.</p>
 
-          <h3>Patch Notes</h3>
-          <p><strong>Scr-OS Fenestra (Version 1.4.0)</strong><br>- Added settings UI interface.<br>- Changed default look.</p>
+          <h2>Patch Notes</h2>
+          <p><strong>Scr-OS Fenestra (Version 1.4.0, current)</strong><br>- Added settings UI interface.<br>- Added complex dock customizations.<br>- Added system apps.<br>- Added status indiacators<br>- Theme toggles</p>
           <p><strong>Scr-OS Mensura (Version 1.3.2)</strong><br>- <code>>dockmode</code> defaults dock to bottom, bug!<br>- Added <code>>toggleterry</code> to hide the bot.<br>- Fixed dock position problems.<br>- Dock is now fully responsive.</p>
           <p><strong>Scr-OS Mensura (Version 1.3.1)</strong><br>- Clock and output are now resizable.<br>- Added command to fix dock issues.<br>- Fixed empty app slots on dock.<br>- Removed default scaling with clock.</p>
           <p><strong>Scr-OS Mensura (Version 1.3.0)</strong><br>- App popups for more immersion.<br>- App dock slots with nothing work nicer.<br>- UI uses responsive zoom.</p>
