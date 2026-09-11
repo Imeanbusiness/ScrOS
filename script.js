@@ -3787,7 +3787,14 @@ function openAppsMenu() {
             const newApp = document.createElement("img");
 
             newApp.id = appId;
-            newApp.src = iconpack+"/"+supapps[id]+".png";
+            let newName = ""
+            try {
+                newName = iconpack+"/"+supapps[id][0].toUpperCase()+supapps[id].slice(1);
+            } catch (e) {
+                newName = iconpack+"/"+supapps[id].toUpperCase(); 
+            }
+            newApp.src = newName+".png";
+            console.log("Name: "+newName)
             const siteUrl = supsites[id];
             newApp.onclick = function() {
                 if (siteUrl) openApp(siteUrl);
@@ -4028,7 +4035,15 @@ function syncResizedAppsMenu() {
             const newApp = document.createElement("img");
 
             newApp.id = appId;
-            newApp.src = iconpack+"/"+supapps[id]+".png";
+            let newName = ""
+            try {
+                newName = iconpack+"/"+supapps[id][0].toUpperCase()+supapps[id].slice(1);
+            } catch (e) {
+                newName = iconpack+"/"+supapps[id][0].toUpperCase(); 
+            }
+            newApp.src = newName+".png";
+
+            newApp.src = newName+".png";
             const siteUrl = supsites[id];
             newApp.onclick = function() {
                 if (siteUrl) openApp(siteUrl);
