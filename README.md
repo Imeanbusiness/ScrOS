@@ -1,10 +1,10 @@
-    # Scr-OS Manual
+# Scr-OS Manual
 
 ## Getting started
 
 ### Installation
 
-1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v2.0.0`, code name `Fenestra`.
+1. Click [here](https://github.com/Imeanbusiness/ScrOS/archive/refs/heads/main.zip) to download. The current version is `v1.4.0`, code name `Fenestra`.
 
 2. Unzip the folder
 
