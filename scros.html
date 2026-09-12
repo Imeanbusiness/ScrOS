@@ -15,18 +15,18 @@
   <video src = "Videos/City.mp4" autoplay muted loop id="VidBack"></video>
   </div>
 
-    <img src = "Images/settings.png" id = "settingsButton" onclick="openSettings()">
+    <img src = "Images/settings.png" id = "settingsButton">
 
-    <img src = "Images/Menu.png" id = "menuButton" onclick="openAppsMenu()">
+    <img src = "Images/Menu.png" id = "menuButton">
 
-    <img src = "Images/settings.png" id = "settingsButton2" onclick="openSettings()">
+    <img src = "Images/settings.png" id = "settingsButton2">
 
-    <img src = "Images/Menu.png" id = "menuButton2" onclick="openAppsMenu()">
+    <img src = "Images/Menu.png" id = "menuButton2">
 
 
-  <div id = "appsMenu" class = "systemMenu" id ="dragApps" onmousedown="decideZ('appsMenu')">
-    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('appsMenu')">
-      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('appsMenu')">
+  <div id = "appsMenu" class = "systemMenu" id ="dragApps">
+    <img src = "Images/settingsClose.png" class = "systemX">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS">
 
       
       <div id = "appsMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "appsTitle">APPS</h1></div>
@@ -35,9 +35,9 @@
 
   </div>
 
-  <div id = "clockMenu" class = "systemMenu" id ="dragclock" onmousedown="decideZ('clockMenu')">
-    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('clockMenu')">
-      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('clockMenu')">
+  <div id = "clockMenu" class = "systemMenu" id ="dragclock">
+    <img src = "Images/settingsClose.png" class = "systemX">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS">
 
       
       <div id = "clockMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "clockTitle">CLOCK</h1></div>
@@ -46,9 +46,9 @@
 
   </div>
 
-  <div id = "terminalMenu" class = "systemMenu" id ="dragTerminal" onmousedown="decideZ('terminalMenu')">
-    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('terminalMenu')">
-      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('terminalMenu')">
+  <div id = "terminalMenu" class = "systemMenu" id ="dragTerminal">
+    <img src = "Images/settingsClose.png" class = "systemX">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS">
 
       
       <div id = "terminalMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "terminalTitle">Terminal</h1></div>
@@ -62,9 +62,9 @@
 
   </div>
 
-  <div id = "helpMenu" class = "systemMenu" id ="dragHelp" onmousedown="decideZ('helpMenu')">
-    <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('helpMenu')">
-        <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('helpMenu')">
+  <div id = "helpMenu" class = "systemMenu" id ="dragHelp">
+    <img src = "Images/settingsClose.png" class = "systemX">
+        <img src = "Images/fullScreenIcon.png" class = "systemFS">
         <div id = "helpMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "helpTitle">HELP</h1></div>
       <div class = "realMenu" id = "realHelpMenu">
 
@@ -190,9 +190,9 @@
 
 
 
-    <div id = "settingsMenu" class = "systemMenu" id ="dragSettings" onmousedown="decideZ('settingsMenu')">
-      <img src = "Images/settingsClose.png" class = "systemX" onclick="closeWindow('settingsMenu')">
-      <img src = "Images/fullScreenIcon.png" class = "systemFS" onclick="fullScreen('settingsMenu')">
+    <div id = "settingsMenu" class = "systemMenu" id ="dragSettings">
+      <img src = "Images/settingsClose.png" class = "systemX">
+      <img src = "Images/fullScreenIcon.png" class = "systemFS">
 
       
       <div id = "settingsMenuHeader" class = "systemMenuHeader"><h1 class = "systemTitle" id = "settingsTitle">SETTINGS</h1></div>
@@ -732,53 +732,10 @@
 
     <h1 id="clock">Loading...</h1>
 
-    <script>
-        fclock = false; // true for 24-hour format, false for 12-hour format
-        showseconds = false; // true for showing seconds in clock, false for hiding seconds
-        fclock = JSON.parse(localStorage.getItem("SCR-OS/ClockFormat"));
-        showseconds = JSON.parse(localStorage.getItem("SCR-OS/showseconds"));
-       
-        function updateClock() {
-      
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            if (fclock==true) {
-        
-                // 24-hour format
-
-            } else {
-              console.log(fclock);
-                // 12-hour format
-                const period = hours >= 12 ? 'PM' : 'AM';
-                const hour12 = String(hours % 12 || 12).padStart(2, '0');
-                if (showseconds) {
-                  document.getElementById('clock').textContent = `${hour12}:${minutes}:${seconds} ${period}`;
-                } else {
-                  document.getElementById('clock').textContent = `${hour12}:${minutes} ${period}`;
-                }
-                return;
-            }
-            if (showseconds) {
-                const timeString = `${hours}:${minutes}:${seconds}`;
-                document.getElementById('clock').textContent = timeString;
-            } else {
-                const timeString = `${hours}:${minutes}`;
-                document.getElementById('clock').textContent = timeString;
-            }
-        }
-
-        // Initial call
-        updateClock();
-        // Update every second
-        setInterval(updateClock, 1000);
-    </script>
-
     <div id = "batteryTab1" class = "batteryTab">
       <p class = "batteryMessages">Calculating...</p>
     </div>
-    <div id = "batteryIndicator1" class = "batteryIndicator" onmouseover = "showBatteryTab(1)" onmouseout="hideBatteryTab(1)">
+    <div id = "batteryIndicator1" class = "batteryIndicator">
       <div class = "batteryIcon">
         <div class = "batteryCase">
           <img src="Images/Charging.png" class="batteryCharging">
@@ -796,7 +753,7 @@
     <div id = "batteryTab2" class = "batteryTab">
       <p class = "batteryMessages">Calculating...</p>
     </div>
-    <div id = "batteryIndicator2" class = "batteryIndicator" onmouseover = "showBatteryTab(2)" onmouseout="hideBatteryTab(2)">
+    <div id = "batteryIndicator2" class = "batteryIndicator">
       <div class = "batteryIcon">
         <div class = "batteryCase">
           <img src="Images/Charging.png" class="batteryCharging">
@@ -814,7 +771,7 @@
     <div id = "batteryTab3" class = "batteryTab">
       <p class = "batteryMessages">Calculating...</p>
     </div>
-    <div id = "batteryIndicator3" class = "batteryIndicator" onmouseover = "showBatteryTab(3)" onmouseout="hideBatteryTab(3)">
+    <div id = "batteryIndicator3" class = "batteryIndicator">
       <div class = "batteryIcon">
         <div class = "batteryCase">
           <img src="Images/Charging.png" class="batteryCharging">
@@ -832,17 +789,17 @@
 
 
 
-      <img src = "Images/Wifi.png" id = "wifiIcon1" class = "wifiIcon" onmouseover = "showWifiTab(1)" onmouseout="hideBatteryTab(1)">
+      <img src = "Images/Wifi.png" id = "wifiIcon1" class = "wifiIcon">
 
-    <img src = "Images/Wifi.png" id = "wifiIcon2" class = "wifiIcon" onmouseover = "showWifiTab(2)" onmouseout="hideBatteryTab(2)">
-    <img src = "Images/Wifi.png" id = "wifiIcon3" class = "wifiIcon" onmouseover = "showWifiTab(3)" onmouseout="hideBatteryTab(3)">
+    <img src = "Images/Wifi.png" id = "wifiIcon2" class = "wifiIcon">
+    <img src = "Images/Wifi.png" id = "wifiIcon3" class = "wifiIcon">
 
 
   <div class = "bot" id ="bot">
   
       <img src="Images/Terry.png" alt="TerryBot" id="terrybot">
       
-    <h2 id = "Terry" class = "Terry" onload="greetings()">Hello. I am Terry. How may I assist you today?</h2>
+    <h2 id = "Terry" class = "Terry">Hello. I am Terry. How may I assist you today?</h2>
     
     
   </div>
@@ -875,8 +832,8 @@
       <p id="docktext9">Office</p>
       <p id="docktext10">Weather</p>
 
-      <p id="leftarrow" onclick="pagechange('left')">◄</p>
-      <p id="rightarrow" onclick="pagechange('right')">►</p>
+      <p id="leftarrow">◄</p>
+      <p id="rightarrow">►</p>
 
   </div>
 

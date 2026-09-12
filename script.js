@@ -21,7 +21,7 @@ appsites4 = ["","","","","","","","","",""]
 let openedPopups = [];
 sites = ["https://www.google.com/", "https://open.spotify.com/","https://www.youtube.com/","https://www.facebook.com/","https://www.instagram.com/","https://X.com/","https://www.tiktok.com/","https://www.reddit.com/","https://github.com/","https://www.netflix.com/", "https://www.gmail.com", "https://www.office.com/", "https://www.linkedin.com"]
 let APIkey;
-const SaveKey = "SCR-OS/"
+const SaveKey = "SCR-OS/" 
 learntdataans = ["My Creator, Imeanbusiness, of course!", "I am a chat bot, named Terry!"]
 learntdataquest = ["who made you?", "what are you?"]
 dockrow1 = ["Gmail", "Spotify", "Youtube", "Instagram", "Facebook"]
@@ -210,7 +210,7 @@ async function replacedock(checking = true) {
                     }
                     if (apppage1[i] == "None") newText.innerHTML = " "
                     document.getElementById("appdock").appendChild(newText);
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
+                    document.getElementById("dockclick"+(i+1)).addEventListener('click', () => openApp(appsites1[i]));
                     document.getElementById("dockclick"+(i+1)).style.cursor = "pointer";
                 }
 
@@ -229,8 +229,8 @@ async function replacedock(checking = true) {
                 document.getElementById("appdock").appendChild(leftarrow);
                 document.getElementById("appdock").appendChild(rightarrow);
 
-                document.getElementById("leftarrow").setAttribute("onclick", "pagechange('left')");
-                document.getElementById("rightarrow").setAttribute("onclick", "pagechange('right')");
+                document.getElementById("leftarrow").addEventListener("click", () => pagechange('left'));
+                document.getElementById("rightarrow").addEventListener("click", () => pagechange('right'));
                 document.getElementById("leftarrow").style.display = "block";
                 document.getElementById("rightarrow").style.display = "block";
                 document.getElementById("leftarrow").style.cursor = "pointer";
@@ -388,12 +388,11 @@ async function replacedock(checking = true) {
                         } catch {
                             newText.innerHTML = complexDockPage[i][0].toUpperCase()
                         }
-                        document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+complexDockSites[i]+"')");
                         if (complexDockPage[i] == "none" || complexDockPage[i] == "None") {
-                        document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
-
                             newText.innerHTML = " " 
-                        } 
+                        } else {
+                            document.getElementById("dockclick"+(i+1)).addEventListener('click', () => openApp(complexDockSites[i]));
+                        }
                         document.getElementById("appdock").appendChild(newText);
                         document.getElementById("dockclick"+(i+1)).style.cursor = "pointer";
                         document.getElementById("docktext"+(i+1)).style.gridColumn = (setColumn);
@@ -457,7 +456,7 @@ async function replacedock(checking = true) {
 
             if (apppage1[i] == "None") newText.innerHTML = " "
             document.getElementById("appdock").appendChild(newText);
-            document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
+            document.getElementById("dockclick"+(i+1)).addEventListener('click', () => openApp(appsites1[i]));
             document.getElementById("dockclick"+(i+1)).style.cursor = "pointer";
             
         }
@@ -477,8 +476,8 @@ async function replacedock(checking = true) {
         document.getElementById("appdock").appendChild(leftarrow);
         document.getElementById("appdock").appendChild(rightarrow);
 
-        document.getElementById("leftarrow").setAttribute("onclick", "pagechange('left')");
-        document.getElementById("rightarrow").setAttribute("onclick", "pagechange('right')");
+        document.getElementById("leftarrow").addEventListener("click", () => pagechange('left'));
+        document.getElementById("rightarrow").addEventListener("click", () => pagechange('right'));
         document.getElementById("leftarrow").style.display = "block";
         document.getElementById("rightarrow").style.display = "block";
         document.getElementById("leftarrow").style.cursor = "pointer";
@@ -492,8 +491,8 @@ async function replacedock(checking = true) {
     document.getElementById("appdock").appendChild(leftarrow);
     document.getElementById("appdock").appendChild(rightarrow);
 
-    document.getElementById("leftarrow").setAttribute("onclick", "pagechange('left')");
-    document.getElementById("rightarrow").setAttribute("onclick", "pagechange('right')");
+    document.getElementById("leftarrow").addEventListener("click", () => pagechange('left'));
+    document.getElementById("rightarrow").addEventListener("click", () => pagechange('right'));
 
      document.getElementById("appdock").style.gridTemplateColumns = "50px 150px 150px 150px 150px 150px 50px";
     document.getElementById("appdock").style.gridTemplateRows = "100px 35px 100px 35px";
@@ -1049,8 +1048,17 @@ function calcZoom() {
 }
 
 
-window.onload = checksaved();
+document.addEventListener('DOMContentLoaded', () => {
+    checksaved();
+});
 
+
+function setupDockClickListener(elementId, siteUrl) {
+    const elem = document.getElementById(elementId);
+    if (elem && siteUrl) {
+        elem.addEventListener('click', () => openApp(siteUrl));
+    }
+}
 
 async function pagechange(dir) {
     if (dir=="right") {
@@ -1067,21 +1075,17 @@ async function pagechange(dir) {
                 if (itemd == "") {
                     itemd ="none"
                 }
-                //console.log(itemd[0].toUpperCase())
                 itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    
                     document.getElementById("docktext"+(i+1)).innerHTML = "";
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
+                    const site = appsites1[i];
+                    document.getElementById("dockclick"+(i+1)).addEventListener('click', () => openApp(site));
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -1095,15 +1099,9 @@ async function pagechange(dir) {
                 if (itemd == "") {
                     itemd ="none"
                 }
-                //console.log(itemd[0].toUpperCase())
                 itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
-
-                
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -1111,7 +1109,7 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites2[i]+"')");
+                    setupDockClickListener("dockclick"+(i+1), appsites2[i]);
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -1125,15 +1123,9 @@ async function pagechange(dir) {
                 if (itemd == "") {
                     itemd ="none"
                 }
-                //console.log(itemd[0].toUpperCase())
                 itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
-
-                
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -1141,7 +1133,7 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites3[i]+"')");
+                    setupDockClickListener("dockclick"+(i+1), appsites3[i]);
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -1155,15 +1147,9 @@ async function pagechange(dir) {
                 if (itemd == "") {
                     itemd ="none"
                 }
-                //console.log(itemd[0].toUpperCase())
                 itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
-
-                
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -1171,7 +1157,7 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites4[i]+"')");
+                    setupDockClickListener("dockclick"+(i+1), appsites4[i]);
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -1194,13 +1180,9 @@ async function pagechange(dir) {
                     itemd ="none"
                 }
 
-                //console.log(itemd[0].toUpperCase())
                 itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -1208,7 +1190,7 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites1[i]+"')");
+                    setupDockClickListener("dockclick"+(i+1), appsites1[i]);
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
             }
@@ -1221,15 +1203,10 @@ async function pagechange(dir) {
                 if (itemd == "") {
                     itemd ="none"
                 }
-                //console.log(itemd[0].toUpperCase())
-                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
 
-                
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -1237,7 +1214,7 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites2[i]+"')");
+                    setupDockClickListener("dockclick"+(i+1), appsites2[i]);
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -1251,15 +1228,10 @@ async function pagechange(dir) {
                 if (itemd == "") {
                     itemd ="none"
                 }
-                //console.log(itemd[0].toUpperCase())
-                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
 
-                
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -1267,7 +1239,7 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites3[i]+"')");
+                    setupDockClickListener("dockclick"+(i+1), appsites3[i]);
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -1281,15 +1253,10 @@ async function pagechange(dir) {
                 if (itemd == "") {
                     itemd ="none"
                 }
-                //console.log(itemd[0].toUpperCase())
-                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
-                //console.log(itemd)
-                //console.log(iconpack+"/"+itemd+".png")
 
-                
+                itemd = itemd.replace(itemd[0], itemd[0].toUpperCase());
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -1298,7 +1265,7 @@ async function pagechange(dir) {
                 } else {
                     document.getElementById("dockpic"+(i+1)).src = iconpack+"/"+itemd+".png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "openApp('"+appsites4[i]+"')");
+                    setupDockClickListener("dockclick"+(i+1), appsites4[i]);
                     document.getElementById("docktext"+(i+1)).innerHTML = itemd;
                 }
               
@@ -2235,11 +2202,10 @@ function command(repl) {
 
                         
                         document.getElementById("docktext"+itemd).innerHTML = appName[0].toUpperCase() + appName.slice(1);
-                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+complexDockSites[itemd-1]+"')");
+                        setupDockClickListener("dockclick"+itemd, complexDockSites[itemd-1]);
 
                         if (appName == "none") {
                              document.getElementById("docktext"+itemd).innerHTML = "";
-                            document.getElementById("dockclick"+itemd).setAttribute('onclick', "");
                             complexDockSites[itemd-1] = "none";
                         }   
   
@@ -2452,7 +2418,7 @@ function command(repl) {
                         apppage1[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
                         document.getElementById("dockclick"+itemd).href = "#";
-                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
+                        setupDockClickListener("dockclick"+itemd, supsites[appti]);
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage1[itemd-1] = item;
                         appsites1[itemd-1] = supsites[appti];
@@ -2465,7 +2431,7 @@ function command(repl) {
                         apppage2[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
                         document.getElementById("dockclick"+itemd).href = "#";
-                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
+                        setupDockClickListener("dockclick"+itemd, supsites[appti]);
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage2[itemd-1] = item;
                         appsites2[itemd-1] = supsites[appti];
@@ -2478,7 +2444,7 @@ function command(repl) {
                         apppage3[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
                         document.getElementById("dockclick"+itemd).href = "#";
-                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
+                        setupDockClickListener("dockclick"+itemd, supsites[appti]);
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage3[itemd-1] = item;
                         appsites3[itemd-1] = supsites[appti];
@@ -2491,7 +2457,7 @@ function command(repl) {
                         apppage4[itemd-1] = item[1]
                         document.getElementById("dockpic"+itemd).src = iconpack+"/"+item+".png";
                         document.getElementById("dockclick"+itemd).href = "#";
-                        document.getElementById("dockclick"+itemd).setAttribute('onclick', "openApp('"+supsites[appti]+"')");
+                        setupDockClickListener("dockclick"+itemd, supsites[appti]);
                         document.getElementById("docktext"+itemd).innerHTML = item;
                         apppage4[itemd-1] = item;
                         appsites4[itemd-1] = supsites[appti];
@@ -2829,7 +2795,6 @@ Complex Dock Position: (${complexDockPos[0]}, ${100-complexDockPos[1]})<br>
                 //console.log(iconpack+"/"+itemd+".png")
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -2856,7 +2821,6 @@ Complex Dock Position: (${complexDockPos[0]}, ${100-complexDockPos[1]})<br>
                 
 
                 if (itemd == "None") {
-                    document.getElementById("dockclick"+(i+1)).setAttribute('onclick', "");
                     document.getElementById("dockpic"+(i+1)).src = "Images/None.png";
                     document.getElementById("dockclick"+(i+1)).href = "#";
                     
@@ -3301,6 +3265,57 @@ document.addEventListener('DOMContentLoaded', () => {
         var key = event.key.toLowerCase();
         activeKeys[key] = false;
     });
+
+    // Button event listeners
+    document.getElementById('settingsButton').addEventListener('click', openSettings);
+    document.getElementById('settingsButton2').addEventListener('click', openSettings);
+    document.getElementById('menuButton').addEventListener('click', openAppsMenu);
+    document.getElementById('menuButton2').addEventListener('click', openAppsMenu);
+
+    // Apps Menu
+    document.getElementById('appsMenu').addEventListener('mousedown', () => decideZ('appsMenu'));
+    document.querySelectorAll('#appsMenu .systemX')[0].addEventListener('click', () => closeWindow('appsMenu'));
+    document.querySelectorAll('#appsMenu .systemFS')[0].addEventListener('click', () => fullScreen('appsMenu'));
+
+    // Clock Menu
+    document.getElementById('clockMenu').addEventListener('mousedown', () => decideZ('clockMenu'));
+    document.querySelectorAll('#clockMenu .systemX')[0].addEventListener('click', () => closeWindow('clockMenu'));
+    document.querySelectorAll('#clockMenu .systemFS')[0].addEventListener('click', () => fullScreen('clockMenu'));
+
+    // Terminal Menu
+    document.getElementById('terminalMenu').addEventListener('mousedown', () => decideZ('terminalMenu'));
+    document.querySelectorAll('#terminalMenu .systemX')[0].addEventListener('click', () => closeWindow('terminalMenu'));
+    document.querySelectorAll('#terminalMenu .systemFS')[0].addEventListener('click', () => fullScreen('terminalMenu'));
+
+    // Help Menu
+    document.getElementById('helpMenu').addEventListener('mousedown', () => decideZ('helpMenu'));
+    document.querySelectorAll('#helpMenu .systemX')[0].addEventListener('click', () => closeWindow('helpMenu'));
+    document.querySelectorAll('#helpMenu .systemFS')[0].addEventListener('click', () => fullScreen('helpMenu'));
+
+    // Settings Menu
+    document.getElementById('settingsMenu').addEventListener('mousedown', () => decideZ('settingsMenu'));
+    document.querySelectorAll('#settingsMenu .systemX')[0].addEventListener('click', () => closeWindow('settingsMenu'));
+    document.querySelectorAll('#settingsMenu .systemFS')[0].addEventListener('click', () => fullScreen('settingsMenu'));
+
+    // Dock arrows
+    document.getElementById('leftarrow').addEventListener('click', () => pagechange('left'));
+    document.getElementById('rightarrow').addEventListener('click', () => pagechange('right'));
+
+    // Battery indicators
+    document.getElementById('batteryIndicator1').addEventListener('mouseover', () => showBatteryTab(1));
+    document.getElementById('batteryIndicator1').addEventListener('mouseout', () => hideBatteryTab(1));
+    document.getElementById('batteryIndicator2').addEventListener('mouseover', () => showBatteryTab(2));
+    document.getElementById('batteryIndicator2').addEventListener('mouseout', () => hideBatteryTab(2));
+    document.getElementById('batteryIndicator3').addEventListener('mouseover', () => showBatteryTab(3));
+    document.getElementById('batteryIndicator3').addEventListener('mouseout', () => hideBatteryTab(3));
+
+    // Wifi icons
+    document.getElementById('wifiIcon1').addEventListener('mouseover', () => showWifiTab(1));
+    document.getElementById('wifiIcon1').addEventListener('mouseout', () => hideBatteryTab(1));
+    document.getElementById('wifiIcon2').addEventListener('mouseover', () => showWifiTab(2));
+    document.getElementById('wifiIcon2').addEventListener('mouseout', () => hideBatteryTab(2));
+    document.getElementById('wifiIcon3').addEventListener('mouseover', () => showWifiTab(3));
+    document.getElementById('wifiIcon3').addEventListener('mouseout', () => hideBatteryTab(3));
     
 });
 
@@ -3352,10 +3367,10 @@ function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   if (document.getElementById(elmnt.id + "Header")) {
     // if present, the Header is where you move the DIV from:
-    document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+    document.getElementById(elmnt.id + "Header").addEventListener('mousedown', dragMouseDown);
   } else {
     // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
+    elmnt.addEventListener('mousedown', dragMouseDown);
   }
 
   function dragMouseDown(e) {
@@ -3364,9 +3379,9 @@ function dragElement(elmnt) {
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
     pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
+    document.addEventListener('mouseup', closeDragElement);
     // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
+    document.addEventListener('mousemove', elementDrag);
   }
 
   function elementDrag(e) {
@@ -3395,8 +3410,8 @@ function dragElement(elmnt) {
 
   function closeDragElement() {
     // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
+    document.removeEventListener('mouseup', closeDragElement);
+    document.removeEventListener('mousemove', elementDrag);
   }
 }
 
@@ -3812,9 +3827,9 @@ function openAppsMenu() {
             newApp.src = newName+".png";
             //console.log("Name: "+newName)
             const siteUrl = supsites[id];
-            newApp.onclick = function() {
+            newApp.addEventListener('click', function() {
                 if (siteUrl) openApp(siteUrl);
-            };
+            });
 
             if (appCount >= supapps.length) {
                     newApp.src = "Images/None.png";
@@ -3850,9 +3865,9 @@ function openAppsMenu() {
             
             newTitle.innerHTML = titleText;
             const titleSite = supsites[id];
-            newTitle.onclick = function() {
+            newTitle.addEventListener('click', function() {
                 if (titleSite) openApp(titleSite);
-            };
+            });
             newTitle.style.margin = 0;
             newTitle.style.cursor = "pointer";
 
@@ -4073,9 +4088,9 @@ function syncResizedAppsMenu() {
 
             newApp.src = newName+".png";
             const siteUrl = supsites[id];
-            newApp.onclick = function() {
+            newApp.addEventListener('click', function() {
                 if (siteUrl) openApp(siteUrl);
-            };
+            });
 
             if (appCount >= supapps.length) {
                     newApp.src = "Images/None.png";
@@ -4111,9 +4126,9 @@ function syncResizedAppsMenu() {
 
             newTitle.innerHTML = titleText;
             const titleSite = supsites[id];
-            newTitle.onclick = function() {
+            newTitle.addEventListener('click', function() {
                 if (titleSite) openApp(titleSite);
-            };
+            });
 
             console.log(titleText);
             newTitle.style.margin = 0;
@@ -4547,3 +4562,44 @@ function checkShortcuts() {
         openApp("scros://terminalMenu")
     }
 }
+
+fclock = false; // true for 24-hour format, false for 12-hour format
+showseconds = false; // true for showing seconds in clock, false for hiding seconds
+fclock = JSON.parse(localStorage.getItem("SCR-OS/ClockFormat"));
+showseconds = JSON.parse(localStorage.getItem("SCR-OS/showseconds"));
+
+function updateClock() {
+
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    if (fclock==true) {
+
+        // 24-hour format
+
+    } else {
+        console.log(fclock);
+        // 12-hour format
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const hour12 = String(hours % 12 || 12).padStart(2, '0');
+        if (showseconds) {
+            document.getElementById('clock').textContent = `${hour12}:${minutes}:${seconds} ${period}`;
+        } else {
+            document.getElementById('clock').textContent = `${hour12}:${minutes} ${period}`;
+        }
+        return;
+    }
+    if (showseconds) {
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.getElementById('clock').textContent = timeString;
+    } else {
+        const timeString = `${hours}:${minutes}`;
+        document.getElementById('clock').textContent = timeString;
+    }
+}
+
+// Initial call
+updateClock();
+// Update every second
+setInterval(updateClock, 1000);
