@@ -354,7 +354,7 @@ async function replacedock(checking = true) {
                     document.getElementById("appdock").style.left = settop  + "%";
                 }
             }   
-         } else {
+         } else {//temp
              document.getElementById("appdock").style.zIndex = 5;
                 if (currentDockMode != "complex") {
                     console.log("wtf")
@@ -398,9 +398,9 @@ async function replacedock(checking = true) {
                         document.getElementById("docktext"+(i+1)).style.gridColumn = (setColumn);
                         document.getElementById("docktext"+(i+1)).style.gridRow = (setRow+1);
     
-                        document.getElementById("dockpic"+(i+1)).style.width = "75px";   
-                          document.getElementById("dockpic"+(i+1)).style.height = "75px"; 
-                          document.getElementById("docktext"+(i+1)).style.fontSize   = "20px";
+                        document.getElementById("dockpic"+(i+1)).style.width = "80px";   
+                          document.getElementById("dockpic"+(i+1)).style.height = "80px"; 
+                          document.getElementById("docktext"+(i+1)).style.fontSize   = "18px";
                     }
 
 
@@ -411,7 +411,7 @@ async function replacedock(checking = true) {
 
                 }
                 document.getElementById("appdock").style.display = "grid";
-                document.getElementById("appdock").style.gridTemplateColumns = "100px ".repeat(complexDockLayout.columns);
+                document.getElementById("appdock").style.gridTemplateColumns = "115px ".repeat(complexDockLayout.columns);
                   document.getElementById("appdock").style.height = "50px";
                   document.getElementById("appdock").style.gridTemplateRows = "75px 35px ".repeat(complexDockLayout.rows);
                 //document.getElementById("leftarrow").style.display = "none";
