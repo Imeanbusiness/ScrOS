@@ -2789,7 +2789,8 @@ Complex Dock Position: (${complexDockPos[0]}, ${100-complexDockPos[1]})<br>
         haha = true
         
     } else if (repl.includes(">iconpack")) {
-        iconpack = repl.replace(">iconpack ", "")
+        iconpack = orgians.replace(">iconpack ", "")
+        console.log(iconpack)
         for (let i = 0; i < 10; i++) {
                 
                 
