@@ -229,8 +229,8 @@ async function replacedock(checking = true) {
                 document.getElementById("appdock").appendChild(leftarrow);
                 document.getElementById("appdock").appendChild(rightarrow);
 
-                document.getElementById("leftarrow").addEventListener("click", () => pagechange('left'));
-                document.getElementById("rightarrow").addEventListener("click", () => pagechange('right'));
+                document.getElementById("leftarrow").addEventListener("click", pageChangeLeft);
+                document.getElementById("rightarrow").addEventListener("click", pageChangeRight);
                 document.getElementById("leftarrow").style.display = "block";
                 document.getElementById("rightarrow").style.display = "block";
                 document.getElementById("leftarrow").style.cursor = "pointer";
@@ -476,8 +476,8 @@ async function replacedock(checking = true) {
         document.getElementById("appdock").appendChild(leftarrow);
         document.getElementById("appdock").appendChild(rightarrow);
 
-        document.getElementById("leftarrow").addEventListener("click", () => pagechange('left'));
-        document.getElementById("rightarrow").addEventListener("click", () => pagechange('right'));
+        document.getElementById("leftarrow").addEventListener("click", pageChangeLeft);
+        document.getElementById("rightarrow").addEventListener("click", pageChangeRight);
         document.getElementById("leftarrow").style.display = "block";
         document.getElementById("rightarrow").style.display = "block";
         document.getElementById("leftarrow").style.cursor = "pointer";
@@ -491,8 +491,8 @@ async function replacedock(checking = true) {
     document.getElementById("appdock").appendChild(leftarrow);
     document.getElementById("appdock").appendChild(rightarrow);
 
-    document.getElementById("leftarrow").addEventListener("click", () => pagechange('left'));
-    document.getElementById("rightarrow").addEventListener("click", () => pagechange('right'));
+    document.getElementById("leftarrow").addEventListener("click", pageChangeLeft);
+    document.getElementById("rightarrow").addEventListener("click", pageChangeRight);
 
      document.getElementById("appdock").style.gridTemplateColumns = "50px 150px 150px 150px 150px 150px 50px";
     document.getElementById("appdock").style.gridTemplateRows = "100px 35px 100px 35px";
@@ -510,7 +510,9 @@ async function replacedock(checking = true) {
         document.getElementById("dockpic"+(i+1)).style.height = "80px";
         document.getElementById("docktext"+(i+1)).style.fontSize = "22px";
         
-    }
+    }    
+    document.getElementById('leftarrow').addEventListener('click', pageChangeLeft);
+    document.getElementById('rightarrow').addEventListener('click', pageChangeRight);
     for (let i = 0; i <5 ; i++) {
         document.getElementById("dockclick"+(i+1)).style.gridColumn = i+2;
         document.getElementById("dockclick"+(i+1)).style.gridRow = 1;
@@ -1060,7 +1062,18 @@ function setupDockClickListener(elementId, siteUrl) {
     }
 }
 
+async function pageChangeRight() {
+    pagechange("right")
+}
+
+async function pageChangeLeft() {
+    pagechange("left")
+}
+
+
+
 async function pagechange(dir) {
+    console.log("you clicked me!");
     if (dir=="right") {
         curpage +=1 
         if (curpage>pages) {
@@ -3298,8 +3311,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#settingsMenu .systemFS')[0].addEventListener('click', () => fullScreen('settingsMenu'));
 
     // Dock arrows
-    document.getElementById('leftarrow').addEventListener('click', () => pagechange('left'));
-    document.getElementById('rightarrow').addEventListener('click', () => pagechange('right'));
+    document.getElementById('leftarrow').addEventListener('click', pageChangeLeft);
+    document.getElementById('rightarrow').addEventListener('click', pageChangeRight);
 
     // Battery indicators
     document.getElementById('batteryIndicator1').addEventListener('mouseover', () => showBatteryTab(1));
