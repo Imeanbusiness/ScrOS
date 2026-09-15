@@ -3311,8 +3311,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#settingsMenu .systemFS')[0].addEventListener('click', () => fullScreen('settingsMenu'));
 
     // Dock arrows
-    document.getElementById('leftarrow').addEventListener('click', pageChangeLeft);
-    document.getElementById('rightarrow').addEventListener('click', pageChangeRight);
+    try {
+        document.getElementById('leftarrow').addEventListener('click', pageChangeLeft);
+        document.getElementById('rightarrow').addEventListener('click', pageChangeRight);
+
+    } catch {
+        
+    }
 
     // Battery indicators
     document.getElementById('batteryIndicator1').addEventListener('mouseover', () => showBatteryTab(1));
